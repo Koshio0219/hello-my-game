@@ -48,6 +48,23 @@ namespace Game.Framework
         }
 
         #endregion
+
+        #region Ray
+        public static bool ShootRay(Vector3 orgin, Vector3 dir, float dis, string tag, Action<RaycastHit> callback)
+        {
+            RaycastHit info;
+            if (Physics.Raycast(orgin, dir, out info, dis))
+            {
+                if (info.collider.tag == tag)
+                {
+                    if (callback != null)
+                        callback(info);
+                    return true;
+                }
+            }
+            return false;
+        }
+        #endregion
     }
 }
 
