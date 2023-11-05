@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.Data
 {
-    public class GameData : MonoBehaviour, IInit
+    public class GameData : IInit
     {
         public void Init()
         {
