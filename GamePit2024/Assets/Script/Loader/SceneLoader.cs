@@ -7,7 +7,7 @@ using Game.Framework;
 
 namespace Game.Loader
 {
-    public class SceneLoader:Singleton<SceneLoader>
+    public class SceneLoader : Singleton<SceneLoader>
     {
         public async void OnClickLoadScene(string toScene)
         {
@@ -16,6 +16,8 @@ namespace Game.Loader
                 //something else ...
                 Debug.Log($"current scene loding progress is {p * 100:F2}%");
             }));
+
+            System.GC.Collect();
         }
     }
 }
