@@ -9,8 +9,11 @@ namespace Game.Manager
 {
     public class GameManager : MonoSingleton<GameManager>
     {
-        private void Awake()
+
+        protected override void Awake()
         {
+            base.Awake();
+
             EventQueueSystem.AddListener<SceneLoadStartEvent>(SceneLoadStartHandler);
         }
 
@@ -20,8 +23,10 @@ namespace Game.Manager
             DOTween.KillAll();
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             EventQueueSystem.RemoveListener<SceneLoadStartEvent>(SceneLoadStartHandler);
         }
     }
