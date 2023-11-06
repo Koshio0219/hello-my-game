@@ -12,14 +12,28 @@ namespace Game.Framework
         }
     }
 
-    public class OnGameStartEvent:GameEvent 
+    public class SceneLoadStartEvent : GameEvent { }
+
+    public class SceneLoadProgressChangeEvent : GameEvent
     {
-        public int playerId;
-        public string nick;
-        public OnGameStartEvent(int playerId, string nick)
+        public float progress;
+
+        public SceneLoadProgressChangeEvent(float progress)
         {
-            this.playerId = playerId;
-            this.nick = nick;
+            this.progress = progress;
         }
     }
+
+    public class SceneLoadFinishedEvent : GameEvent { }
+
+    //public class OnGameStartEvent:GameEvent 
+    //{
+    //    public int playerId;
+    //    public string nick;
+    //    public OnGameStartEvent(int playerId, string nick)
+    //    {
+    //        this.playerId = playerId;
+    //        this.nick = nick;
+    //    }
+    //}
 }

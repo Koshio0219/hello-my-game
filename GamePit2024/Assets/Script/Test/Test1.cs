@@ -4,12 +4,25 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using Game.Loader;
+using Game.Framework;
+using System;
 
 namespace Game.Test
 {
     public class Test1 : MonoBehaviour
     {
         public Button loadScene;
+
+        private void Awake()
+        {
+            EventQueueSystem.AddListener<SceneLoadProgressChangeEvent>(SceneLoadProgressChangeHandler);
+        }
+
+        private void SceneLoadProgressChangeHandler(SceneLoadProgressChangeEvent e)
+        {
+            //something else ...
+            //Debug.Log($"current scene loding progress is {e.progress * 100:F2}%");
+        }
 
         void Start()
         {
@@ -30,6 +43,11 @@ namespace Game.Test
                 SceneLoader.Instance.OnClickLoadScene("Stage");
                 loadScene.onClick.RemoveAllListeners();
             });
+        }
+
+        private void OnDestroy()
+        {
+            EventQueueSystem.RemoveListener<SceneLoadProgressChangeEvent>(SceneLoadProgressChangeHandler);
         }
     }
 }
