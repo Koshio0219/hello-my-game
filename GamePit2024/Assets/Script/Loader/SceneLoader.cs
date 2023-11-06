@@ -11,13 +11,23 @@ namespace Game.Loader
     {
         public async void OnClickLoadScene(string toScene)
         {
+            EventQueueSystem.QueueEvent(new SceneLoadStartEvent());
+
+            var progress = 0f;
             await SceneManager.LoadSceneAsync(toScene, LoadSceneMode.Single).ToUniTask(Progress.Create<float>(p =>
             {
-                //something else ...
-                Debug.Log($"current scene loding progress is {p * 100:F2}%");
+                if (progress == p)
+                    return;
+
+                progress = p;
+                EventQueueSystem.QueueEvent(new SceneLoadProgressChangeEvent(progress));
+
+                Debug.Log($"current scene loding progress is {progress * 100:F2}%");
             }));
 
             System.GC.Collect();
+
+            EventQueueSystem.QueueEvent(new SceneLoadFinishedEvent());
         }
     }
 }
