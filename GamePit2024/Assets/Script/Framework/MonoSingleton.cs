@@ -1,8 +1,9 @@
+using Game.Base;
 using UnityEngine;
 
 namespace Game.Framework
 {
-    public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class MonoSingleton<T> : MonoBehaviour,IInit where T : MonoBehaviour
     {
         private static T instance = null;
 
@@ -42,23 +43,29 @@ namespace Game.Framework
                         }
                         else
                         {
+                            instance.hideFlags = HideFlags.None;
                             DontDestroyOnLoad(instance.gameObject);
                         }
                     }
-                    instance.hideFlags = HideFlags.None;
+                    //instance.hideFlags = HideFlags.None;
                     return instance;
                 }
             }
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             bAppQuitting = false;
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             bAppQuitting = true;
+        }
+
+        //init the Instance on start
+        public virtual void Init()
+        {
         }
     }
 }
