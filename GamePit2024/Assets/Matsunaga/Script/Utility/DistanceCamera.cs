@@ -11,7 +11,7 @@ namespace Game.Test
     public class DistanceCamera : MonoBehaviour
     {
         public Transform target; //カメラが追従する対象オブジェクトのtransform
-        [SerializeField] private Transform camera; //カメラのtransform
+        [SerializeField] private Transform _camera; //カメラのtransform
         private float horizontal2;
         private float vertical2;
         private float theta;                    //方位角(スティック左右)
@@ -33,19 +33,19 @@ namespace Game.Test
         void MoveBehind()
         {
             eulerRotate = target.rotation.eulerAngles.y;
-            camera.position = target.position + eyeHeight * Vector3.up - target.rotation * Vector3.forward * distance;
+            _camera.position = target.position + eyeHeight * Vector3.up - target.rotation * Vector3.forward * distance;
             theta = 0f;
             phi = 12f;
             float x = distance * Mathf.Cos(phi * Mathf.Deg2Rad) * Mathf.Sin(theta * Mathf.Deg2Rad);
             float z = distance * Mathf.Cos(phi * Mathf.Deg2Rad) * Mathf.Cos(theta * Mathf.Deg2Rad);
-            camera.position = new Vector3(//モデルの角度をオブジェクトに合わせる: euilerRotate
+            _camera.position = new Vector3(//モデルの角度をオブジェクトに合わせる: euilerRotate
                         x * Mathf.Cos(eulerRotate * Mathf.Deg2Rad) - z * Mathf.Sin(eulerRotate * Mathf.Deg2Rad),
                         distance * Mathf.Sin(phi * Mathf.Deg2Rad),
                         -(x * Mathf.Sin(eulerRotate * Mathf.Deg2Rad) + z * Mathf.Cos(eulerRotate * Mathf.Deg2Rad))
                     ) + target.position + Vector3.up * eyeHeight;
 
-            camera.LookAt(target.position + Vector3.up * eyeHeight);//中心点を常に見る
-            offset = target.position - camera.position;
+            _camera.LookAt(target.position + Vector3.up * eyeHeight);//中心点を常に見る
+            offset = target.position - _camera.position;
             //Gamepad.all[0].leftStick.ReadValue().x
         }
 
@@ -59,14 +59,14 @@ namespace Game.Test
             phi = Mathf.Clamp(phi % 360, -10f, 40f);
             float x = distance * Mathf.Cos(phi * Mathf.Deg2Rad) * Mathf.Sin(theta * Mathf.Deg2Rad);
             float z = distance * Mathf.Cos(phi * Mathf.Deg2Rad) * Mathf.Cos(theta * Mathf.Deg2Rad);
-            camera.position = new Vector3(//モデルの角度をオブジェクトに合わせる: euilerRotate
+            _camera.position = new Vector3(//モデルの角度をオブジェクトに合わせる: euilerRotate
                         x * Mathf.Cos(eulerRotate * Mathf.Deg2Rad) - z * Mathf.Sin(eulerRotate * Mathf.Deg2Rad),
                         distance * Mathf.Sin(phi * Mathf.Deg2Rad),
                         -(x * Mathf.Sin(eulerRotate * Mathf.Deg2Rad) + z * Mathf.Cos(eulerRotate * Mathf.Deg2Rad))
                     ) + target.position + Vector3.up * eyeHeight;
 
-            camera.LookAt(target.position + Vector3.up * eyeHeight);//中心点を常に見る
-            offset = target.position - camera.position;
+            _camera.LookAt(target.position + Vector3.up * eyeHeight);//中心点を常に見る
+            offset = target.position - _camera.position;
         }
     }
 }

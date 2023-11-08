@@ -289,7 +289,6 @@ namespace Game.Framework
 
         #endregion
 
-
         #region CameraévßB
 
         public static bool IsVisableInCamera(this Camera camera, Vector3 pos, float offseX = 0f, float offseY = 0f)
