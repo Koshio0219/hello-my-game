@@ -166,7 +166,7 @@ namespace Game.Framework
         public static void Show(this GameObject obj) => obj.SetActive(true);
 
         public static void Hide(this GameObject obj) => obj.SetActive(false);
-            
+
         public static void ShowAllChildren(this GameObject target)
         {
             for (int i = 0; i < target.transform.childCount; i++)
@@ -199,7 +199,7 @@ namespace Game.Framework
             return temp;
         }
 
-        public static List<GameObject> GetAllChildren(this GameObject obj, bool includeSelf = false,bool includeHide = false)
+        public static List<GameObject> GetAllChildren(this GameObject obj, bool includeSelf = false, bool includeHide = false)
         {
             var temp = new List<GameObject>();
             foreach (var child in obj.GetComponentsInChildren<Transform>(includeHide))
@@ -288,6 +288,32 @@ namespace Game.Framework
 
 
         #endregion
+
+
+        #region CameraévßB
+
+        public static bool IsVisableInCamera(this Camera camera, Vector3 pos, float offseX = 0f, float offseY = 0f)
+        {
+            Vector3 viewPos = camera.WorldToViewportPoint(pos);
+            if (viewPos.z < camera.nearClipPlane || viewPos.z > camera.farClipPlane) return false;
+
+            if (offseX < 0f) offseX = 0f;
+            if (offseX > 0.5f) offseX = 0.5f;
+            if (offseY < 0f) offseY = 0f;
+            if (offseY > 0.5f) offseY = 0.5f;
+
+            if (viewPos.x < offseX || viewPos.y < offseY || viewPos.x > (1-offseX) || viewPos.y > (1-offseY)) return false;
+            return true;
+        }
+
+        public static bool IsVisableInCamera(this Renderer renderer)
+        {
+            return renderer.isVisible;
+        }
+
+        #endregion
     }
+
 }
+
 

@@ -13,6 +13,7 @@ namespace Game.Manager
         protected override void Awake()
         {
             base.Awake();
+            SetFrameRate(60);
 
             EventQueueSystem.AddListener<SceneLoadStartEvent>(SceneLoadStartHandler);
         }
@@ -28,6 +29,12 @@ namespace Game.Manager
             base.OnDestroy();
 
             EventQueueSystem.RemoveListener<SceneLoadStartEvent>(SceneLoadStartHandler);
+        }
+
+        internal void SetFrameRate(int frameRate)
+        {
+            if (QualitySettings.vSyncCount != 0) QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = frameRate;
         }
     }
 }

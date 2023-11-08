@@ -9,7 +9,7 @@ using System;
 
 namespace Game.Test
 {
-    public class Test1 : MonoBehaviour
+    public class Test1 : MonoBehaviour,IProgress<float>
     {
         public Button loadScene;
 
@@ -40,7 +40,7 @@ namespace Game.Test
 
             loadScene.onClick.AddListener(() =>
             {
-                SceneLoader.Instance.OnClickLoadScene("Stage");
+                SceneLoader.Instance.OnClickLoadScene("Stage").Forget();
                 loadScene.onClick.RemoveAllListeners();
             });
         }
@@ -48,6 +48,11 @@ namespace Game.Test
         private void OnDestroy()
         {
             EventQueueSystem.RemoveListener<SceneLoadProgressChangeEvent>(SceneLoadProgressChangeHandler);
+        }
+
+        public void Report(float value)
+        {
+            //throw new NotImplementedException();
         }
     }
 }

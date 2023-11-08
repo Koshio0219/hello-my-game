@@ -9,16 +9,14 @@ namespace Game.Loader
 {
     public class SceneLoader : Singleton<SceneLoader>
     {
-        public async void OnClickLoadScene(string toScene)
+        private float progress = 0f;
+
+        public async UniTaskVoid OnClickLoadScene(string toScene)
         {
             EventQueueSystem.QueueEvent(new SceneLoadStartEvent());
 
-            var progress = 0f;
-            await SceneManager.LoadSceneAsync(toScene, LoadSceneMode.Single).ToUniTask(Progress.Create<float>(p =>
+            await SceneManager.LoadSceneAsync(toScene, LoadSceneMode.Single).ToUniTask(Progress.CreateOnlyValueChanged<float>(p =>
             {
-                if (progress == p)
-                    return;
-
                 progress = p;
                 EventQueueSystem.QueueEvent(new SceneLoadProgressChangeEvent(progress));
 
@@ -28,6 +26,8 @@ namespace Game.Loader
             System.GC.Collect();
 
             EventQueueSystem.QueueEvent(new SceneLoadFinishedEvent());
+
+            progress = 0f;
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿//Game中の全てのEventはこのScriptに書く、そして確認できる
 //EventはGameEventというClassを継承する必要がある
+using UnityEngine;
+
 namespace Game.Framework
 {
     public class TestGameEvent : GameEvent
@@ -25,6 +27,16 @@ namespace Game.Framework
     }
 
     public class SceneLoadFinishedEvent : GameEvent { }
+
+    public class BackgroundScrollerEvent : GameEvent 
+    {
+        public float dis;
+
+        public BackgroundScrollerEvent(float dis)
+        {
+            this.dis = dis;
+        }
+    }
 
     //public class OnGameStartEvent:GameEvent 
     //{
