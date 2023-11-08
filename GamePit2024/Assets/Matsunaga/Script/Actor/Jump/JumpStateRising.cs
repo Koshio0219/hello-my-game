@@ -8,8 +8,6 @@ namespace animJump
         private JumpData _jump_data;
         private JumpDistance _jump_distance;
         private Rigidbody _rigid_body;
-        private bool _Value = false;
-        public bool _isPressed => _Value;
         private bool _allow_add_force = true;
         private string _anim_name = "Rising";
 
@@ -48,9 +46,5 @@ namespace animJump
         }
 
         public void exit() { }
-        public void SetPressed(bool value)
-        {
-            _Value = value;
-        }
     }
 }

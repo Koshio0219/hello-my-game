@@ -128,12 +128,22 @@ namespace Game.Test
                     }
                     break;
                 case StateEnum.Attack:
-
+                    // Attack変更時1回だけ呼ばれる処理
+                    {
+                        _Animator.SetTrigger("AttackTrigger");
+                    }
                     break;
                 case StateEnum.Damage:
-
+                    {
+                        // アニメーション再生
+                        _Animator.Play("Damage");
+                    }
                     break;
                 case StateEnum.Dead:
+                    {
+                        // 斃れるアニメーション再生
+                        _Animator.Play("Dead");
+                    }
                     break;
             }
         }
@@ -160,7 +170,11 @@ namespace Game.Test
                             Walk();
                         }
 
-
+                        // 攻撃する処理 ×ボタンが押されたら
+                        if (Gamepad.current.buttonEast.wasPressedThisFrame && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Waiting") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Rising") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Falling") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
+                        {
+                            ChangeState(StateEnum.Attack);
+                        }
                     }
                     break;
                 case StateEnum.Attack:
@@ -211,6 +225,18 @@ namespace Game.Test
             }
         }
         #endregion
+
+        /// <summary> アニメーションイベント Attack終了時に起動するメソッド </summary>
+        private void AttackStart()
+        {
+
+        }
+
+        /// <summary> アニメーションイベント Attack終了時に起動するメソッド </summary>
+        private void AttackEnd()
+        {
+            ChangeState(StateEnum.Move);
+        }
     }
 }
 

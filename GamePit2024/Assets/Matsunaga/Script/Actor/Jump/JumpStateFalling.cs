@@ -7,8 +7,7 @@ namespace animJump
         private Animator _animator;
         private JumpDistance _jump_distance;
         private string _anim_name = "Falling";
-        private bool _Value = false;
-        public bool _isPressed => false;
+
         public JumpStateFalling(Animator animator, JumpDistance jump_distance)
         {
             _animator = animator;
@@ -32,9 +31,5 @@ namespace animJump
 
         public void stay_fixed_update() { }
         public void exit() { }
-        public void SetPressed(bool value)
-        {
-            _Value = value;
-        }
     }
 }
