@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 1715981022}
   - component: {fileID: 1715981021}
   - component: {fileID: 1715981020}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -621,5 +621,5 @@ MonoBehaviour:
   _jump_power_up: 0.5
   _jump_power_max: 5
   distance_list_limit: 5
-  ground_distance_limit: 1.5
+  ground_distance_limit: 0.2
   raycastSearchDistance: 100
