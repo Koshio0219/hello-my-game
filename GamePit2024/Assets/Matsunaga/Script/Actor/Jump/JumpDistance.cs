@@ -1,4 +1,4 @@
-using System.Linq;
+ï»¿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -80,10 +80,10 @@ namespace animJump
             RaycastHit hit;
             var layerMask = LayerMask.GetMask("Ground");
 
-            // ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚©‚ç‰ºŒü‚«‚ÉRaycast
-            // ƒŒƒCƒ„[ƒ}ƒXƒN‚ÅGround‚ğİ’è‚µ‚Ä‚¢‚é‚Ì‚ÅA
-            // ’n–Ê‚ÌGameObject‚ÉGround‚ÌƒŒƒCƒ„[‚ğİ’è‚µ‚Ä‚¨‚¯‚ÎA
-            // Ground‚ÌƒŒƒCƒ„[‚ğ‚ÂGameObject‚Åˆê”Ô‹ß‚¢‚à‚Ì‚ªˆê‚Â‚¾‚¯ƒqƒbƒg‚·‚é
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‹ã‚‰ä¸‹å‘ãã«Raycast
+            // ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒã‚¹ã‚¯ã§Groundã‚’è¨­å®šã—ã¦ã„ã‚‹ã®ã§ã€
+            // åœ°é¢ã®GameObjectã«Groundã®ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’è¨­å®šã—ã¦ãŠã‘ã°ã€
+            // Groundã®ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æŒã¤GameObjectã§ä¸€ç•ªè¿‘ã„ã‚‚ã®ãŒä¸€ã¤ã ã‘ãƒ’ãƒƒãƒˆã™ã‚‹
             var isGroundHit = Physics.Raycast(
                     _transform.position + _raycastOffset,
                     _transform.TransformDirection(Vector3.down),
@@ -98,7 +98,7 @@ namespace animJump
             }
             else
             {
-                // ƒqƒbƒg‚µ‚È‚©‚Á‚½ê‡‚ÍƒLƒƒƒ‰‚Ì‰º•û‚É’n–Ê‚ª‘¶İ‚µ‚È‚¢‚à‚Ì‚Æ‚µ‚Äˆµ‚¤
+                // ãƒ’ãƒƒãƒˆã—ãªã‹ã£ãŸå ´åˆã¯ã‚­ãƒ£ãƒ©ã®ä¸‹æ–¹ã«åœ°é¢ãŒå­˜åœ¨ã—ãªã„ã‚‚ã®ã¨ã—ã¦æ‰±ã†
                 distance = float.MaxValue;
             }
         }

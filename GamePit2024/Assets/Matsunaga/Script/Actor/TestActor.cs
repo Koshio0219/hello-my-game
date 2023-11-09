@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -11,18 +11,18 @@ namespace Game.Test
     public class TestActor : MonoBehaviour
     {
         #region define
-        /// <summary> ƒvƒŒƒCƒ„[‚Ìó‘Ô </summary>
+        /// <summary> ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹ </summary>
         private enum StateEnum
         {
-            /// <summary> ‰½‚à‚È‚¢ó‘Ô </summary>
+            /// <summary> ä½•ã‚‚ãªã„çŠ¶æ…‹ </summary>
             None,
-            /// <summary> “®ì‚·‚éó‘Ô </summary>
+            /// <summary> å‹•ä½œã™ã‚‹çŠ¶æ…‹ </summary>
             Move,
-            /// <summary> UŒ‚‚·‚éó‘Ô </summary>
+            /// <summary> æ”»æ’ƒã™ã‚‹çŠ¶æ…‹ </summary>
             Attack,
-            /// <summary> UŒ‚‚ğó‚¯‚½ó‘Ô </summary>
+            /// <summary> æ”»æ’ƒã‚’å—ã‘ãŸçŠ¶æ…‹ </summary>
             Damage,
-            /// <summary> €–Só‘Ô </summary>
+            /// <summary> æ­»äº¡çŠ¶æ…‹ </summary>
             Dead,
         }
         #endregion
@@ -48,7 +48,7 @@ namespace Game.Test
 
         #region Unity private function
         /// <summary>
-        /// ƒIƒuƒWƒFƒNƒg‚ª¶¬‚³‚ê‚½’¼ŒãAUnity‚©‚çÅ‰‚É‚P‰ñŒÄ‚Î‚ê‚éˆ—
+        /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒç”Ÿæˆã•ã‚ŒãŸç›´å¾Œã€Unityã‹ã‚‰æœ€åˆã«ï¼‘å›å‘¼ã°ã‚Œã‚‹å‡¦ç†
         /// </summary>
         private void Start()
         {
@@ -58,7 +58,7 @@ namespace Game.Test
         }
 
         /// <summary>
-        /// Unity‚©‚ç–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚éˆ—
+        /// Unityã‹ã‚‰æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹å‡¦ç†
         /// </summary>
         private void Update()
         {
@@ -66,8 +66,8 @@ namespace Game.Test
         }
 
         /// <summary>
-        /// ƒRƒŠƒWƒ‡ƒ“‚ª“–‚½‚Á‚½uŠÔ–ˆ‚É‚P‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éˆ—
-        /// “G‚ÉÕ“Ë‚µ‚½‚çƒ_ƒ[ƒW‹ò‚ç‚¤
+        /// ã‚³ãƒªã‚¸ãƒ§ãƒ³ãŒå½“ãŸã£ãŸç¬é–“æ¯ã«ï¼‘å›ã ã‘å‘¼ã°ã‚Œã‚‹å‡¦ç†
+        /// æ•µã«è¡çªã—ãŸã‚‰ãƒ€ãƒ¡ãƒ¼ã‚¸å–°ã‚‰ã†
         /// </summary>
         /// <param name="collision"></param>
         private void OnCollisionEnter(Collision collision)
@@ -75,7 +75,7 @@ namespace Game.Test
 
         }
 
-        ///ƒ!„“G‚Ì‰“‹——£UŒ‚‚É‘Î‚·‚éˆ—‚©‚ÈH
+        ///ï¼œ!ï¼æ•µã®é è·é›¢æ”»æ’ƒã«å¯¾ã™ã‚‹å‡¦ç†ã‹ãªï¼Ÿ
         private void OnTriggerEnter(Collider other)
         {
 
@@ -84,12 +84,12 @@ namespace Game.Test
 
         #region public function
         ///<summary>
-        /// Lighter‚ğ‹N“®‚·‚éˆ—
-        /// GameModeController‚Å‚±‚Ìƒƒ\ƒbƒh‚ğŒÄ‚Ño‚·
+        /// Lighterã‚’èµ·å‹•ã™ã‚‹å‡¦ç†
+        /// GameModeControllerã§ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³å‡ºã™
         ///</summary>
         public void StartPlay()
         {
-            // ŠY“–‚ÌƒQ[ƒ€ƒpƒbƒh‚ªÚ‘±‚³‚ê‚Ä‚¢‚È‚¢‚Æ“®‚©‚È‚¢
+            // è©²å½“ã®ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãŒæ¥ç¶šã•ã‚Œã¦ã„ãªã„ã¨å‹•ã‹ãªã„
             //if (Gamepad.all.Count < _GameParameter.GamepadNumber_A + 1) return;
             ChangeState(StateEnum.Move);
         }
@@ -97,51 +97,51 @@ namespace Game.Test
 
         #region private function
         /// <summary>
-        /// ó‘Ô‚Ì•ÏX
-        /// ¦ƒƒ“ƒo[•Ï” _State‚ğ•ÏX‚·‚éÛ‚Í‚±‚ÌŠÖ”‚ğŒÄ‚Ô‚±‚Æ
-        /// @‚±‚ÌŠÖ”“àˆÈŠO‚Å _State‚Ö‚Ì’¼Ú‘ã“ü‚ğ‚µ‚Ä‚Í‚¢‚¯‚È‚¢
-        /// @‚±‚ÌŠÖ”‚ğŒÄ‚Ô‚±‚Æ‚ÅˆÈ‰º‚Ì—˜“_‚ª‚ ‚é
-        /// @1.ƒƒO‚ªo‚é(ƒfƒoƒbƒO‚É•Ö—˜)
-        /// @2.ó‘Ô•ÏX‚Ìˆ—‚ª•K‚¸ŒÄ‚Î‚ê‚é
+        /// çŠ¶æ…‹ã®å¤‰æ›´
+        /// â€»ãƒ¡ãƒ³ãƒãƒ¼å¤‰æ•° _Stateã‚’å¤‰æ›´ã™ã‚‹éš›ã¯ã“ã®é–¢æ•°ã‚’å‘¼ã¶ã“ã¨
+        /// ã€€ã“ã®é–¢æ•°å†…ä»¥å¤–ã§ _Stateã¸ã®ç›´æ¥ä»£å…¥ã‚’ã—ã¦ã¯ã„ã‘ãªã„
+        /// ã€€ã“ã®é–¢æ•°ã‚’å‘¼ã¶ã“ã¨ã§ä»¥ä¸‹ã®åˆ©ç‚¹ãŒã‚ã‚‹
+        /// ã€€1.ãƒ­ã‚°ãŒå‡ºã‚‹(ãƒ‡ãƒãƒƒã‚°æ™‚ã«ä¾¿åˆ©)
+        /// ã€€2.çŠ¶æ…‹å¤‰æ›´æ™‚ã®å‡¦ç†ãŒå¿…ãšå‘¼ã°ã‚Œã‚‹
         /// </summary>
-        /// <param name="next">Ÿ‚Ìó‘Ô</param>
+        /// <param name="next">æ¬¡ã®çŠ¶æ…‹</param>
         private void ChangeState(StateEnum next)
         {
-            // ˆÈ‘O‚Ìó‘Ô‚ğ•Û
+            // ä»¥å‰ã®çŠ¶æ…‹ã‚’ä¿æŒ
             var prev = _State;
-            // Ÿ‚Ìó‘Ô‚É•ÏX‚·‚é
+            // æ¬¡ã®çŠ¶æ…‹ã«å¤‰æ›´ã™ã‚‹
             _State = next;
 
-            // ƒƒO‚ğo‚·
+            // ãƒ­ã‚°ã‚’å‡ºã™
             Log.Info(GetType(), "ChangeState {0} -> {1}", prev, next);
-            // ó‘Ô•ÏX‚É1‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éˆ—‚ğ‘‚­
+            // çŠ¶æ…‹å¤‰æ›´æ™‚ã«1å›ã ã‘å‘¼ã°ã‚Œã‚‹å‡¦ç†ã‚’æ›¸ã
             switch (_State)
             {
                 case StateEnum.None:
-                    // None•ÏX1‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éˆ—
+                    // Noneå¤‰æ›´æ™‚1å›ã ã‘å‘¼ã°ã‚Œã‚‹å‡¦ç†
                     {
                     }
                     break;
                 case StateEnum.Move:
-                    // Move•ÏX1‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éˆ—
+                    // Moveå¤‰æ›´æ™‚1å›ã ã‘å‘¼ã°ã‚Œã‚‹å‡¦ç†
                     {
                     }
                     break;
                 case StateEnum.Attack:
-                    // Attack•ÏX1‰ñ‚¾‚¯ŒÄ‚Î‚ê‚éˆ—
+                    // Attackå¤‰æ›´æ™‚1å›ã ã‘å‘¼ã°ã‚Œã‚‹å‡¦ç†
                     {
                         _Animator.SetTrigger("AttackTrigger");
                     }
                     break;
                 case StateEnum.Damage:
                     {
-                        // ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+                        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
                         _Animator.Play("Damage");
                     }
                     break;
                 case StateEnum.Dead:
                     {
-                        // Ë‚ê‚éƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+                        // æ–ƒã‚Œã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
                         _Animator.Play("Dead");
                     }
                     break;
@@ -149,28 +149,28 @@ namespace Game.Test
         }
 
         /// <summary>
-        /// ó‘Ô–ˆ‚Ì–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚éˆ—
+        /// çŠ¶æ…‹æ¯ã®æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹å‡¦ç†
         /// </summary>
         private void UpdateState()
         {
-            // ó‘Ô–ˆ‚Ì–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚éˆ—
+            // çŠ¶æ…‹æ¯ã®æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹å‡¦ç†
             switch (_State)
             {
                 case StateEnum.None:
-                    // None‚É–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚éˆ—
+                    // Noneæ™‚ã«æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹å‡¦ç†
                     {
                     }
                     break;
                 case StateEnum.Move:
-                    // Move‚É–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚éˆ—
+                    // Moveæ™‚ã«æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹å‡¦ç†
                     {
-                        // •à‚­
+                        // æ­©ã
                         if (_Rigidbody != null)
                         {
                             Walk();
                         }
 
-                        // UŒ‚‚·‚éˆ— ~ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚ç
+                        // æ”»æ’ƒã™ã‚‹å‡¦ç† Ã—ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰
                         if (Gamepad.current.buttonEast.wasPressedThisFrame && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Waiting") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Rising") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Falling") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
                         {
                             ChangeState(StateEnum.Attack);
@@ -178,44 +178,44 @@ namespace Game.Test
                     }
                     break;
                 case StateEnum.Attack:
-                    // Attack‚É–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚éˆ—
+                    // Attackæ™‚ã«æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹å‡¦ç†
                     {
                     }
                     break;
                 case StateEnum.Damage:
-                    // Damage‚É–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚éˆ—
+                    // Damageæ™‚ã«æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹å‡¦ç†
                     {
                     }
                     break;
                 case StateEnum.Dead:
-                    // Dead‚É–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚éˆ—
+                    // Deadæ™‚ã«æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã°ã‚Œã‚‹å‡¦ç†
                     {
                     }
                     break;
             }
         }
 
-        /// <summary> •à‚­ˆ— </summary>
+        /// <summary> æ­©ãå‡¦ç† </summary>
         private void Walk()
         {
             if (_Animator.GetCurrentAnimatorStateInfo(0).IsName("Waiting") || _Animator.GetCurrentAnimatorStateInfo(0).IsName("Landing")) return;
             Vector3 cameraForward = Vector3.Scale(_Camera.forward, new Vector3(1, 0, 1)).normalized;
-            //•ûŒüƒL[‚Ì“ü—Í’l‚ÆƒJƒƒ‰‚ÌŒü‚«‚©‚çAˆÚ“®•ûŒü‚ğŒˆ’è
+            //æ–¹å‘ã‚­ãƒ¼ã®å…¥åŠ›å€¤ã¨ã‚«ãƒ¡ãƒ©ã®å‘ãã‹ã‚‰ã€ç§»å‹•æ–¹å‘ã‚’æ±ºå®š
             Vector3 vertical = cameraForward * Gamepad.current.leftStick.ReadValue().y;
             Vector3 horizontal = _Camera.right * Gamepad.current.leftStick.ReadValue().x;
             Vector3 moveForward = vertical + horizontal;
-            //_Velocity:‘¬“xƒxƒNƒgƒ‹ vector3Œ^‚ÅŒ»İ‚Ì‘¬“xƒxƒNƒgƒ‹‚ğ•Û ¿—Ê‚ğ‰Á–¡‚¹‚¸‚ÉˆÚ“®‚ª‰Â”\
-            //normalized‚Í’PˆÊƒxƒNƒgƒ‹‚É‚µ‚Ä•Ô‚·AÎ‚ßˆÚ“®‚ğ‰Â”\‚É‚·‚é
-            //ƒAƒjƒ[ƒVƒ‡ƒ“‚É‰‚¶‚ÄˆÚ“®‘¬“x‚à•Ï‚¦‚æ‚¤ ‘«ŠŠ‚è‚·‚é‚Æˆá˜aŠ´‚ª‚ ‚é‚¼
-            //_GameParameter.AttackPower_A(0~1)‚ğLerpUnclamped‚ÅÅ¬’l~Å‘å’l‚É‰Ÿ‚µ‚ß‚é‚æ
-            //Debug.Log("•à‚­‚æ");
+            //_Velocity:é€Ÿåº¦ãƒ™ã‚¯ãƒˆãƒ« vector3å‹ã§ç¾åœ¨ã®é€Ÿåº¦ãƒ™ã‚¯ãƒˆãƒ«ã‚’ä¿æŒ è³ªé‡ã‚’åŠ å‘³ã›ãšã«ç§»å‹•ãŒå¯èƒ½
+            //normalizedã¯å˜ä½ãƒ™ã‚¯ãƒˆãƒ«ã«ã—ã¦è¿”ã™ã€æ–œã‚ç§»å‹•ã‚’å¯èƒ½ã«ã™ã‚‹
+            //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã«å¿œã˜ã¦ç§»å‹•é€Ÿåº¦ã‚‚å¤‰ãˆã‚ˆã† è¶³æ»‘ã‚Šã™ã‚‹ã¨é•å’Œæ„ŸãŒã‚ã‚‹ã
+            //_GameParameter.AttackPower_A(0~1)ã‚’LerpUnclampedã§æœ€å°å€¤~æœ€å¤§å€¤ã«æŠ¼ã—è¾¼ã‚ã‚‹ã‚ˆ
+            //Debug.Log("æ­©ãã‚ˆ");
             float moveSpeed = Mathf.LerpUnclamped(0f, 5f, _Speed);
             _Velocity = moveForward.normalized * moveSpeed;
             if (_Velocity.magnitude > 0.085f)
             {
                 _Animator.SetFloat("Speed", _Velocity.magnitude);
                 transform.LookAt(transform.position + _Velocity);
-                // ˆÚ“®‚³‚¹‚é
+                // ç§»å‹•ã•ã›ã‚‹
                 _Rigidbody.MovePosition(_Rigidbody.position + _Velocity * _Speed * Time.deltaTime);
                 //_Rigidbody.AddForce(_Velocity * _Speed * Time.deltaTime);
             }
@@ -226,13 +226,13 @@ namespace Game.Test
         }
         #endregion
 
-        /// <summary> ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒg AttackI—¹‚É‹N“®‚·‚éƒƒ\ƒbƒh </summary>
+        /// <summary> ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆ Attackçµ‚äº†æ™‚ã«èµ·å‹•ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ </summary>
         private void AttackStart()
         {
 
         }
 
-        /// <summary> ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒg AttackI—¹‚É‹N“®‚·‚éƒƒ\ƒbƒh </summary>
+        /// <summary> ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆ Attackçµ‚äº†æ™‚ã«èµ·å‹•ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ </summary>
         private void AttackEnd()
         {
             ChangeState(StateEnum.Move);

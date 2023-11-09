@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using animJump;
 
@@ -7,64 +7,64 @@ namespace Game.Test
     public class PlayerStateController : MonoBehaviour
     {//https://qiita.com/mkgask/items/fa307811da6d9d76bc97
      ///<summary>
-     ///    ƒWƒƒƒ“ƒvˆ—‚Ég—p‚·‚éRigidbody
+     ///    ã‚¸ãƒ£ãƒ³ãƒ—å‡¦ç†ã«ä½¿ç”¨ã™ã‚‹Rigidbody
      ///</summary>
         private Rigidbody _rigidBody;
 
         ///<summary>
-        ///    ƒWƒƒƒ“ƒvƒAƒjƒ[ƒVƒ‡ƒ“‚ğ’S“–‚·‚éAnimator
+        ///    ã‚¸ãƒ£ãƒ³ãƒ—ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’æ‹…å½“ã™ã‚‹Animator
         ///</summary>
         private Animator _animator;
 
         ///<summary>
-        ///    ƒWƒƒƒ“ƒv‚ÌŠeó‘Ô‚ğ•Û‚µ‚Ä‚¨‚­«‘ƒŠƒXƒg
+        ///    ã‚¸ãƒ£ãƒ³ãƒ—ã®å„çŠ¶æ…‹ã‚’ä¿æŒã—ã¦ãŠãè¾æ›¸ãƒªã‚¹ãƒˆ
         ///</summary>
         private Dictionary<JumpState, IJumpState> _jump_state_list;
 
         ///<summary>
-        ///    ƒWƒƒƒ“ƒv‚ÌˆÈ‘O‚Ìó‘Ô‚ğ‹L‰¯‚µ‚Ä‚¨‚­
-        ///    ‚±‚ê‚Æ”äŠr‚·‚é‚±‚Æ‚Åó‘Ô‚Ì•ÏX‚ğ¯•Ê‚·‚é
+        ///    ã‚¸ãƒ£ãƒ³ãƒ—ã®ä»¥å‰ã®çŠ¶æ…‹ã‚’è¨˜æ†¶ã—ã¦ãŠã
+        ///    ã“ã‚Œã¨æ¯”è¼ƒã™ã‚‹ã“ã¨ã§çŠ¶æ…‹ã®å¤‰æ›´ã‚’è­˜åˆ¥ã™ã‚‹
         ///</summary>
         private JumpState _state_old = JumpState.IDLE;
 
         ///<summary>
-        ///    Œ»İ‚ÌƒWƒƒƒ“ƒv‚Ìó‘Ô‚ğ•Û
+        ///    ç¾åœ¨ã®ã‚¸ãƒ£ãƒ³ãƒ—ã®çŠ¶æ…‹ã‚’ä¿æŒ
         ///</summary>
         private IJumpState _state_instance;
 
         ///<summary>
-        ///    ƒWƒƒƒ“ƒv—Í‚ÉŠÖ‚·‚éî•ñ‚ğ•Û
+        ///    ã‚¸ãƒ£ãƒ³ãƒ—åŠ›ã«é–¢ã™ã‚‹æƒ…å ±ã‚’ä¿æŒ
         ///</summary>
         private JumpData _jump_data;
 
         ///<summary>
-        ///    ƒvƒŒƒCƒ„[ƒLƒƒƒ‰ƒNƒ^[‚Æ’n–ÊŠÔ‚Ì‹——£‚ÉŠÖ‚·‚éî•ñ‚ğ•Û
+        ///    ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã¨åœ°é¢é–“ã®è·é›¢ã«é–¢ã™ã‚‹æƒ…å ±ã‚’ä¿æŒ
         ///</summary>
         private JumpDistance _jump_distance;
 
         ///<summary>
-        ///    ƒL[‚ğ‰Ÿ‚µ‚Ä‚¢‚éŠÔ‚É—­‚ß‚éƒWƒƒƒ“ƒv—Í‚Ì1ƒtƒŒ[ƒ€•ª
+        ///    ã‚­ãƒ¼ã‚’æŠ¼ã—ã¦ã„ã‚‹é–“ã«æºœã‚ã‚‹ã‚¸ãƒ£ãƒ³ãƒ—åŠ›ã®1ãƒ•ãƒ¬ãƒ¼ãƒ åˆ†
         ///</summary>
         [SerializeField] private float _jump_power_up;
 
         ///<summary>
-        ///    ƒWƒƒƒ“ƒv—Í‚ÌãŒÀ
+        ///    ã‚¸ãƒ£ãƒ³ãƒ—åŠ›ã®ä¸Šé™
         ///</summary>
         [SerializeField] private float _jump_power_max;
 
         ///<summary>
-        ///    ã¸’†‚©‚ç‰º~’†‚ÉØ‚è‘Ö‚í‚é•Ï‰»‚ÌŒŸ’m¸“x
+        ///    ä¸Šæ˜‡ä¸­ã‹ã‚‰ä¸‹é™ä¸­ã«åˆ‡ã‚Šæ›¿ã‚ã‚‹å¤‰åŒ–ã®æ¤œçŸ¥ç²¾åº¦
         ///</summary>
         [SerializeField] int distance_list_limit;
 
         ///<summary>
-        ///    ‰º~’†‚©‚çÚ’n‚µ‚½‚Æ”»’è‚·‚é‹——£
+        ///    ä¸‹é™ä¸­ã‹ã‚‰æ¥åœ°ã—ãŸã¨åˆ¤å®šã™ã‚‹è·é›¢
         ///</summary>
         [SerializeField] float ground_distance_limit;
 
         ///<summary>
-        ///    ƒvƒŒƒCƒ„[ƒLƒƒƒ‰ƒNƒ^[‚Æ’n–ÊŠÔ‚ÌŒv‘ª‹——£ãŒÀ
-        ///    Å‚‚“x‚æ‚è‚‚¢’l‚Å‚È‚¢‚ÆAƒWƒƒƒ“ƒv’¸“_‚Å‚Ì‰º~ƒ‚[ƒVƒ‡ƒ“‚Ö‚ÌØ‚è‘Ö‚í‚è‚ªo—ˆ‚Ü‚¹‚ñ
+        ///    ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã¨åœ°é¢é–“ã®è¨ˆæ¸¬è·é›¢ä¸Šé™
+        ///    æœ€é«˜é«˜åº¦ã‚ˆã‚Šé«˜ã„å€¤ã§ãªã„ã¨ã€ã‚¸ãƒ£ãƒ³ãƒ—é ‚ç‚¹ã§ã®ä¸‹é™ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã¸ã®åˆ‡ã‚Šæ›¿ã‚ã‚ŠãŒå‡ºæ¥ã¾ã›ã‚“
         ///</summary>
         [SerializeField] float raycastSearchDistance;
 

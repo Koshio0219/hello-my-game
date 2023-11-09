@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2103187292}
-  camera: {fileID: 1079687128}
+  _camera: {fileID: 1079687128}
   phi: 12
   rotateSpeed: 1
   distance: 3

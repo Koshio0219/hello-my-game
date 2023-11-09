@@ -1,7 +1,7 @@
-public interface IJumpState
+ï»¿public interface IJumpState
 {
-    JumpState stay_update();    // ó‘Ô‚É—¯‚Ü‚Á‚Ä‚¢‚éŠÔUpdate‚ÅÀs‚³‚ê‚é
-    void stay_fixed_update();    // ó‘Ô‚É—¯‚Ü‚Á‚Ä‚¢‚éŠÔFixedUpdate‚ÅÀs‚³‚ê‚é
-    void enter();    // ó‘Ô‚É‘JˆÚ‚µ‚Ä‚«‚½‚Éˆê“x‚¾‚¯Às‚³‚ê‚é
-    void exit();    // ó‘Ô‚©‚ç‘JˆÚ‚µ‚Ä‚¢‚­‚Éˆê“x‚¾‚¯Às‚³‚ê‚é
+    JumpState stay_update();    // çŠ¶æ…‹ã«ç•™ã¾ã£ã¦ã„ã‚‹é–“Updateã§å®Ÿè¡Œã•ã‚Œã‚‹
+    void stay_fixed_update();    // çŠ¶æ…‹ã«ç•™ã¾ã£ã¦ã„ã‚‹é–“FixedUpdateã§å®Ÿè¡Œã•ã‚Œã‚‹
+    void enter();    // çŠ¶æ…‹ã«é·ç§»ã—ã¦ããŸæ™‚ã«ä¸€åº¦ã ã‘å®Ÿè¡Œã•ã‚Œã‚‹
+    void exit();    // çŠ¶æ…‹ã‹ã‚‰é·ç§»ã—ã¦ã„ãæ™‚ã«ä¸€åº¦ã ã‘å®Ÿè¡Œã•ã‚Œã‚‹
 }
