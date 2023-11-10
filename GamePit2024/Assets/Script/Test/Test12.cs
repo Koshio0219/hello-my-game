@@ -1,7 +1,10 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
+using DG.Tweening;
+using Game.Framework;
 using System.Collections;
 using System.Collections.Generic;
+//using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game.Test
@@ -11,6 +14,8 @@ namespace Game.Test
     {
 
         public AsyncReactiveProperty<float> tranX;
+
+        private Rigidbody _rigidbody;
 
         private void Start()
         {
@@ -28,6 +33,10 @@ namespace Game.Test
             {
                 Debug.Log("UniTask.Post");
             });
+
+            _rigidbody = gameObject.GetOrAddComponent<Rigidbody>();
+            //_rigidbody.AddForce(Vector3.up*5, ForceMode.VelocityChange);
+            _rigidbody.DOMoveY(transform.position.y + 2,1f).SetEase(Ease.OutQuad);
         }
 
         //private void OnDestroy()

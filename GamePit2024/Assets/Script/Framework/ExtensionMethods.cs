@@ -131,7 +131,7 @@ namespace Game.Framework
         #region Component/Transform/GameObject ÈvﬂB
 
         public static T GetOrAddComponent<T>(this GameObject obj) where T : Component =>
-            obj.GetComponent<T>() ? obj.GetComponent<T>() : obj.AddComponent<T>();
+            obj.GetComponent<T>() ?? obj.AddComponent<T>();
 
         public static Transform GetRootParent(this Transform transform)
         {
