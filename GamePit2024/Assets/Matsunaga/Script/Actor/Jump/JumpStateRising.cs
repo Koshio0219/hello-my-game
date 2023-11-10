@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 
 namespace animJump
 {
@@ -41,8 +42,9 @@ namespace animJump
         {
             if (!_allow_add_force) return;
             _allow_add_force = false;
-
-            _rigid_body.AddForce(Vector3.up * _jump_data.power, ForceMode.Impulse);
+            DOTweenModulePhysics.DOMoveY(_rigid_body, _jump_data.power, 1.0f);
+            //DOTweenModulePhysics.DOJump(_rigid_body, Vector3.up * _jump_data.power, _jump_data.power, 1, 1.0f);
+            //_rigid_body.AddForce(Vector3.up * _jump_data.power, ForceMode.Impulse);
         }
 
         public void exit() { }

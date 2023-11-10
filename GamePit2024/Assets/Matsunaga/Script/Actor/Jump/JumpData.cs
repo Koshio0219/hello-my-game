@@ -11,7 +11,7 @@ namespace animJump
             get { return _power; }
         }
 
-        private float _power_default = 5f;
+        private float _power_default = 1f;
         private float _power_up;
         private float _power_max;
 
