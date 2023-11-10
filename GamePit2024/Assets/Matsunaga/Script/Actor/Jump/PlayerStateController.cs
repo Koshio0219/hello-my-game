@@ -96,11 +96,13 @@ namespace Game.Test
         public void Update()
         {
             var state = _state_instance.stay_update();
+            
             if (state == _state_old) return;
             _state_instance.exit();
             _state_instance = _jump_state_list[state];
             _state_instance.enter();
             _state_old = state;
+            Debug.Log("jump.power: " + _jump_data.power);
         }
 
         public void FixedUpdate()

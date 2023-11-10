@@ -157,12 +157,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!4 &95700421 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 487646, guid: 33cf96e7c28302643ace35c3d203f5e0,
-    type: 3}
-  m_PrefabInstance: {fileID: 2099549424}
-  m_PrefabAsset: {fileID: 0}
 --- !u!54 &95700422
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -294,7 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4936577572834644aa63448c62e8a60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 95700421}
+  target: {fileID: 2103187297}
   _camera: {fileID: 1079687128}
   phi: 12
   rotateSpeed: 1
@@ -871,8 +865,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4516bceefffc2874983c91c0702887b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jump_power_up: 0.5
-  _jump_power_max: 6
+  _jump_power_up: 0.085
+  _jump_power_max: 10
   distance_list_limit: 5
-  ground_distance_limit: 0.1
+  ground_distance_limit: 0.3
   raycastSearchDistance: 100
+--- !u!4 &2103187297 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8855052669661678444, guid: 2dfbb63c9cdf7504faf4ff26b0581598,
+    type: 3}
+  m_PrefabInstance: {fileID: 2103187288}
+  m_PrefabAsset: {fileID: 0}
