@@ -256,6 +256,21 @@ namespace Game.Framework
             transform.position = new Vector3(transform.position.x, transform.position.y, z);
         }
 
+        public static void SetLocalPositionX(this Transform transform, float x)
+        {
+            transform.localPosition = new Vector3(x, transform.localPosition.y, transform.localPosition.z);
+        }
+
+        public static void SetLocalPositionY(this Transform transform, float y)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, y, transform.localPosition.z);
+        }
+
+        public static void SetLocalPositionZ(this Transform transform, float z)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, z);
+        }
+
         public static void SetEulerAnglesX(this Transform transform, float x)
         {
             transform.eulerAngles = new Vector3(x, transform.eulerAngles.y, transform.eulerAngles.z);
