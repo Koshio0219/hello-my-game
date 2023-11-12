@@ -37,7 +37,7 @@ namespace Game.Action
             InitData();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             //test
             if (Input.GetKeyDown(KeyCode.Space))

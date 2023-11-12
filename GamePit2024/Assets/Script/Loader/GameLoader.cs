@@ -1,4 +1,5 @@
 using Game.Base;
+using Game.Data;
 using Game.Manager;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace Game.Loader
             Debug.DebugType = debugType;
 
             GameManager.Instance.Init();
+            GameData.Instance.Init();
             //throw new System.NotImplementedException();
         }
     }

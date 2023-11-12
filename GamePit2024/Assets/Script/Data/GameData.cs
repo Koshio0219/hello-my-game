@@ -1,16 +1,14 @@
 using Game.Base;
+using Game.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Data
 {
-    public class GameData : IInit
+    public class GameData : MonoSingleton<GameData>
     {
-        public void Init()
-        {
-            //throw new System.NotImplementedException();
-        }
+        public BlockTypeConfig blockTypeConfig;
     }
 }
 

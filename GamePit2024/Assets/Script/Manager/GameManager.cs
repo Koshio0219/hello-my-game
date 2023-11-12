@@ -14,6 +14,7 @@ namespace Game.Manager
         {
             base.Awake();
             SetFrameRate(60);
+            SetFixedDeltaTime(0.02f);
 
             EventQueueSystem.AddListener<SceneLoadStartEvent>(SceneLoadStartHandler);
         }
@@ -35,6 +36,11 @@ namespace Game.Manager
         {
             if (QualitySettings.vSyncCount != 0) QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = frameRate;
+        }
+
+        internal void SetFixedDeltaTime(float deltaTime)
+        {
+            Time.fixedDeltaTime = deltaTime;
         }
     }
 }
