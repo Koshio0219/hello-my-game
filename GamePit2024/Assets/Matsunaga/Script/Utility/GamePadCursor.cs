@@ -21,6 +21,8 @@ public class GamePadCursor : MonoBehaviour
 
     private bool previousMouseState;
     private Camera mainCamera;
+    private GameObject hit_target;
+    private Vector3 screenPoint;
 
     private string previousControlScheme = "";
     private const string gamepadScheme = "Gamepad";
@@ -88,6 +90,28 @@ public class GamePadCursor : MonoBehaviour
             mouseState.WithButton(MouseButton.Left, aButtonIsPressed);
             InputState.Change(virtualMouse, mouseState);
             previousMouseState = aButtonIsPressed;
+        }
+
+        if (Gamepad.current.leftTrigger.isPressed)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(newPosition);
+            RaycastHit hit_info = new RaycastHit();
+            float max_distance = 100f;
+
+            bool is_hit = Physics.Raycast(ray, out hit_info, max_distance);
+
+            if (is_hit)
+            {
+                screenPoint = Camera.main.WorldToScreenPoint(hit_info.transform.position);
+
+                float screenX = newPosition.x;
+                float screenY = newPosition.y;
+                float screenZ = screenPoint.z;
+
+                Vector3 currentScreenPoint = new Vector3(screenX, screenY, screenZ);
+                Vector3 currentHitsPosition = Camera.main.ScreenToWorldPoint(currentScreenPoint);
+                hit_info.transform.position = currentHitsPosition;
+            }
         }
 
         AnchorCursor(newPosition);
