@@ -37,7 +37,7 @@ namespace Game.Action
             InitData();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             //test
             if (Input.GetKeyDown(KeyCode.Space))
@@ -62,6 +62,8 @@ namespace Game.Action
 
         void OpenAction()
         {
+            if (CurtainState != CurtainState.Closed) return;
+
             CurtainState = CurtainState.Moving;
 
             if (offseX != 0f)
@@ -77,6 +79,7 @@ namespace Game.Action
 
         void CloseAction()
         {
+            if (CurtainState != CurtainState.Opened) return;
             CurtainState = CurtainState.Moving;
 
             if (offseX != 0f)
