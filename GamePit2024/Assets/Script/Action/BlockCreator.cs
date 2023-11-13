@@ -25,7 +25,6 @@ namespace Game.Action
 
         public IEnumerator Creat(BlockCreateData blockCreateData) => UniTask.ToCoroutine(async () =>
         {
-
             Debug.Log("create start!");
             if (blockCreateData == null) return;
             for (int i = 0; i < blockCreateData.blockUnitDatas.Count; i++)
@@ -37,8 +36,8 @@ namespace Game.Action
                 var ins = GameObjectPool.Instance.GetObj(prefab, transform, false);
                 ins.transform.SetLocalPositionX(i * 2);
 
-                var block = ins.GetComponent<BlockBase>();
-                block.OnInstance();
+                var block = ins.GetComponent<BlockBase>(); 
+                block.OnInstance(one);
                 insBlocks.Add(block);
 
                 if (i == 0)
@@ -51,13 +50,6 @@ namespace Game.Action
             Debug.Log("create end!");
 
         });
-
-
-        public void FixedUpdate()
-        {
-            //test
-
-        }
     }
 }
 

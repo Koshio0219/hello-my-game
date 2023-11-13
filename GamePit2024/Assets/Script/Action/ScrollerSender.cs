@@ -7,19 +7,14 @@ using UnityEngine;
 
 namespace Game.Action
 {
-    [RequireComponent(typeof(Renderer))]
     public class ScrollerSender : MonoBehaviour
     {
         public AsyncReactiveProperty<float> posX;
-
         public float speed = 1f;
-
-        private Renderer renderer1;
         private Camera mainCamera;
 
         private void Start()
         {
-            renderer1 = GetComponent<Renderer>();
             mainCamera = Camera.main;
 
             posX.Value = transform.position.x;

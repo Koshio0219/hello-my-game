@@ -1,14 +1,15 @@
-﻿using System.Collections;
+﻿using Game.Data;
+using System.Collections;
 using UnityEngine;
 
 namespace Game.Base
 {
     interface IBlockBaseAction
     {
-        public BlockBaseType BaseType { get; }
+        public BlockUnitData BlockUnitData { get; }
         public BlockState State { get; }
 
-        void OnInstance();
+        void OnInstance(BlockUnitData blockUnitData);
         void OnSelected();
         void OnMovingStart();
         //void OnMoving();

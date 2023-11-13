@@ -1,3 +1,4 @@
+using Game.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,8 +23,8 @@ namespace Game.Base
 
     public class BlockBase : MonoBehaviour,IBlockBaseAction
     {
-        private BlockBaseType baseType = BlockBaseType.UpDownAble;
-        public BlockBaseType BaseType => baseType;
+        private BlockUnitData blockUnitData;
+        public BlockUnitData BlockUnitData => blockUnitData;
 
         private BlockState state;
         protected BlockState BlockState { get => state; set => state = value; }
@@ -35,9 +36,10 @@ namespace Game.Base
             BlockState = BlockState.Normal;
         }
 
-        public virtual void OnInstance()
+        public virtual void OnInstance(BlockUnitData blockUnitData)
         {
             BlockState = BlockState.Normal;
+            this.blockUnitData = blockUnitData;
         }
 
         public virtual void OnRemove()

@@ -29,7 +29,6 @@ namespace Game.Action
                 x = rightLine;
                 transform.SetPositionX(x);
                 return;
-                //transform.position = new Vector3(x, transform.position.y, transform.position.z);
             }
 
             if (x > rightLine)
@@ -37,30 +36,12 @@ namespace Game.Action
                 x = leftLine;
                 transform.SetPositionX(x);
             }
-            //    if (x <= PontoDeDestino)
-            //    {
-            //        x = PontoOriginal;
-            //        transform.position = new Vector3(x, transform.position.y, transform.position.z);
-            //    }
         }
 
         private void OnDestroy()
         {
             EventQueueSystem.RemoveListener<BackgroundScrollerEvent>(BackgroundScrollerHandler);
         }
-
-        //void Update()
-        //{
-        //    x = transform.position.x;
-        //    x += speed * Time.deltaTime;
-        //    transform.position = new Vector3(x, transform.position.y, transform.position.z);
-
-        //    if (x <= PontoDeDestino)
-        //    {
-        //        x = PontoOriginal;
-        //        transform.position = new Vector3(x, transform.position.y, transform.position.z);
-        //    }
-        //}
     }
 }
 
