@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,17 +8,23 @@ namespace Game.Framework
 {
     public static class GameHelper
     {
-        #region ÊıÑ§évßB
+        #region æ•°å­¦é–¢é€£
         public static T Add<T>(T a, T b) where T : struct
         {
-            //l2cpp¤Ê¤é¤Ğ¤³¤Î•ø¤­·½¤ò‰ä¤¨¤ë±ØÒª
+            //l2cppãªã‚‰ã°ã“ã®æ›¸ãæ–¹ã‚’å¤‰ãˆã‚‹å¿…è¦
             dynamic x1 = a;
             dynamic x2 = b;
             return (T)(x1 + x2);
         }
+
+        private static int temp_id;
+        public static int GetId()
+        {
+            return temp_id++;
+        }
         #endregion
 
-        #region Enum évßB
+        #region Enum é–¢é€£
 
         public static T GetEnumIdx<T>(int idx) where T : Enum
         {
@@ -44,7 +50,7 @@ namespace Game.Framework
                 }
             }
 
-            throw new Exception("can not get the enum pos£º" + pos);
+            throw new Exception("can not get the enum posï¼š" + pos);
         }
 
         #endregion
