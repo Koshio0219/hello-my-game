@@ -91,10 +91,15 @@ public class GamePadCursor : MonoBehaviour
             InputState.Change(virtualMouse, mouseState);
             previousMouseState = aButtonIsPressed;
         }
+        AnchorCursor(newPosition);
+    }
 
+    private void FixedUpdate()
+    {
         if (Gamepad.current.leftTrigger.isPressed)
         {
-            Ray ray = Camera.main.ScreenPointToRay(newPosition);
+            Vector2 currentPosition = virtualMouse.position.ReadValue();
+            Ray ray = Camera.main.ScreenPointToRay(currentPosition);
             RaycastHit hit_info = new RaycastHit();
             float max_distance = 100f;
 
@@ -102,21 +107,62 @@ public class GamePadCursor : MonoBehaviour
 
             if (is_hit)
             {
+                
+                if (LayerMask.LayerToName(hit_info.collider.gameObject.layer) != "Ground") return;
+                Rigidbody rb = hit_info.rigidbody;
+                if (rb == null) return;
+                Game.Test.testBlock _testBlock = hit_info.collider.gameObject.GetComponent<Game.Test.testBlock>();
+                if (_testBlock == null) return;
+                Debug.Log("Selected BlockBaseType: " + _testBlock.GetBlockBaseType());
+                if (_testBlock.GetBlockBaseType() == Game.Base.BlockBaseType.Null) return;
+                Vector3 collision = _testBlock.getNoApproachField();
+
                 screenPoint = Camera.main.WorldToScreenPoint(hit_info.transform.position);
 
-                float screenX = newPosition.x;
-                float screenY = newPosition.y;
+                float screenX = currentPosition.x;
+                float screenY = currentPosition.y;
                 float screenZ = screenPoint.z;
 
-                Vector3 currentScreenPoint = new Vector3(screenX, screenY, screenZ);
+                Vector3 currentScreenPoint = properMatch(_testBlock.GetBlockBaseType(), screenPoint, currentPosition);
+                //Vector3 currentScreenPoint = new Vector3(screenX, screenY, screenZ);
                 Vector3 currentHitsPosition = Camera.main.ScreenToWorldPoint(currentScreenPoint);
-                hit_info.transform.position = currentHitsPosition;
+
+                if (collision.magnitude == 0)
+                {
+                    rb.MovePosition(currentHitsPosition);
+                } else if ((hit_info.transform.position - collision).magnitude < (currentHitsPosition - collision).magnitude)
+                {
+                    Debug.Log("Collision: " + collision);
+                    rb.MovePosition(currentHitsPosition);
+                }
+                //hit_info.transform.position = currentHitsPosition;
             }
         }
-
-        AnchorCursor(newPosition);
     }
 
+    private Vector3 properMatch(Game.Base.BlockBaseType blockBase, Vector3 origin, Vector2 change)
+    {
+        float newX = origin.x;
+        float newY = origin.y;
+        switch (blockBase)
+        {
+            case Game.Base.BlockBaseType.AutoMoving:
+                newX = change.x;
+                newY = change.y;
+                break;
+            case Game.Base.BlockBaseType.LeftRightAble:
+                newX = change.x;
+                break;
+            case Game.Base.BlockBaseType.Null:
+                break;
+            case Game.Base.BlockBaseType.Static:
+                break;
+            case Game.Base.BlockBaseType.UpDownAble:
+                newY = change.y;
+                break;
+        }
+        return new Vector3(newX, newY, origin.z);
+    }
     public void SetPosition()
     {
         if (virtualMouse == null || Gamepad.current == null)
