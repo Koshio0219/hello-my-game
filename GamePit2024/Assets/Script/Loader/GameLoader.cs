@@ -1,4 +1,4 @@
-using Game.Base;
+﻿using Game.Base;
 using Game.Data;
 using Game.Manager;
 using System.Collections;
@@ -23,7 +23,6 @@ namespace Game.Loader
 
             GameManager.Instance.Init();
             GameData.Instance.Init();
-            //throw new System.NotImplementedException();
         }
     }
 }

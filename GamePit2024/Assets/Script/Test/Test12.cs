@@ -1,4 +1,4 @@
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using DG.Tweening;
 using Game.Framework;
@@ -6,19 +6,21 @@ using System.Collections;
 using System.Collections.Generic;
 //using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Game.Test
 {
-
     public class Test12 : MonoBehaviour
     {
 
         public AsyncReactiveProperty<float> tranX;
 
         private Rigidbody _rigidbody;
+        //public GameCC inputActions;
 
         private void Start()
         {
+            //inputActions.Enable();
             tranX.ForEachAsync(x =>
             {
                 Debug.Log($"current tranX is changed ,value is :{x}");

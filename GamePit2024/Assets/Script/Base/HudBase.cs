@@ -15,7 +15,7 @@ namespace Game.Base
         public float Z_deep = 0;
 
         private Transform _tran = null;
-        public Transform tran
+        public Transform Tran
         {
             get
             {
@@ -46,8 +46,8 @@ namespace Game.Base
         {
             if (state == HudState.Hidden)
                 gameObject.Hide();
-            else if (state == HudState.Destroy)           
-                Destroy(gameObject);           
+            else if (state == HudState.Destroy)
+                GameObjectPool.Instance.RecycleObj(gameObject);           
         }
 
         public virtual void OnRemove() { }

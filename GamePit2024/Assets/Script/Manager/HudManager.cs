@@ -4,6 +4,8 @@ using Game.Base;
 using Game.Framework;
 using UnityEditor;
 using System;
+using Game.Loader;
+using Cysharp.Threading.Tasks;
 
 namespace Game.Manager
 {
@@ -14,7 +16,7 @@ namespace Game.Manager
         public List<int> openList = new List<int>();
 
         private Transform _tran = null;
-        private Transform tran
+        private Transform Tran
         {
             get
             {
@@ -26,9 +28,9 @@ namespace Game.Manager
             }
         }
 
+        //close all of openList
         public void CloseAll()
         {
-            //close all
             int _tempid;
             for (int i = 0; i < openList.Count; i++)
             {
@@ -63,7 +65,7 @@ namespace Game.Manager
 
         public int GetPanel(HudType _hudType)
         {
-            //find exsit.
+            //find exsit
             foreach (var tempHud in hudDic)
             {
                 if (tempHud.Value._type == _hudType)
@@ -79,29 +81,25 @@ namespace Game.Manager
 
             if (_hudbase != null)
             {
-                _hudbase.tran.SetParent(tran);
-                _hudbase.tran.ResetLocal();
+                _hudbase.Tran.SetParent(Tran);
+                _hudbase.Tran.ResetLocal();
 
                 if (!hudDic.ContainsKey(id))
-                {
                     hudDic.Add(id, _hudbase);
-                }
                 else
-                {
-                    Debug.Log("exsit instance id : " + id);
-                }
+                    Debug.Log($"exsit instance id : {id}");
+
+                return id;
             }
-            else
-            {
-                id = -1;
-            }
-            return id;
+
+            throw new Exception($"created hud is null, hudType is {_hudType}");
         }
 
         private HudBase CreatHud(HudType _hudType)
         {
             //do creat...
-            return null;
+            var obj = AssetLoader.Instance.Load<HudBase>(_hudType.ToString(), this.GetCancellationTokenOnDestroy());
+            return obj;
         }
     }
 
