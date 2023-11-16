@@ -6,6 +6,7 @@ namespace animJump
     {
         private Animator _animator;
         private string _anim_name = "Landing";
+        private int GamepadNumber = 0;
 
         public JumpStateLanding(Animator animator)
         {
@@ -29,6 +30,9 @@ namespace animJump
 
         public void stay_fixed_update() { }
         public void exit() {}
-
+        public void SetGamepadNumber(int _GamepadNumber)
+        {
+            GamepadNumber = _GamepadNumber;
+        }
     }
 }

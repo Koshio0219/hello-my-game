@@ -28,6 +28,13 @@ public class GamePadCursor : MonoBehaviour
     private const string gamepadScheme = "Gamepad";
     private const string mouseScheme = "Keyboard&Mouse";
 
+    private Game.Test.PlayerParameter _PlayerParameter;
+
+    private void Awake()
+    {
+        _PlayerParameter = Game.Test.PlayerParameter.Instance;
+    }
+
     // Start is called before the first frame update
     private Mouse virtualMouse;
     private Mouse currentMouse;
@@ -66,12 +73,12 @@ public class GamePadCursor : MonoBehaviour
 
     private void UpdateMotion()
     {
-        if (virtualMouse == null || Gamepad.current == null)
+        if (virtualMouse == null || Gamepad.all[_PlayerParameter.GamepadNumber_D] == null)
         {
             return;
         }
 
-        Vector2 deltaValue = Gamepad.current.leftStick.ReadValue();
+        Vector2 deltaValue = Gamepad.all[_PlayerParameter.GamepadNumber_D].leftStick.ReadValue();
         deltaValue *= cursorSpeed * Time.deltaTime;
 
         Vector2 currentPosition = virtualMouse.position.ReadValue();
@@ -83,7 +90,7 @@ public class GamePadCursor : MonoBehaviour
         InputState.Change(virtualMouse.position, newPosition);
         InputState.Change(virtualMouse.delta, deltaValue);
 
-        bool aButtonIsPressed = Gamepad.current.aButton.IsPressed();
+        bool aButtonIsPressed = Gamepad.all[_PlayerParameter.GamepadNumber_D].aButton.IsPressed();
         if (previousMouseState != aButtonIsPressed)
         {
             virtualMouse.CopyState<MouseState>(out var mouseState);
@@ -96,7 +103,7 @@ public class GamePadCursor : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Gamepad.current.leftTrigger.isPressed)
+        if (Gamepad.all[_PlayerParameter.GamepadNumber_D].leftTrigger.isPressed)
         {
             Vector2 currentPosition = virtualMouse.position.ReadValue();
             Ray ray = Camera.main.ScreenPointToRay(currentPosition);
@@ -165,12 +172,12 @@ public class GamePadCursor : MonoBehaviour
     }
     public void SetPosition()
     {
-        if (virtualMouse == null || Gamepad.current == null)
+        if (virtualMouse == null || Gamepad.all[_PlayerParameter.GamepadNumber_D] == null)
         {
             return;
         }
 
-        Vector2 deltaValue = Gamepad.current.leftStick.ReadValue();
+        Vector2 deltaValue = Gamepad.all[_PlayerParameter.GamepadNumber_D].leftStick.ReadValue();
         deltaValue *= cursorSpeed * Time.deltaTime;
 
         Vector2 currentPosition = virtualMouse.position.ReadValue();
@@ -182,7 +189,7 @@ public class GamePadCursor : MonoBehaviour
         InputState.Change(virtualMouse.position, newPosition);
         InputState.Change(virtualMouse.delta, deltaValue);
 
-        bool aButtonIsPressed = Gamepad.current.aButton.IsPressed();
+        bool aButtonIsPressed = Gamepad.all[_PlayerParameter.GamepadNumber_D].aButton.IsPressed();
         if (previousMouseState != aButtonIsPressed)
         {
             virtualMouse.CopyState<MouseState>(out var mouseState);

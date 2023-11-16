@@ -1,8 +1,8 @@
-public enum JumpState
+ï»¿public enum JumpState
 {
-    IDLE,    // “ü—Í‘Ò‚¿ó‘Ô
-    WAITING,    // ƒWƒƒƒ“ƒv—­‚ßó‘Ô
-    RISING,    // ã¸’†ó‘Ô
-    FALLING,    // ‰º~’†ó‘Ô
-    LANDING,    // ’…’nó‘Ô
+    IDLE,    // å…¥åŠ›å¾…ã¡çŠ¶æ…‹
+    WAITING,    // ã‚¸ãƒ£ãƒ³ãƒ—æºœã‚çŠ¶æ…‹
+    RISING,    // ä¸Šæ˜‡ä¸­çŠ¶æ…‹
+    FALLING,    // ä¸‹é™ä¸­çŠ¶æ…‹
+    LANDING,    // ç€åœ°çŠ¶æ…‹
 }

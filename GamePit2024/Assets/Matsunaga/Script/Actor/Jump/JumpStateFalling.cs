@@ -7,6 +7,7 @@ namespace animJump
         private Animator _animator;
         private JumpDistance _jump_distance;
         private string _anim_name = "Falling";
+        private int GamepadNumber = 0;
 
         public JumpStateFalling(Animator animator, JumpDistance jump_distance)
         {
@@ -31,5 +32,10 @@ namespace animJump
 
         public void stay_fixed_update() { }
         public void exit() { }
+
+        public void SetGamepadNumber(int _GamepadNumber)
+        {
+            GamepadNumber = _GamepadNumber;
+        }
     }
 }

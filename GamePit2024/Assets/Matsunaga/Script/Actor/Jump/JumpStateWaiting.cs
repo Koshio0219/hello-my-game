@@ -8,6 +8,7 @@ namespace animJump
         private Animator _animator;
         private JumpData _jump_data;
         private string _anim_name = "Waiting";
+        private int GamepadNumber = 0;
 
         public JumpStateWaiting(Animator animator, JumpData jump_data)
         {
@@ -19,7 +20,7 @@ namespace animJump
         {
             _jump_data.power_up();
 
-            if (_animator.isName(_anim_name) && !Gamepad.current.buttonSouth.isPressed)
+            if (_animator.isName(_anim_name) && !Gamepad.all[GamepadNumber].buttonSouth.isPressed)
             {
                 return JumpState.RISING;
             }
@@ -34,5 +35,9 @@ namespace animJump
 
         public void stay_fixed_update() { }
         public void exit() { }
+        public void SetGamepadNumber(int _GamepadNumber)
+        {
+            GamepadNumber = _GamepadNumber;
+        }
     }
 }

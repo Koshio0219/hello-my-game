@@ -7,7 +7,8 @@ namespace animJump
     {
         private Animator _animator;
         private string _anim_name = "Idle";
-        
+        private int GamepadNumber = 0;
+
         public JumpStateIdle(Animator animator)
         {
             _animator = animator;
@@ -15,7 +16,7 @@ namespace animJump
 
         public JumpState stay_update()
         {
-            if ((_animator.GetCurrentAnimatorStateInfo(0).IsName("Walk") || _animator.isName(_anim_name)) && Gamepad.current.buttonSouth.isPressed)
+            if ((_animator.GetCurrentAnimatorStateInfo(0).IsName("Walk") || _animator.isName(_anim_name)) && Gamepad.all[GamepadNumber].buttonSouth.isPressed)
             {
                 return JumpState.WAITING;
             }
@@ -30,5 +31,9 @@ namespace animJump
 
         public void stay_fixed_update() { }
         public void exit() { }
+        public void SetGamepadNumber(int _GamepadNumber)
+        {
+            GamepadNumber = _GamepadNumber;
+        }
     }
 }

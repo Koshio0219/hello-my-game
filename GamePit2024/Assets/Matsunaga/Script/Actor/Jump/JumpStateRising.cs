@@ -11,6 +11,7 @@ namespace animJump
         private Rigidbody _rigid_body;
         private bool _allow_add_force = true;
         private string _anim_name = "Rising";
+        private int GamepadNumber = 0;
 
         public JumpStateRising(Animator animator, JumpData jump_data,
                 JumpDistance jump_distance, Rigidbody rigid_body)
@@ -48,5 +49,10 @@ namespace animJump
         }
 
         public void exit() { }
+
+        public void SetGamepadNumber(int _GamepadNumber)
+        {
+            GamepadNumber = _GamepadNumber;
+        }
     }
 }

@@ -67,6 +67,12 @@ namespace Game.Test
         ///    最高高度より高い値でないと、ジャンプ頂点での下降モーションへの切り替わりが出来ません
         ///</summary>
         [SerializeField] float raycastSearchDistance;
+        private PlayerParameter _PlayerParameter;
+
+        private void Awake()
+        {
+            _PlayerParameter = PlayerParameter.Instance;
+        }
 
         public void Start()
         {
