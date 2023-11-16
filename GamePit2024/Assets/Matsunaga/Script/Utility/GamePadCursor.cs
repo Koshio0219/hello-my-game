@@ -7,7 +7,7 @@ using UnityEngine.InputSystem.Users;
 
 public class GamePadCursor : MonoBehaviour
 {//https://www.youtube.com/watch?v=Y3WNwl1ObC8
-    [SerializeField] private PlayerInput playerInput;
+    //[SerializeField] private PlayerInput playerInput;
 
     [SerializeField] private RectTransform cursorTransform;
 
@@ -52,7 +52,7 @@ public class GamePadCursor : MonoBehaviour
             InputSystem.AddDevice(virtualMouse);
         }
 
-        InputUser.PerformPairingWithDevice(virtualMouse, playerInput.user);
+        //InputUser.PerformPairingWithDevice(virtualMouse, playerInput.user);
 
         if(cursorTransform != null)
         {
@@ -61,14 +61,14 @@ public class GamePadCursor : MonoBehaviour
         }
 
         InputSystem.onAfterUpdate += UpdateMotion;
-        playerInput.onControlsChanged += OnControlsChanged;
+        //playerInput.onControlsChanged += OnControlsChanged;
     }
 
     private void OnDisable()
     {
         if(virtualMouse != null && virtualMouse.added) InputSystem.RemoveDevice(virtualMouse);
         InputSystem.onAfterUpdate -= UpdateMotion;
-        playerInput.onControlsChanged -= OnControlsChanged;
+        //playerInput.onControlsChanged -= OnControlsChanged;
     }
 
     private void UpdateMotion()
@@ -208,7 +208,7 @@ public class GamePadCursor : MonoBehaviour
         cursorTransform.anchoredPosition = anchoredPosition;
     }
 
-    private void OnControlsChanged(PlayerInput input)
+    /*private void OnControlsChanged(PlayerInput input)
     {
         if(playerInput.currentControlScheme == mouseScheme && previousControlScheme != mouseScheme)
         {
@@ -224,5 +224,5 @@ public class GamePadCursor : MonoBehaviour
             AnchorCursor(currentMouse.position.ReadValue());
             previousControlScheme = gamepadScheme;
         }
-    }
+    }*/
 }
