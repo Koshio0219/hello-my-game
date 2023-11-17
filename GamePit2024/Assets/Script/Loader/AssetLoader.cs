@@ -17,6 +17,7 @@ namespace Game.Loader
         AnimationClip,
         AudioClip,
         Material,
+        Config
         //others...
     }
 
@@ -30,6 +31,7 @@ namespace Game.Loader
             { AssetType.AnimationClip,""},
             { AssetType.AudioClip,""},
             { AssetType.Material,""},
+            { AssetType.Config,""},
              //others...
         };
 
@@ -38,18 +40,42 @@ namespace Game.Loader
             var path = mapTypeToPath[type];
             var wPath= Path.Combine(path, name);
             var result = await Addressables.LoadAssetAsync<T>(wPath).WithCancellation(token);
+            
             return result;
         }
 
-        public T Load<T>(string name, CancellationToken token) where T:MonoBehaviour
+        public async UniTask<T> Load<T>(string name, CancellationToken token) where T:MonoBehaviour
         {
-            var res = Load<T>(AssetType.Prefab, name, token).GetAwaiter().GetResult();
-            var obj = GameObjectPool.Instance.GetObj(res as GameObject);
+            //var res = Load<GameObject>(AssetType.Prefab, name, token).GetAwaiter().GetResult();
+            var res = await Load<GameObject>(AssetType.Prefab, name, token);
+            var obj = GameObjectPool.Instance.GetObj(res);
             
             if (obj.TryGetComponent<T>(out var t))                           
                 return t;
             
             throw new System.Exception($"GetComponent is error. component name:{typeof(T)}");
+        }
+
+        public async UniTask<T> Load<T>(IKeyEvaluator key, CancellationToken token)
+        {
+            var result = await Addressables.LoadAssetAsync<T>(key).WithCancellation(token);
+            return result;
+        }
+
+        public async UniTask<T> Load<T>(AssetReference key, CancellationToken token) where T : MonoBehaviour
+        {
+            var res = await Load<GameObject>(key, token);
+            var obj = GameObjectPool.Instance.GetObj(res);
+
+            if (obj.TryGetComponent<T>(out var t))
+                return t;
+
+            throw new System.Exception($"GetComponent is error. component name:{typeof(T)}");
+        }
+
+        public void Release<T>(T t)
+        {          
+           Addressables.Release(t);
         }
     }
 }

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3874200982886979739}
   - component: {fileID: 3874200982886979737}
-  - component: {fileID: 987148652075570964}
   m_Layer: 0
   m_Name: GameLoader
   m_TagString: Untagged
@@ -31,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3874200982886979737
 MonoBehaviour:
@@ -46,16 +45,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugType: 0
---- !u!114 &987148652075570964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3874200982886979740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 662e74a828ca34c43b2960d7dc6b268c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockTypeConfig: {fileID: 11400000, guid: 1d403654262e1f541acd2cdaa104627c, type: 2}

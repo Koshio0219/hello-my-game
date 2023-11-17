@@ -1,4 +1,4 @@
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using Game.Base;
 using Game.Data;
@@ -32,7 +32,7 @@ namespace Game.Action
                 var one = blockCreateData.blockUnitDatas[i];
                 if (one.baseType == BlockBaseType.Null) continue;
 
-                var prefab = GameData.Instance.blockTypeConfig.GetBlockPrefab(one.useType);
+                var prefab = GameData.Instance.BlockTypeConfig.GetBlockPrefab(one.useType);
                 var ins = GameObjectPool.Instance.GetObj(prefab, transform, false);
                 ins.transform.SetLocalPositionX(i * 2);
 

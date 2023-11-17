@@ -46,24 +46,24 @@ namespace Game.Manager
             }
         }
 
-        public void Show(HudType _hudType, HudState _state = HudState.Hidden)
+        public async UniTaskVoid Show(HudType _hudType, HudState _state = HudState.Hidden)
         {
             CloseAll();
-            int id = GetPanel(_hudType);
+            int id =await GetPanel(_hudType);
             hudDic[id].state = _state;
             hudDic[id].gameObject.Show();
             openList.Add(id);
         }
 
-        public void AddShow(HudType _hudType, HudState _state = HudState.Destroy)
+        public async UniTaskVoid AddShow(HudType _hudType, HudState _state = HudState.Destroy)
         {
-            int id = GetPanel(_hudType);
+            int id =await GetPanel(_hudType);
             hudDic[id].state = _state;
             hudDic[id].gameObject.Show();
             openList.Add(id);
         }
 
-        public int GetPanel(HudType _hudType)
+        public async UniTask<int> GetPanel(HudType _hudType)
         {
             //find exsit
             foreach (var tempHud in hudDic)
@@ -76,7 +76,7 @@ namespace Game.Manager
 
             var id = GameHelper.GetId();
 
-            HudBase _hudbase = CreatHud(_hudType);
+            HudBase _hudbase = await CreatHud(_hudType);
             _hudbase._type = _hudType;
 
             if (_hudbase != null)
@@ -95,10 +95,10 @@ namespace Game.Manager
             throw new Exception($"created hud is null, hudType is {_hudType}");
         }
 
-        private HudBase CreatHud(HudType _hudType)
+        private async UniTask<HudBase> CreatHud(HudType _hudType)
         {
             //do creat...
-            var obj = AssetLoader.Instance.Load<HudBase>(_hudType.ToString(), this.GetCancellationTokenOnDestroy());
+            var obj =await AssetLoader.Instance.Load<HudBase>(_hudType.ToString(), this.GetCancellationTokenOnDestroy());
             return obj;
         }
     }

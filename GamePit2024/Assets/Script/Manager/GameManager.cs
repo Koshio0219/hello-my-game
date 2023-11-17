@@ -1,14 +1,28 @@
-using Game.Framework;
+﻿using Game.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 
 namespace Game.Manager
 {
     public class GameManager : MonoSingleton<GameManager>
     {
+        private CancellationToken token =CancellationToken.None;
+        public CancellationToken CancelTokenOnGameDestroy
+        {
+            get 
+            {
+                if(token == CancellationToken.None)
+                {
+                    token = this.GetCancellationTokenOnDestroy();
+                }
+                return token;
+            }
+        }
 
         protected override void Awake()
         {
