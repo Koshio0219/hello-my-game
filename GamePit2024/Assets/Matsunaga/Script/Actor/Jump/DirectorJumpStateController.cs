@@ -1,6 +1,7 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using animJump;
+using Game.Data;
 
 namespace Game.Test{
 public class DirectorJumpStateController : MonoBehaviour
@@ -8,71 +9,71 @@ public class DirectorJumpStateController : MonoBehaviour
         // Start is called before the first frame update
         //https://qiita.com/mkgask/items/fa307811da6d9d76bc97
         ///<summary>
-        ///    ƒWƒƒƒ“ƒvˆ—‚Ég—p‚·‚éRigidbody
+        ///    åƒ•å„å„åƒ¾å¼µæ£Ÿåµå·Šæ¢¡å¡å‚Rigidbody
         ///</summary>
         private Rigidbody _rigidBody;
 
         ///<summary>
-        ///    ƒWƒƒƒ“ƒvƒAƒjƒ[ƒVƒ‡ƒ“‚ğ’S“–‚·‚éAnimator
+        ///    åƒ•å„å„åƒ¾å‚¾åƒ¯å„Šä¹•åƒ”å„‘å„å‚ªæ‰´æ‘‰å¡å‚Animator
         ///</summary>
         private Animator _animator;
 
         ///<summary>
-        ///    ƒWƒƒƒ“ƒv‚ÌŠeó‘Ô‚ğ•Û‚µ‚Ä‚¨‚­«‘ƒŠƒXƒg
+        ///    åƒ•å„å„åƒ¾åºå¥ºå¿¬æ‡ºå‚ªæ›å¸©åŸå°åå”å¸¿å½‚å„•åƒ—åƒ©
         ///</summary>
         private Dictionary<JumpState, IJumpState> _jump_state_list;
 
         ///<summary>
-        ///    ƒWƒƒƒ“ƒv‚ÌˆÈ‘O‚Ìó‘Ô‚ğ‹L‰¯‚µ‚Ä‚¨‚­
-        ///    ‚±‚ê‚Æ”äŠr‚·‚é‚±‚Æ‚Åó‘Ô‚Ì•ÏX‚ğ¯•Ê‚·‚é
+        ///    åƒ•å„å„åƒ¾åºåŸ²æ…œåºå¿¬æ‡ºå‚ªå©°å£‡åŸå°åå”
+        ///    å™å‚Ÿå²æ–¾å¦‘å¡å‚å™å²å±å¿¬æ‡ºåºæ›„å³å‚ªå¹†æš¿å¡å‚
         ///</summary>
         private JumpState _state_old = JumpState.IDLE;
 
         ///<summary>
-        ///    Œ»İ‚ÌƒWƒƒƒ“ƒv‚Ìó‘Ô‚ğ•Û
+        ///    å°°åµ¼åºåƒ•å„å„åƒ¾åºå¿¬æ‡ºå‚ªæ›å¸©
         ///</summary>
         private IJumpState _state_instance;
 
         ///<summary>
-        ///    ƒWƒƒƒ“ƒv—Í‚ÉŠÖ‚·‚éî•ñ‚ğ•Û
+        ///    åƒ•å„å„åƒ¾æ¤¡åµå¨­å¡å‚å¿£æ›¬å‚ªæ›å¸©
         ///</summary>
         private JumpData _jump_data;
 
         ///<summary>
-        ///    ƒvƒŒƒCƒ„[ƒLƒƒƒ‰ƒNƒ^[‚Æ’n–ÊŠÔ‚Ì‹——£‚ÉŠÖ‚·‚éî•ñ‚ğ•Û
+        ///    åƒ¾å„—åƒ€å„ä¹•åƒ‰å„å„”åƒ‹åƒä¹•å²æŠ§æŸºå¨«åºå«æ£§åµå¨­å¡å‚å¿£æ›¬å‚ªæ›å¸©
         ///</summary>
         private JumpDistance _jump_distance;
 
         ///<summary>
-        ///    ƒL[‚ğ‰Ÿ‚µ‚Ä‚¢‚éŠÔ‚É—­‚ß‚éƒWƒƒƒ“ƒv—Í‚Ì1ƒtƒŒ[ƒ€•ª
+        ///    åƒ‰ä¹•å‚ªå¢´åŸå°å„å‚å¨«åµæ£´å‚”å‚åƒ•å„å„åƒ¾æ¤¡åº1åƒ¼å„—ä¹•å„‰æš˜
         ///</summary>
         [SerializeField] private float _jump_power_up;
 
         ///<summary>
-        ///    ƒWƒƒƒ“ƒv—Í‚ÌãŒÀ
+        ///    åƒ•å„å„åƒ¾æ¤¡åºå¿‹å°·
         ///</summary>
         [SerializeField] private float _jump_power_max;
 
         ///<summary>
-        ///    ã¸’†‚©‚ç‰º~’†‚ÉØ‚è‘Ö‚í‚é•Ï‰»‚ÌŒŸ’m¸“x
+        ///    å¿‹å¾ƒæ‹åå‚œå£“å´€æ‹åµæ„—å‚æ‡¼å‚¢å‚æ›„å£”åºå°‚æŠ¦æƒ›æ™
         ///</summary>
         [SerializeField] int distance_list_limit;
 
         ///<summary>
-        ///    ‰º~’†‚©‚çÚ’n‚µ‚½‚Æ”»’è‚·‚é‹——£
+        ///    å£“å´€æ‹åå‚œæ„™æŠ§åŸå¨å²æ•¾æ•å¡å‚å«æ£§
         ///</summary>
         [SerializeField] float ground_distance_limit;
 
         ///<summary>
-        ///    ƒvƒŒƒCƒ„[ƒLƒƒƒ‰ƒNƒ^[‚Æ’n–ÊŠÔ‚ÌŒv‘ª‹——£ãŒÀ
-        ///    Å‚‚“x‚æ‚è‚‚¢’l‚Å‚È‚¢‚ÆAƒWƒƒƒ“ƒv’¸“_‚Å‚Ì‰º~ƒ‚[ƒVƒ‡ƒ“‚Ö‚ÌØ‚è‘Ö‚í‚è‚ªo—ˆ‚Ü‚¹‚ñ
+        ///    åƒ¾å„—åƒ€å„ä¹•åƒ‰å„å„”åƒ‹åƒä¹•å²æŠ§æŸºå¨«åºå¯æ‡‰å«æ£§å¿‹å°·
+        ///    åµŸå´…å´…æ™å‚›å‚å´…å„æŠ£å±å´å„å²ä¸„åƒ•å„å„åƒ¾æ€æ°å±åºå£“å´€å„Œä¹•åƒ”å„‘å„å‚Šåºæ„—å‚æ‡¼å‚¢å‚å‘å¼Œæ£ƒå‚‘å£å‚«
         ///</summary>
         [SerializeField] float raycastSearchDistance;
         private PlayerParameter _PlayerParameter;
 
-        private void Awake()
+        private async void Awake()
         {
-            _PlayerParameter = PlayerParameter.Instance;
+            _PlayerParameter = await GameData.Instance.GetPlayerParameter();
         }
 
         public void Start()
@@ -102,6 +103,7 @@ public class DirectorJumpStateController : MonoBehaviour
 
         public void Update()
         {
+            if (_PlayerParameter == null) return;
             var state = _state_instance.stay_update();
 
             if (state == _state_old) return;

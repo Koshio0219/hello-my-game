@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using animJump;
+using Game.Data;
 
 namespace Game.Test
 {
@@ -69,9 +70,9 @@ namespace Game.Test
         [SerializeField] float raycastSearchDistance;
         private PlayerParameter _PlayerParameter;
 
-        private void Awake()
+        private async void Awake()
         {
-            _PlayerParameter = PlayerParameter.Instance;
+            _PlayerParameter = await GameData.Instance.GetPlayerParameter();
         }
 
         public void Start()

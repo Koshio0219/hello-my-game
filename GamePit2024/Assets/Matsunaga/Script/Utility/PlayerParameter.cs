@@ -1,12 +1,12 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 namespace Game.Test
 {
-    [CreateAssetMenu(fileName = "PlayerParameter", menuName = "PlayerParameter")]
-    public class PlayerParameter : Game.Framework.MonoSingleton<PlayerParameter>
+    [CreateAssetMenu(fileName = "PlayerParameter", menuName = "GamePit2024/PlayerParameter")]
+    public class PlayerParameter : ScriptableObject
     {
         [Header("Melee Actor(Basic)")]
         public int GamepadNumber_M;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Game.Data;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,9 +31,9 @@ public class GamePadCursor : MonoBehaviour
 
     private Game.Test.PlayerParameter _PlayerParameter;
 
-    private void Awake()
+    private async void Awake()
     {
-        _PlayerParameter = Game.Test.PlayerParameter.Instance;
+        _PlayerParameter = await GameData.Instance.GetPlayerParameter();
     }
 
     // Start is called before the first frame update
@@ -73,7 +74,7 @@ public class GamePadCursor : MonoBehaviour
 
     private void UpdateMotion()
     {
-        if (virtualMouse == null || Gamepad.all[_PlayerParameter.GamepadNumber_D] == null)
+        if (virtualMouse == null || _PlayerParameter==null|| Gamepad.all[_PlayerParameter.GamepadNumber_D] == null)
         {
             return;
         }
@@ -103,6 +104,7 @@ public class GamePadCursor : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_PlayerParameter == null) return;
         if (Gamepad.all[_PlayerParameter.GamepadNumber_D].leftTrigger.isPressed)
         {
             Vector2 currentPosition = virtualMouse.position.ReadValue();
@@ -172,7 +174,7 @@ public class GamePadCursor : MonoBehaviour
     }
     public void SetPosition()
     {
-        if (virtualMouse == null || Gamepad.all[_PlayerParameter.GamepadNumber_D] == null)
+        if (virtualMouse == null ||_PlayerParameter ==null|| Gamepad.all[_PlayerParameter.GamepadNumber_D] == null)
         {
             return;
         }
