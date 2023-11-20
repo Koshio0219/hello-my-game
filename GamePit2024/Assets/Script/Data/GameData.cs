@@ -15,12 +15,14 @@ namespace Game.Data
     public class GameData : Singleton<GameData>,IInit
     {
         public BlockTypeConfig BlockTypeConfig { get; private set; }
+        public EnemyCreateConfig EnemyCreateConfig { get; private set; }
         private PlayerParameter playerParameter =null;
 
         public async void Init()
         {
             var token = GameManager.Instance.CancelTokenOnGameDestroy;
             BlockTypeConfig = await AssetLoader.Instance.Load<BlockTypeConfig>(AssetType.Config, "Assets/Config/BlockTypeConfig.asset", token);
+            EnemyCreateConfig = await AssetLoader.Instance.Load<EnemyCreateConfig>(AssetType.Config, "Assets/Config/EnemyCreateConfig.asset", token);
         }
 
         public async UniTask<PlayerParameter> GetPlayerParameter()

@@ -6,8 +6,8 @@ namespace Game.Base
 {
     interface IBlockBaseAction
     {
-        public BlockUnitData BlockUnitData { get; }
-        public BlockState State { get; }
+        BlockUnitData BlockUnitData { get; }
+        BlockState State { get; }
 
         void OnInstance(BlockUnitData blockUnitData);
         void OnSelected();

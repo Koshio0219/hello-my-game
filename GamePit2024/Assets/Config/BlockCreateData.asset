@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbc3a4288f4623b4b8ac984e5b478a3f, type: 3}
-  m_Name: BlockCreateData1
+  m_Name: BlockCreateData
   m_EditorClassIdentifier: 
   blockUnitDatas:
   - baseType: 3
