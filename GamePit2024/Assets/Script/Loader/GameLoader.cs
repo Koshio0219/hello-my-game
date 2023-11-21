@@ -21,7 +21,7 @@ namespace Game.Loader
         {
             Debug.DebugType = debugType;
 
-            GameManager.Instance.Init();
+            Manager.GameManager.Instance.Init();
             GameData.Instance.Init();
         }
     }

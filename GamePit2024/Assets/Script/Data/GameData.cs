@@ -20,7 +20,7 @@ namespace Game.Data
 
         public async void Init()
         {
-            var token = GameManager.Instance.CancelTokenOnGameDestroy;
+            var token = Manager.GameManager.Instance.CancelTokenOnGameDestroy;
             BlockTypeConfig = await AssetLoader.Instance.Load<BlockTypeConfig>(AssetType.Config, "Assets/Config/BlockTypeConfig.asset", token);
             EnemyCreateConfig = await AssetLoader.Instance.Load<EnemyCreateConfig>(AssetType.Config, "Assets/Config/EnemyCreateConfig.asset", token);
         }
@@ -29,7 +29,7 @@ namespace Game.Data
         {
             if (playerParameter == null)
             {
-                playerParameter = await AssetLoader.Instance.Load<PlayerParameter>(AssetType.Config, "Assets/Config/PlayerParameter.asset", GameManager.Instance.CancelTokenOnGameDestroy);
+                playerParameter = await AssetLoader.Instance.Load<PlayerParameter>(AssetType.Config, "Assets/Config/PlayerParameter.asset", Manager.GameManager.Instance.CancelTokenOnGameDestroy);
             }
             return playerParameter;
         }
