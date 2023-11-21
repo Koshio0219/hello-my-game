@@ -16,6 +16,7 @@ namespace Game.Test
     public class Test1 : MonoBehaviour,IProgress<float>
     {
         public Button loadScene;
+        public Button homePage;
 
         public AssetReference asset;
 
@@ -40,6 +41,7 @@ namespace Game.Test
            // Debug.Log($"asset path:{asset.SubObjectName}");
 
             CheckLoad();
+            OpenHomePage();
 
             var token = this.GetCancellationTokenOnDestroy();
             //var ins=await AssetLoader.Instance.Load<NormalBlock>("Assets/Prefab/NormalBlock.prefab", token);
@@ -59,6 +61,16 @@ namespace Game.Test
             {
                 SceneLoader.Instance.OnClickLoadScene("Stage").Forget();
                 loadScene.onClick.RemoveAllListeners();
+            });
+        }
+
+        private void OpenHomePage()
+        {
+            if (homePage == null) return;
+            homePage.onClick.AddListener(() =>
+            {
+                Manager.GameManager.Instance.OpenHomePage();
+                //homePage.onClick.RemoveAllListeners();
             });
         }
 

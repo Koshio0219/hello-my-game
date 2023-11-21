@@ -56,6 +56,11 @@ namespace Game.Manager
         {
             Time.fixedDeltaTime = deltaTime;
         }
+
+        public void OpenHomePage(string url= "https://gamepit.tokyo/#top")
+        {
+            Application.OpenURL(url);
+        }
     }
 }
 

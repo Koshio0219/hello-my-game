@@ -1,4 +1,5 @@
-﻿using Game.Framework;
+﻿using Game.Base;
+using Game.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,17 +34,22 @@ namespace Game.Data
     }
 
     [System.Serializable]
-    public class EnemyBaseProp
+    public struct EnemyBaseProp:IInit
     {
         public float maxHp;
         public float Hp { get; private set; }
         public float attack;
 
-        public EnemyBaseProp() => Hp = maxHp;
+        public void Init()
+        {
+            Hp = maxHp;
+        }
+
+        //public EnemyBaseProp() => Hp = maxHp;
     }
 
     [System.Serializable]
-    public class EnemyUnitData
+    public struct EnemyUnitData: IInit
     {
         public int InsId { get; private set; }
         public EnemyRaceType raceType;
@@ -51,7 +57,13 @@ namespace Game.Data
         public EnemyBaseProp prop;
         public List<int> skillIds;
 
-        public EnemyUnitData() => InsId = GameHelper.GetId();
+        //public EnemyUnitData() => InsId = GameHelper.GetId();
+
+        public void Init()
+        {
+            InsId = GameHelper.GetId();
+            prop.Init();
+        }
     }
 }
 

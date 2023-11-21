@@ -18,7 +18,7 @@ namespace Game.Unit
         public EnemyState EnemyState => State;
 
         private float maxHp; 
-        public float MaxHp
+        public virtual float MaxHp
         {
             get
             {
@@ -31,7 +31,7 @@ namespace Game.Unit
         }
 
         private float hp;
-        public float Hp
+        public virtual float Hp
         {
             get
             {
@@ -44,7 +44,7 @@ namespace Game.Unit
         }
 
         private float atk;
-        public float Atk
+        public virtual float Atk
         {
             get
             {
@@ -56,28 +56,39 @@ namespace Game.Unit
             }
         }
 
-       //private AsyncReactiveProperty<float> attack;
-       //private AsyncReactiveProperty<float> maxHp;
-       //private AsyncReactiveProperty<float> hp;
+        //private AsyncReactiveProperty<float> attack;
+        //private AsyncReactiveProperty<float> maxHp;
+        //private AsyncReactiveProperty<float> hp;
 
-        public void Attack(int targetId, float damage)
+        [SerializeField] protected Animator animator;
+
+        public virtual void Attack(int targetId, float damage)
         {
 
         }
 
-        public void Born(EnemyUnitData data)
+        public virtual void Born(EnemyUnitData data)
+        {
+            data.Init();
+            enemyUnitData = data;
+            SetBaseProp(data.prop);
+        }
+
+        public virtual void Dead()
         {
 
         }
 
-        public void Dead()
+        public virtual void Hit(int sourceId, float damage)
         {
 
         }
 
-        public void Hit(int sourceId, float damage)
+        protected virtual void SetBaseProp(EnemyBaseProp baseProp)
         {
-
+            MaxHp = baseProp.maxHp;
+            Hp = baseProp.Hp;
+            Atk = baseProp.attack;
         }
     }
 }
