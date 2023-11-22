@@ -64,7 +64,7 @@ namespace Game.Unit
 
         public virtual void Attack(int targetId, float damage)
         {
-
+            Debug.Log($"Attacking! targetId:{targetId},damage:{damage}");
         }
 
         public virtual void Born(EnemyUnitData data)

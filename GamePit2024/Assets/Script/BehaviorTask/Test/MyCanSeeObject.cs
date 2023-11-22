@@ -14,19 +14,23 @@ namespace Game.BehaviorTask
         public SharedFloat angel = 120f;
 
         public SharedTransformList results;
+        public SharedGameObject closest;
 
         private float sqrRadius;
+        private Dictionary<Transform,float> sqrDis;
 
         public override TaskStatus OnUpdate()
         {
             results.Value.Clear();
+            sqrDis.Clear();
             foreach (var target in targets.Value)
             {
                 if (target == null)
                     continue;
 
                 Vector3 offse = target.position - transform.position;
-                if (offse.sqrMagnitude > sqrRadius)
+                var _sqrDis = offse.sqrMagnitude;
+                if (_sqrDis > sqrRadius)
                     continue;
 
                 float angel = Vector3.Angle(transform.forward, offse.normalized);
@@ -40,18 +44,39 @@ namespace Game.BehaviorTask
                     if (info.collider.gameObject == target.gameObject)
                     {
                         results.Value.Add(target);
+                        sqrDis.Add(target,_sqrDis);
                     }
                 }
             }
 
             if (results.Value.Count > 0)
+            {
+                closest.Value = FindClosest(sqrDis);
                 return TaskStatus.Success;
+            }
+
             return TaskStatus.Failure;
+        }
+
+        private GameObject FindClosest(Dictionary<Transform, float> transforms)
+        {
+            GameObject result = null;
+            float max = float.PositiveInfinity;
+            foreach (var item in transforms)
+            {
+                if (item.Value < max)
+                {
+                    max = item.Value;
+                    result = item.Key.gameObject;
+                }
+            }
+            return result;
         }
 
         public override void OnStart()
         {
             results.Value = new List<Transform>();
+            sqrDis = new Dictionary<Transform, float>();
             sqrRadius = radius.Value * radius.Value;
         }
     }
