@@ -16,7 +16,7 @@ namespace Game.BehaviorTask
         private Vector3? lastRequest;
         private NavMeshAgent agent;
 
-        private TaskStatus status = TaskStatus.Running;
+        private TaskStatus status;
 
         public override void OnAwake()
         {
@@ -26,6 +26,7 @@ namespace Game.BehaviorTask
         public override void OnStart()
         {
             if (target.Value == null || agent == null) return;
+            status = TaskStatus.Running;
             agent.speed = speed.Value;
         }
 

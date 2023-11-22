@@ -22,7 +22,7 @@ namespace Game.BehaviorTask
 
         private NavMeshAgent agent;
 
-        private TaskStatus status = TaskStatus.Running;
+        private TaskStatus status; 
 
         public override void OnAwake()
         {
@@ -32,6 +32,7 @@ namespace Game.BehaviorTask
         public override void OnStart()
         {
             if (agent == null) return;
+            status = TaskStatus.Running;
             agent.speed = speed.Value;
             DoWander();
         }
