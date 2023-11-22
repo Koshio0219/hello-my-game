@@ -457,6 +457,389 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Witch_ReadyAttack
+      takeName: Take 001
+      internalID: -998496362607748373
+      firstFrame: 16
+      lastFrame: 18
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Model
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Control_Locator
+        weight: 1
+      - path: Root/Control_Locator/Control_Leg_L
+        weight: 1
+      - path: Root/Control_Locator/Control_Leg_R
+        weight: 1
+      - path: Root/Control_Locator/Locator_Head
+        weight: 1
+      - path: Root/Control_Locator/Locator_Pelvis
+        weight: 1
+      - path: Root/Control_Locator/Upvector_Leg_L
+        weight: 1
+      - path: Root/Control_Locator/Upvector_Leg_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L/Skeleton_UpperLeg_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L/Skeleton_UpperLeg_L/FullBodyIK (2)
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L/Skeleton_UpperLeg_L/Skeleton_Leg_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L/Skeleton_UpperLeg_L/Skeleton_Leg_L/Skeleton_Foot_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R/Skeleton_UpperLeg_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R/Skeleton_UpperLeg_R/FullBodyIK
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R/Skeleton_UpperLeg_R/Skeleton_Leg_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R/Skeleton_UpperLeg_R/Skeleton_Leg_R/Skeleton_Foot_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt01A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt01A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt02A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt02A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt03A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt03A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt04A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt04A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt05A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt05A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_L/Skeleton_ForArm_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_L/Skeleton_ForArm_L/Skeleton_Hand_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_R/Skeleton_ForArm_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_R/Skeleton_ForArm_R/Skeleton_Hand_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_R/Skeleton_ForArm_R/Skeleton_Hand_R/Locator_Eff
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hair_Front01_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hair_Front01_L/Skeleton_Hair_Front02_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hair_Front01_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hair_Front01_R/Skeleton_Hair_Front02_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hat_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hat_R
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Witch_ReadyAttackStart
+      takeName: Take 001
+      internalID: 3060872287085348379
+      firstFrame: 0
+      lastFrame: 17
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.9759809
+        functionName: WaitAttackStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Model
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Control_Locator
+        weight: 1
+      - path: Root/Control_Locator/Control_Leg_L
+        weight: 1
+      - path: Root/Control_Locator/Control_Leg_R
+        weight: 1
+      - path: Root/Control_Locator/Locator_Head
+        weight: 1
+      - path: Root/Control_Locator/Locator_Pelvis
+        weight: 1
+      - path: Root/Control_Locator/Upvector_Leg_L
+        weight: 1
+      - path: Root/Control_Locator/Upvector_Leg_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L/Skeleton_UpperLeg_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L/Skeleton_UpperLeg_L/FullBodyIK (2)
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L/Skeleton_UpperLeg_L/Skeleton_Leg_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L/Skeleton_UpperLeg_L/Skeleton_Leg_L/Skeleton_Foot_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R/Skeleton_UpperLeg_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R/Skeleton_UpperLeg_R/FullBodyIK
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R/Skeleton_UpperLeg_R/Skeleton_Leg_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R/Skeleton_UpperLeg_R/Skeleton_Leg_R/Skeleton_Foot_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt01A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt01A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt02A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt02A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt03A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt03A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt04A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt04A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt05A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt05A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_L/Skeleton_ForArm_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_L/Skeleton_ForArm_L/Skeleton_Hand_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_R/Skeleton_ForArm_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_R/Skeleton_ForArm_R/Skeleton_Hand_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_R/Skeleton_ForArm_R/Skeleton_Hand_R/Locator_Eff
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hair_Front01_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hair_Front01_L/Skeleton_Hair_Front02_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hair_Front01_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hair_Front01_R/Skeleton_Hair_Front02_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hat_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hat_R
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Witch_AttackShot
+      takeName: Take 001
+      internalID: 6641085478485924818
+      firstFrame: 17
+      lastFrame: 45
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.76422614
+        functionName: AttackEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Model
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Control_Locator
+        weight: 1
+      - path: Root/Control_Locator/Control_Leg_L
+        weight: 1
+      - path: Root/Control_Locator/Control_Leg_R
+        weight: 1
+      - path: Root/Control_Locator/Locator_Head
+        weight: 1
+      - path: Root/Control_Locator/Locator_Pelvis
+        weight: 1
+      - path: Root/Control_Locator/Upvector_Leg_L
+        weight: 1
+      - path: Root/Control_Locator/Upvector_Leg_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L/Skeleton_UpperLeg_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L/Skeleton_UpperLeg_L/FullBodyIK (2)
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L/Skeleton_UpperLeg_L/Skeleton_Leg_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_L/Skeleton_UpperLeg_L/Skeleton_Leg_L/Skeleton_Foot_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R/Skeleton_UpperLeg_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R/Skeleton_UpperLeg_R/FullBodyIK
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R/Skeleton_UpperLeg_R/Skeleton_Leg_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Locator_Leg_R/Skeleton_UpperLeg_R/Skeleton_Leg_R/Skeleton_Foot_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt01A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt01A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt02A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt02A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt03A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt03A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt04A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt04A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt05A_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Skirt05A_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_L/Skeleton_ForArm_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_L/Skeleton_ForArm_L/Skeleton_Hand_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_R/Skeleton_ForArm_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_R/Skeleton_ForArm_R/Skeleton_Hand_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Arm_R/Skeleton_ForArm_R/Skeleton_Hand_R/Locator_Eff
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hair_Front01_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hair_Front01_L/Skeleton_Hair_Front02_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hair_Front01_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hair_Front01_R/Skeleton_Hair_Front02_R
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hat_L
+        weight: 1
+      - path: Root/Skeleton_Pelvis/Skeleton_Spine01/Skeleton_Spine02/Skeleton_Head/Skeleton_Hat_R
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

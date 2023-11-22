@@ -19,6 +19,8 @@ namespace Game.Test
             None,
             /// <summary> 摦嶌偡傞忬懺 </summary>
             Move,
+            /// <summary> 攻撃準備段階 </summary>
+            ReadyAttack,
             /// <summary> 峌寕偡傞忬懺 </summary>
             Attack,
             /// <summary> 峌寕傪庴偗偨忬懺 </summary>
@@ -41,6 +43,7 @@ namespace Game.Test
         private Rigidbody _Rigidbody;
         private float _Speed = 0.6f;
         private PlayerParameter _PlayerParameter;
+        [SerializeField] private GameObject _Bullet;
         #endregion
 
         #region property
@@ -133,6 +136,13 @@ namespace Game.Test
                     {
                     }
                     break;
+                case StateEnum.ReadyAttack:
+                    // Move曄峏帪1夞偩偗屇偽傟傞張棟
+                    {
+                        _Animator.SetTrigger("ReadyAttackTrigger");
+                        
+                    }
+                    break;
                 case StateEnum.Attack:
                     // Attack曄峏帪1夞偩偗屇偽傟傞張棟
                     {
@@ -180,6 +190,15 @@ namespace Game.Test
                    
                         // 峌寕偡傞張棟 亊儃僞儞偑墴偝傟偨傜
                         if (Gamepad.all[_PlayerParameter.GamepadNumber_L].buttonEast.wasPressedThisFrame && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Waiting") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Rising") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Falling") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
+                        {
+                            ChangeState(StateEnum.ReadyAttack);
+                        }
+                    }
+                    break;
+                case StateEnum.ReadyAttack:
+                    // Attack帪偵枅僼儗乕儉屇偽傟傞張棟
+                    {
+                        if (!Gamepad.all[_PlayerParameter.GamepadNumber_L].buttonEast.isPressed)
                         {
                             ChangeState(StateEnum.Attack);
                         }
@@ -235,6 +254,10 @@ namespace Game.Test
         }
         #endregion
 
+        private void WaitAttackStart()
+        {
+            StartCoroutine(ChargeShot());
+        }
         /// <summary> 傾僯儊乕僔儑儞僀儀儞僩 Attack廔椆帪偵婲摦偡傞儊僜僢僪 </summary>
         private void AttackStart()
         {
@@ -244,6 +267,19 @@ namespace Game.Test
         /// <summary> 傾僯儊乕僔儑儞僀儀儞僩 Attack廔椆帪偵婲摦偡傞儊僜僢僪 </summary>
         private void AttackEnd()
         {
+            ChangeState(StateEnum.Move);
+        }
+
+        IEnumerator ChargeShot()
+        {//チャージショット
+
+            Vector3 _SetPosition = new Vector3(transform.position.x, 1.5f, transform.position.z);
+            Vector3 direction = transform.forward;
+            direction.Normalize();
+            var bulletInstance = Instantiate<GameObject>(_Bullet, _SetPosition + direction * 1.2f, Quaternion.identity);
+            bulletInstance.GetComponent<BulletController>().setDirection(direction);
+            yield return new WaitUntil(() => _Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") == true);
+            bulletInstance.GetComponent<BulletController>().setAttackTrigger();
             ChangeState(StateEnum.Move);
         }
     }
