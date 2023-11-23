@@ -9,6 +9,15 @@ namespace Game.Test
 {
     public class Test : MonoBehaviour
     {
+        private void OnTriggerEnter(Collider other)
+        {
+
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+ 
+        }
         // Start is called before the first frame update
         void Start()
         {

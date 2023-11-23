@@ -52,14 +52,15 @@ namespace Game.Test
         private async void Awake()
         {
             _PlayerParameter = await GameData.Instance.GetPlayerParameter();
+            _Animator = GetComponent<Animator>();
+            _Rigidbody = GetComponent<Rigidbody>();
         }
         /// <summary>
         /// 僆僽僕僃僋僩偑惗惉偝傟偨捈屻丄Unity偐傜嵟弶偵侾夞屇偽傟傞張棟
         /// </summary>
         private void Start()
         {
-            _Animator = GetComponent<Animator>();
-            _Rigidbody = GetComponent<Rigidbody>();
+
             ChangeState(StateEnum.Move);
         }
 
@@ -78,7 +79,19 @@ namespace Game.Test
         /// <param name="collision"></param>
         private void OnCollisionEnter(Collision collision)
         {
+            if (LayerMask.LayerToName(collision.gameObject.layer) == "Ground")
+            {
+                _Rigidbody.velocity = Vector3.zero;
+                transform.SetParent(collision.transform);
+            }
+        }
 
+        private void OnCollisionExit(Collision collision)
+        {
+            if (LayerMask.LayerToName(collision.gameObject.layer) == "Ground")
+            {
+                transform.SetParent(null);
+            }
         }
 
         ///亙!亜揋偺墦嫍棧峌寕偵懳偡傞張棟偐側丠
@@ -247,5 +260,7 @@ namespace Game.Test
         {
             ChangeState(StateEnum.Move);
         }
+
+
     }
 }

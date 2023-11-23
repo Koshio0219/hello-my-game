@@ -28,11 +28,13 @@ public class GamePadCursor : MonoBehaviour
     private string previousControlScheme = "";
     private const string gamepadScheme = "Gamepad";
     private const string mouseScheme = "Keyboard&Mouse";
+    private float cursorSpeedDefault = 1000f;
 
     private Game.Test.PlayerParameter _PlayerParameter;
 
     private async void Awake()
     {
+        cursorSpeedDefault = cursorSpeed;
         _PlayerParameter = await GameData.Instance.GetPlayerParameter();
     }
 
@@ -105,8 +107,10 @@ public class GamePadCursor : MonoBehaviour
     private void FixedUpdate()
     {
         if (_PlayerParameter == null) return;
+        cursorSpeed = cursorSpeedDefault;
         if (Gamepad.all[_PlayerParameter.GamepadNumber_D].leftTrigger.isPressed)
         {
+            cursorSpeed = cursorSpeedDefault * 0.1f;
             Vector2 currentPosition = virtualMouse.position.ReadValue();
             Ray ray = Camera.main.ScreenPointToRay(currentPosition);
             RaycastHit hit_info = new RaycastHit();
@@ -142,6 +146,7 @@ public class GamePadCursor : MonoBehaviour
                 } else if ((hit_info.transform.position - collision).magnitude < (currentHitsPosition - collision).magnitude)
                 {
                     Debug.Log("Collision: " + collision);
+                    //rb.position = currentHitsPosition;
                     rb.MovePosition(currentHitsPosition);
                 }
                 //hit_info.transform.position = currentHitsPosition;
