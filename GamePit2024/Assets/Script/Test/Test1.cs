@@ -59,7 +59,7 @@ namespace Game.Test
 
             loadScene.onClick.AddListener(() =>
             {
-                SceneLoader.Instance.OnClickLoadScene("Stage").Forget();
+                SceneLoader.Instance.GoToStage();
                 loadScene.onClick.RemoveAllListeners();
             });
         }

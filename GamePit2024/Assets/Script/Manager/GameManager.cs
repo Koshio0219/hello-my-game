@@ -24,6 +24,8 @@ namespace Game.Manager
             }
         }
 
+        internal static StageManager stageManager = null;
+
         protected override void Awake()
         {
             base.Awake();

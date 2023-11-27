@@ -1,4 +1,4 @@
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +11,7 @@ namespace Game.Loader
     {
         private float progress = 0f;
 
-        public async UniTaskVoid OnClickLoadScene(string toScene)
+        private async UniTaskVoid OnClickLoadScene(string toScene)
         {
             EventQueueSystem.QueueEvent(new SceneLoadStartEvent());
 
@@ -28,6 +28,16 @@ namespace Game.Loader
             EventQueueSystem.QueueEvent(new SceneLoadFinishedEvent());
 
             progress = 0f;
+        }
+
+        public void BackToMenu()
+        {
+            OnClickLoadScene("Start").Forget();
+        }
+
+        public void GoToStage()
+        {
+            OnClickLoadScene("Stage").Forget();
         }
     }
 }

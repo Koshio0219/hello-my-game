@@ -1,5 +1,6 @@
 ﻿//Game中の全てのEventはこのScriptに書く、そして確認できる
 //EventはGameEventというClassを継承する必要がある
+using Game.Manager;
 using UnityEngine;
 
 namespace Game.Framework
@@ -35,6 +36,15 @@ namespace Game.Framework
         public BackgroundScrollerEvent(float dis)
         {
             this.dis = dis;
+        }
+    }
+
+    public class StageStatesEvent : GameEvent
+    {
+        public StageStates to;
+        public StageStatesEvent(StageStates stageStates)
+        {
+            to = stageStates;
         }
     }
 
