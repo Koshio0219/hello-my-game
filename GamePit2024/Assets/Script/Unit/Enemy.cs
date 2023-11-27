@@ -112,6 +112,7 @@ namespace Game.Unit
         {
             if (State == toState) return;
             State = toState;
+            if (mapStateToAction.Count == 0) return;
             mapStateToAction[toState].Invoke();
         }
 
