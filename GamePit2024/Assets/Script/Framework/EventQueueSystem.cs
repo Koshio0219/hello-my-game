@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Threading;
 
 namespace Game.Framework
 {
@@ -12,11 +13,14 @@ namespace Game.Framework
 
         private delegate void InternalEventDelegate(GameEvent e);
 
-        private Dictionary<Type, InternalEventDelegate> delegates = new Dictionary<Type, InternalEventDelegate>();
-        private Dictionary<Delegate, InternalEventDelegate> delegateLookup = new Dictionary<Delegate, InternalEventDelegate>();
-        private Dictionary<InternalEventDelegate, Delegate> delegateLookOnce = new Dictionary<InternalEventDelegate, Delegate>();
+        private readonly Dictionary<Type, InternalEventDelegate> delegates = new();
+        private readonly Dictionary<Delegate, InternalEventDelegate> delegateLookup = new();
+        private readonly Dictionary<InternalEventDelegate, Delegate> delegateLookOnce = new();
 
-        private Queue eventQueue = new Queue();
+        private readonly Queue eventQueue = new();
+
+        //thread locker
+        private static readonly Mutex mutex = new();
 
         public bool bLimitQueueProcessing = false;
         public float limitQueueTime = 0.1f;
@@ -118,7 +122,10 @@ namespace Game.Framework
         {
             if (!Instance.delegates.ContainsKey(e.GetType()))
                 return;
+
+            mutex.WaitOne();
             Instance.eventQueue.Enqueue(e);
+            mutex.ReleaseMutex();
         }
 
         //事件队列触发处理
