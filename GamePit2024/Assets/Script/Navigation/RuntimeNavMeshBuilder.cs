@@ -1,4 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
+using Game.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -36,8 +38,20 @@ namespace Game.Navigation
             UpdateNavMesh().Forget();
         }
 
+#if DEBUG_MODE
         protected virtual void OnEnable()
         {
+            Build();
+        }
+#endif
+        private void Awake()
+        {
+            EventQueueSystem.AddListener<StageStatesEvent>(StageStatesHandler);
+        }
+
+        private void StageStatesHandler(StageStatesEvent e)
+        {
+            if (e.to != Manager.StageStates.NavMeshBuildStart) return;
             Build();
         }
 
@@ -45,6 +59,7 @@ namespace Game.Navigation
         {
             // Unload navmesh and clear handle
             mInstance.Remove();
+            EventQueueSystem.RemoveListener<StageStatesEvent>(StageStatesHandler);
         }
 
         protected virtual async UniTaskVoid UpdateNavMesh()
@@ -53,6 +68,7 @@ namespace Game.Navigation
             var settings = NavMesh.GetSettingsByID(0);
             var bounds = QuantizedBounds();
             await NavMeshBuilder.UpdateNavMeshDataAsync(mNavMesh, settings, mSources, bounds).ToUniTask();
+            EventQueueSystem.QueueEvent(new StageStatesEvent(Manager.StageStates.NavMeshBuildEnd));
         }
 
         protected static Vector3 Quantize(Vector3 v, Vector3 quant)

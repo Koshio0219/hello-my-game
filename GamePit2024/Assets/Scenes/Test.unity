@@ -1002,7 +1002,6 @@ GameObject:
   - component: {fileID: 1085974281987975249}
   - component: {fileID: 1085974281987975250}
   - component: {fileID: 1085974281987975260}
-  - component: {fileID: 1085974281987975261}
   m_Layer: 0
   m_Name: TestAIActor_Remote
   m_TagString: Untagged
@@ -1110,22 +1109,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1085974281987975261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1085974281987975243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e65fbb293fc514f4783dc92c33198f5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
-  smileBody: {fileID: 0}
-  damType: 0
 --- !u!1001 &1085974282794494551
 PrefabInstance:
   m_ObjectHideFlags: 0

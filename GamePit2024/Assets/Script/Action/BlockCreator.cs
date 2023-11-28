@@ -3,9 +3,11 @@ using Cysharp.Threading.Tasks.Linq;
 using Game.Base;
 using Game.Data;
 using Game.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Manager;
 //using UnityEngine.Pool;
 
 namespace Game.Action
@@ -14,12 +16,37 @@ namespace Game.Action
     {
         public BlockCreateData blockCreateData;
 
-        private List<BlockBase> insBlocks = new List<BlockBase>();
+        private List<BlockBase> insBlocks = new();
 
         private IBlockBaseAction currentSelected;
 
+#if DEBUG_MODE
         private void Start()
         {
+            StartCoroutine(Creat(blockCreateData));
+        }
+#endif
+
+        private void Awake()
+        {
+            EventQueueSystem.AddListener<StageStatesEvent>(StageStatesHandler);
+        }
+
+        private void OnDestroy()
+        {
+            EventQueueSystem.RemoveListener<StageStatesEvent>(StageStatesHandler);
+        }
+
+        private void StageStatesHandler(StageStatesEvent e)
+        {
+            if (e.to != StageStates.MapBlockCreateStart) return;
+            if (blockCreateData == null)
+            {
+                Debug.LogError("blockCreateData is null,please check");
+                EventQueueSystem.QueueEvent(new StageStatesEvent(StageStates.MapBlockCreateEnd));
+                return;
+            }
+
             StartCoroutine(Creat(blockCreateData));
         }
 
@@ -48,7 +75,7 @@ namespace Game.Action
                 await UniTask.DelayFrame(1);
             }
             Debug.Log("create end!");
-
+            EventQueueSystem.QueueEvent(new StageStatesEvent(StageStates.MapBlockCreateEnd));
         });
     }
 }

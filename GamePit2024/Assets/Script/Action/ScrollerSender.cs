@@ -1,9 +1,12 @@
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
+using Game.Data;
 using Game.Framework;
+using Game.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Game.Action
 {
@@ -24,10 +27,49 @@ namespace Game.Action
                 Debug.Log($"current posX is changed ,value is :{x}");
 
             }, this.GetCancellationTokenOnDestroy()).Forget();
+
+
+            var temp = UniTask.Action(async (_) =>
+            {
+                while (true)
+                {
+                    //...//
+                    UpdateAction();
+                    await UniTask.DelayFrame(1, PlayerLoopTiming.Update);
+                }
+
+            }, this.GetCancellationTokenOnDestroy());
+            temp.Invoke();
+
+            
         }
 
+        private void Awake()
+        {
+            EventQueueSystem.AddListener<StageStatesEvent>(StageStatesHandler);
+        }
 
-        void Update()
+        private void OnDestroy()
+        {
+            EventQueueSystem.RemoveListener<StageStatesEvent>(StageStatesHandler);
+        }
+
+        private void StageStatesHandler(StageStatesEvent e)
+        {
+            if (e.to != StageStates.BattleStarted) return;
+
+            //var temp = UniTask.UnityAction(async (_) =>
+            //{
+            //    while (true)
+            //    {
+            //        //...//
+            //       await UniTask.DelayFrame(1, PlayerLoopTiming.Update);
+            //    }
+
+            //},this.GetCancellationTokenOnDestroy());
+        }
+
+        void UpdateAction()
         {
             var dt = Time.deltaTime;
             if (Input.GetKey(KeyCode.D))

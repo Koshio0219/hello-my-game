@@ -19,7 +19,7 @@ namespace Game.Manager
         CurtainInputEnd,
         EnemyBuildStart,
         EnemyBuildEnd,
-        BattleStart,
+        BattleStarted,
         BattleClear,//win
         GameOver//lose
     }
@@ -29,7 +29,7 @@ namespace Game.Manager
         private StageStates stageState = StageStates.GetReady;
         public StageStates StageState { get => stageState; private set => stageState = value; }
 
-        private Dictionary<StageStates, UnityAction> mapStateToEvent = new Dictionary<StageStates, UnityAction>();
+        private readonly Dictionary<StageStates, UnityAction> mapStateToEvent = new();
 
         private void Awake()
         {
@@ -76,7 +76,7 @@ namespace Game.Manager
 
         private void EnemyBuildEndHandler()
         {
-            SendStateEvent(StageStates.BattleStart);
+            SendStateEvent(StageStates.BattleStarted);
         }
 
         private void CurtainInputEndHandler()

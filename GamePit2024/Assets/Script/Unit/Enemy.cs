@@ -19,8 +19,7 @@ namespace Game.Unit
         private EnemyState State { get => state; set => state = value; }
         public EnemyState EnemyState => State;
 
-        protected Dictionary<EnemyState, UnityAction> mapStateToAction =
-            new Dictionary<EnemyState, UnityAction>(5);
+        protected readonly Dictionary<EnemyState, UnityAction> mapStateToAction =new(5);
 
         private EnemyAttackState attackState;
         private EnemyAttackState AttackState { get => attackState; set => attackState = value; }
