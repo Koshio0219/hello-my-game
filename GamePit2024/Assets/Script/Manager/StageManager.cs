@@ -1,5 +1,6 @@
 ﻿using Game.Framework;
 using Game.Loader;
+using Game.Unit;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,6 +31,9 @@ namespace Game.Manager
         public StageStates StageState { get => stageState; private set => stageState = value; }
 
         private readonly Dictionary<StageStates, UnityAction> mapStateToEvent = new();
+
+        private Dictionary<int, GameObject> MapPlayerIdToInstance { get; set; } = new();
+        private Dictionary<int, Enemy> MapEnemyIdToInstance { get; set; } = new();
 
         private void Awake()
         {
@@ -129,6 +133,62 @@ namespace Game.Manager
         {
             //...something else...
             SceneLoader.Instance.BackToMenu();
+        }
+
+        public void AddOnePlayer(int playerId,GameObject playerIns)
+        {
+            if (MapPlayerIdToInstance.ContainsKey(playerId)) return;
+            MapPlayerIdToInstance.Add(playerId, playerIns);
+        }
+
+        public void RemoveOnePlayer(int playerId,bool bDestroy = true) 
+        {
+            if (!MapPlayerIdToInstance.ContainsKey(playerId)) return;
+            if (bDestroy) Destroy(MapEnemyIdToInstance[playerId]);
+            MapPlayerIdToInstance.Remove(playerId);
+        }
+
+        public void ClearAllPlayers()
+        {
+            foreach (var item in MapPlayerIdToInstance)
+            {
+                Destroy(item.Value);
+            }
+            MapPlayerIdToInstance.Clear();
+        }
+
+        public void AddOneEnemy(int enemyId,Enemy enemy)
+        {
+            if (MapEnemyIdToInstance.ContainsKey(enemyId)) return;
+            MapEnemyIdToInstance.Add(enemyId, enemy);
+        }
+
+        public void RemoveOneEnemy(int enemyId,bool bDestroy = true)
+        {
+            if (!MapEnemyIdToInstance.ContainsKey(enemyId)) return;
+            if (bDestroy) Destroy(MapEnemyIdToInstance[enemyId].gameObject);
+            MapEnemyIdToInstance.Remove(enemyId);
+        }
+
+        public void ClearAllEnemies()
+        {
+            foreach (var item in MapEnemyIdToInstance)
+            {
+                Destroy(item.Value.gameObject);
+            }
+            MapEnemyIdToInstance.Clear();
+        }
+
+        public GameObject GetPlayer(int playerId)
+        {
+            if (!MapPlayerIdToInstance.ContainsKey(playerId)) return null;
+            return MapPlayerIdToInstance[playerId];
+        }
+
+        public Enemy GetEnemy(int enemyId)
+        {
+            if (!MapEnemyIdToInstance.ContainsKey(enemyId)) return null;
+            return MapEnemyIdToInstance[enemyId];
         }
     }
 }
