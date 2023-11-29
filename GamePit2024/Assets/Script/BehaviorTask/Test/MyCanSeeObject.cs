@@ -11,7 +11,7 @@ namespace Game.BehaviorTask
         public SharedTransformList targets;
 
         public SharedFloat radius = 5f;
-        public SharedFloat angel = 120f;
+        public SharedFloat angle = 120f;
 
         public SharedTransformList results;
         public SharedGameObject closest;
@@ -33,8 +33,8 @@ namespace Game.BehaviorTask
                 if (_sqrDis > sqrRadius)
                     continue;
 
-                float angel = Vector3.Angle(transform.forward, offse.normalized);
-                if (angel > this.angel.Value * .5f)
+                float angle = Vector3.Angle(transform.forward, offse.normalized);
+                if (angle > this.angle.Value * .5f)
                     continue;
 
                 Ray ray = new Ray(transform.position, offse);
