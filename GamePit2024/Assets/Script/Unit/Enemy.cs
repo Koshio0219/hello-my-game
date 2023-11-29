@@ -21,9 +21,9 @@ namespace Game.Unit
 
         protected readonly Dictionary<EnemyState, UnityAction> mapStateToAction =new(5);
 
-        private EnemyAttackState attackState;
-        private EnemyAttackState AttackState { get => attackState; set => attackState = value; }
-        public EnemyAttackState EnemyAttackState => AttackState;
+        private AttackState attackState;
+        private AttackState AttackState { get => attackState; set => attackState = value; }
+        public AttackState EnemyAttackState => AttackState;
 
         private float maxHp; 
         public virtual float MaxHp
@@ -115,7 +115,7 @@ namespace Game.Unit
             mapStateToAction[toState].Invoke();
         }
 
-        public virtual void ChangeAttackState(EnemyAttackState toState)
+        public virtual void ChangeAttackState(AttackState toState)
         {
             if (AttackState == toState) return;
             AttackState = toState;
@@ -127,7 +127,7 @@ namespace Game.Unit
         protected virtual void OnChangeHit() { }
         protected virtual void OnChangeMove() { }
         protected virtual void OnChangeAttack() { }
-        protected virtual void OnChangeAttackState(EnemyAttackState attackState) { }
+        protected virtual void OnChangeAttackState(AttackState attackState) { }
 
         public void Init()
         {

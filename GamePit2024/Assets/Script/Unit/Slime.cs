@@ -48,13 +48,13 @@ namespace Game.Unit
         {
             switch (EnemyAttackState)
             {
-                case EnemyAttackState.Normal:
+                case AttackState.Normal:
                     if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) break;
                     SetFace(faces.attackFace);
                     animator.SetTrigger("Attack");
                     SetSpeed();
                     break;
-                case EnemyAttackState.Skill:
+                case AttackState.Skill:
                     if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
                     SetFace(faces.jumpFace);
                     animator.SetTrigger("Jump");

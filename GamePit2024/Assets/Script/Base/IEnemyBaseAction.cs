@@ -6,7 +6,7 @@ namespace Game.Base
     {
         EnemyUnitData EnemyUnitData { get; }
         EnemyState EnemyState { get; }
-        EnemyAttackState EnemyAttackState { get; }
+        AttackState EnemyAttackState { get; }
 
         void Born(EnemyUnitData data);
         void Dead();

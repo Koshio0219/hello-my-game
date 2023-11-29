@@ -27,7 +27,7 @@ namespace Game.Data
         Dead
     }
 
-    public enum EnemyAttackState
+    public enum AttackState
     {
         Normal,
         Skill
