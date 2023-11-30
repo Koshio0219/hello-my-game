@@ -44,6 +44,11 @@ namespace Game.Test
         private float _Speed = 0.6f;
         private PlayerParameter _PlayerParameter;
         [SerializeField] private GameObject _Bullet;
+        [SerializeField] private GameObject _Beam;
+        [SerializeField] private GameObject _SkillObject;
+        [SerializeField] private float _CoolTime = 10f;
+        float _SkillTime;
+        private Image _SkillImage;
         #endregion
 
         #region property
@@ -55,6 +60,7 @@ namespace Game.Test
         private async void Awake()
         {
             _PlayerParameter = await GameData.Instance.GetPlayerParameter();
+            _SkillImage = _SkillObject.GetComponent<Image>();
         }
         /// <summary>
         /// 僆僽僕僃僋僩偑惗惉偝傟偨捈屻丄Unity偐傜嵟弶偵侾夞屇偽傟傞張棟
@@ -147,6 +153,7 @@ namespace Game.Test
                     // Attack曄峏帪1夞偩偗屇偽傟傞張棟
                     {
                         _Animator.SetTrigger("AttackTrigger");
+                        _SkillTime = _CoolTime;
                     }
                     break;
                 case StateEnum.Damage:
@@ -181,13 +188,18 @@ namespace Game.Test
                 case StateEnum.Move:
                     // Move帪偵枅僼儗乕儉屇偽傟傞張棟
                     {
+                        
                         // 曕偔
                         if (_Rigidbody != null)
                         {
                             Walk();
                         }
 
-                   
+                        if (_SkillTime > 0f) {
+                            _SkillTime -= Time.deltaTime;
+                            _SkillImage.fillAmount = 1 - _SkillTime / _CoolTime;
+                            break;
+                        }
                         // 峌寕偡傞張棟 亊儃僞儞偑墴偝傟偨傜
                         if (Gamepad.all[_PlayerParameter.GamepadNumber_L].buttonEast.wasPressedThisFrame && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Waiting") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Rising") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Falling") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
                         {
@@ -256,7 +268,7 @@ namespace Game.Test
 
         private void WaitAttackStart()
         {
-            StartCoroutine(ChargeShot());
+            StartCoroutine(BeamShot());
         }
         /// <summary> 傾僯儊乕僔儑儞僀儀儞僩 Attack廔椆帪偵婲摦偡傞儊僜僢僪 </summary>
         private void AttackStart()
@@ -280,6 +292,28 @@ namespace Game.Test
             bulletInstance.GetComponent<BulletController>().setDirection(direction);
             yield return new WaitUntil(() => _Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") == true);
             bulletInstance.GetComponent<BulletController>().setAttackTrigger();
+            ChangeState(StateEnum.Move);
+        }
+
+        IEnumerator BeamShot()
+        {//ビームショット
+
+            Vector3 _SetPosition = new Vector3(transform.position.x, 1.5f, transform.position.z);
+            Vector3 direction = transform.forward;
+            direction.Normalize();
+            var beamInstance = Instantiate<GameObject>(_Beam, _SetPosition + direction * 1.5f, Quaternion.identity);
+            beamInstance.GetComponent<BeamController>().Init(transform.position, _SetPosition + direction * 4f, 2.0f, 0);
+            var beamInstance2 = Instantiate<GameObject>(_Beam, _SetPosition - direction * 1.5f, Quaternion.identity);
+            beamInstance2.GetComponent<BeamController>().Init(transform.position, _SetPosition + direction * 4f, 2.0f, 0);
+            var beamInstance3 = Instantiate<GameObject>(_Beam, _SetPosition + transform.right.normalized * 1.5f, Quaternion.identity);
+            beamInstance3.GetComponent<BeamController>().Init(transform.position, _SetPosition + direction * 4f, 2.0f, 0);
+            var beamInstance4 = Instantiate<GameObject>(_Beam, _SetPosition - transform.right.normalized * 1.5f, Quaternion.identity);
+            beamInstance4.GetComponent<BeamController>().Init(transform.position, _SetPosition + direction * 4f, 2.0f, 0);
+            yield return new WaitUntil(() => _Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") == true);
+            beamInstance.GetComponent<BeamController>().setAttackTrigger();
+            beamInstance2.GetComponent<BeamController>().setAttackTrigger();
+            beamInstance3.GetComponent<BeamController>().setAttackTrigger();
+            beamInstance4.GetComponent<BeamController>().setAttackTrigger();
             ChangeState(StateEnum.Move);
         }
     }
