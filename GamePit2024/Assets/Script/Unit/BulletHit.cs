@@ -26,7 +26,7 @@ namespace Game.Unit
             var up = enter.transform.GetRootParent();
             if (!up.TryGetComponent<IDamageable>(out var damageable)) return;
             //damageable.Hit(sourceId, damage);
-            EventQueueSystem.QueueEvent(new SendDamageEvent(sourceId, up.gameObject.GetInstanceID(), damage));
+            EventQueueSystem.QueueEvent(new SendDamageEvent(sourceId, up.gameObject, damage));
         }
     }
 }

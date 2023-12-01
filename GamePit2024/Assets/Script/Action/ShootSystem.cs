@@ -35,6 +35,9 @@ namespace Game.Action
             var enter = await enterTrigger.OnTriggerEnterAsync(hit.GetCancellationTokenOnDestroy());
             hit.OnEnterHit(enter, creatorId, damage);
 
+            //recycle
+            bullet.Recycle();
+
             //hit.sourceId = creatorId;
             //hit.damage = damage;
         }
