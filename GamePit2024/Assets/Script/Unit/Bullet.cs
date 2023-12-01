@@ -3,6 +3,7 @@ using Game.Base;
 using Game.Framework;
 using System.Collections;
 using System.Threading;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 namespace Game.Unit
@@ -27,6 +28,7 @@ namespace Game.Unit
         public GameObject Target { get;private set; }
 
         private CancellationToken token = CancellationToken.None;
+        //private CancellationTokenSource tokenSource;
 
         private System.Action recycleAction = null;
         private System.Action moveAction = null;
@@ -34,10 +36,19 @@ namespace Game.Unit
         public void Init(GameObject target)
         {
             Target = target;
-            token = this.GetCancellationTokenOnDestroy();
+            //token = this.GetCancellationTokenOnDestroy();
+            //tokenSource = new CancellationTokenSource();
+            //token = tokenSource.Token;
+            token = this.GetCancellationTokenOnDisable();
+
             InitAction();
             recycleAction.Invoke();
             moveAction.Invoke();
+        }
+
+        public void Recycle()
+        {
+            GameObjectPool.Instance.RecycleObj(gameObject);
         }
 
         private void InitAction()
@@ -45,7 +56,7 @@ namespace Game.Unit
              recycleAction = UniTask.Action(async (_) =>
              {
                  await UniTask.Delay((int)(prop.lifeTime * 1000));
-                 GameObjectPool.Instance.RecycleObj(gameObject);
+                 Recycle();
              }, token);
             moveAction = UniTask.Action(async (_) =>
             {
@@ -79,6 +90,7 @@ namespace Game.Unit
 
         private void OnDisable()
         {
+            //tokenSource.Cancel();
             recycleAction = null;
             moveAction = null;
             token = CancellationToken.None;

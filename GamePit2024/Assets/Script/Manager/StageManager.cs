@@ -190,6 +190,25 @@ namespace Game.Manager
             if (!MapEnemyIdToInstance.ContainsKey(enemyId)) return null;
             return MapEnemyIdToInstance[enemyId];
         }
+
+        public int MatchPlayerId(GameObject target)
+        {
+            foreach (var item in MapPlayerIdToInstance)
+            {
+                if (target.GetInstanceID() == item.Value.GetInstanceID())
+                {
+                    return item.Key;
+                }
+            }
+
+            Debug.Log($"match player failure! target name :{target.name}");
+            return -1;
+        }
+
+        public bool IsFriend(int id1,int id2)
+        {
+            return (MapPlayerIdToInstance.ContainsKey(id1) && MapPlayerIdToInstance.ContainsKey(id2)) || (MapEnemyIdToInstance.ContainsKey(id1) && MapEnemyIdToInstance.ContainsKey(id2));
+        }
     }
 }
 

@@ -1,18 +1,23 @@
+ï»¿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using Radom = UnityEngine.Random;
 
 namespace Game.Framework
 {
     /// <summary>
-    /// ¥²©`¥à¤ÎÖĞ¤Ç¤è¤¯ÀûÓÃ¤µ¤ì¤¿ExtensionMethods¤Î¥¯¥é¥¹
+    /// ã‚²ãƒ¼ãƒ ã®ä¸­ã§ã‚ˆãåˆ©ç”¨ã•ã‚ŒãŸExtensionMethodsã®ã‚¯ãƒ©ã‚¹
     /// </summary>
     public static class ExtensionMethods
     {
-        #region Collections évßB
+        #region Collections é–¢é€£
 
         /// <summary>
         /// random to select one from a list
@@ -35,7 +40,7 @@ namespace Game.Framework
         {
             if (dictionary.Count < idx)
             {
-                throw new Exception($"the input index:{idx} is bigger with the dictionary count: {dictionary.Count}£¡£¡");
+                throw new Exception($"the input index:{idx} is bigger with the dictionary count: {dictionary.Count}ï¼ï¼");
             }
 
             var key = dictionary.Keys.ToList()[idx];
@@ -67,7 +72,7 @@ namespace Game.Framework
         }
 
         /// <summary>
-        /// converse a dictionary£¨key ¤È value¡¡¤ÏÒ»¤ÄÒ»¤Ä¤ËŒê¤¬±ØÒª £©
+        /// converse a dictionaryï¼ˆkey ã¨ valueã€€ã¯ä¸€ã¤ä¸€ã¤ã«å¯¾å¿œãŒå¿…è¦ ï¼‰
         /// </summary>
         public static Dictionary<Tv, Tk> Converse<Tk, Tv>(this Dictionary<Tk, Tv> dic)
         {
@@ -76,7 +81,7 @@ namespace Game.Framework
             {
                 if (temp.ContainsKey(kv.Value))
                 {
-                    Debug.LogError("key ¤È value¡¡¤ÏÒ»¤ÄÒ»¤Ä¤ËŒê¤¬±ØÒª");
+                    Debug.LogError("key ã¨ valueã€€ã¯ä¸€ã¤ä¸€ã¤ã«å¯¾å¿œãŒå¿…è¦");
                     temp.Clear();
                     break;
                 }
@@ -128,7 +133,7 @@ namespace Game.Framework
 
         #endregion
 
-        #region Component/Transform/GameObject évßB
+        #region Component/Transform/GameObject é–¢é€£
 
         public static T GetOrAddComponent<T>(this GameObject obj) where T : Component =>
             obj.GetComponent<T>() ?? obj.AddComponent<T>();
@@ -304,7 +309,7 @@ namespace Game.Framework
 
         #endregion
 
-        #region CameraévßB
+        #region Cameraé–¢é€£
 
         public static bool IsVisableInCamera(this Camera camera, Vector3 pos, float offseX = 0f, float offseY = 0f)
         {
@@ -323,6 +328,25 @@ namespace Game.Framework
         public static bool IsVisableInCamera(this Renderer renderer)
         {
             return renderer.isVisible;
+        }
+
+        #endregion
+
+        #region UniTaské–¢é€£
+
+        public static CancellationToken GetCancellationTokenOnDisable(this Component component)
+        {
+            var tokenSource = new CancellationTokenSource();
+            var token = tokenSource.Token;
+            WaitDisableTriggerAsync(component, tokenSource).Forget();
+            return token;
+        }
+
+        private static async UniTask WaitDisableTriggerAsync(Component component, CancellationTokenSource tokenSource)
+        {
+            var disTrigger = component.GetAsyncDisableTrigger();
+            await disTrigger.OnDisableAsync();
+            tokenSource.Cancel();
         }
 
         #endregion

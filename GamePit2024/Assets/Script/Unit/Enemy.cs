@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Game.Manager;
+using Game.Framework;
+using System;
 
 namespace Game.Unit
 {
@@ -48,6 +51,7 @@ namespace Game.Unit
             set
             {
                 hp = value;
+                if (hp > MaxHp) hp = MaxHp;
             }
         }
 
@@ -82,16 +86,32 @@ namespace Game.Unit
             data.Init();
             enemyUnitData = data;
             SetBaseProp(data.prop);
+            GameManager.stageManager.AddOneEnemy(data.InsId, this);
             ChangeState(EnemyState.Idle);
+
+            EventQueueSystem.AddListener<SendDamageEvent>(DamageEventHandler);
         }
 
         public virtual void Dead()
         {
+            EventQueueSystem.RemoveListener<SendDamageEvent>(DamageEventHandler);
             ChangeState(EnemyState.Dead);
+        }
+
+        protected virtual void DamageEventHandler(SendDamageEvent e)
+        {
+            if (e.damageActonType == DamageActonType.Trigger && e.enterObj.GetInstanceID() != gameObject.GetInstanceID()) return;
+            if (e.damageActonType == DamageActonType.PointTo && e.targetId != enemyUnitData.InsId) return;
+            if (e.damageActonType == DamageActonType.Range && !e.rangeObjs.Contains(gameObject)) return;
+            Hit(e.sourceId, e.damage);
         }
 
         public virtual void Hit(int sourceId, float damage)
         {
+            if (sourceId == enemyUnitData.InsId) return;
+            if (GameManager.stageManager.IsFriend(sourceId, enemyUnitData.InsId)) return;
+            Hp -= damage;
+            Debug.Log($"enemy id :{enemyUnitData.InsId},name:{gameObject.name} had receive damage:{damage},current hp :{Hp}");
             ChangeState(EnemyState.Hit);
         }
 

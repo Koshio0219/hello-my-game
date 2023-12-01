@@ -10,16 +10,19 @@ namespace Game.Base
         public abstract void FireBegin(int creatorId = 0, AttackState attackState = AttackState.Normal);
         public abstract void FireShut();
 
-        public virtual void SetDamage(float damage, float damageUpSpeed = 0f, int maxDamage = 0, float exCritRate = 0f)
+        public virtual FireBase SetDamage(float damage, float damageUpSpeed = 0f, int maxDamage = 0, float exCritRate = 0f)
         {
+            return this;
         }
 
-        public virtual void SetTarget(GameObject tar)
+        public virtual FireBase SetTarget(GameObject tar)
         {
+            return this;
         }
 
-        public virtual void SetFirePos(Transform pos)
+        public virtual FireBase SetFirePos(Transform pos)
         {
+            return this;
         }
     }
 }
