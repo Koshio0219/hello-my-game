@@ -25,6 +25,7 @@ namespace Game.Action
         private CurtainState curtainState;
         public CurtainState CurtainState { get => curtainState; set => curtainState = value; }
 
+        public float selfX = 8f;
         public Transform target;
         public float movingTime = 1f;
         public float closedX = -15f;
@@ -87,6 +88,7 @@ namespace Game.Action
             inputIdx = -1;
             inputable = false;
             CurtainState = CurtainState.Closed;
+            transform.SetLocalPositionX(selfX);
             target.transform.SetLocalPositionX(closedX);
         }
 
