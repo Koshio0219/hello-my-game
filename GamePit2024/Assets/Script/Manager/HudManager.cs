@@ -11,9 +11,9 @@ namespace Game.Manager
 {
     public class HudManager : MonoSingleton<HudManager>
     {
-        private Dictionary<int, HudBase> hudDic = new Dictionary<int, HudBase>();
+        private readonly Dictionary<int, HudBase> hudDic = new();
 
-        public List<int> openList = new List<int>();
+        public List<int> openList = new();
 
         private Transform _tran = null;
         private Transform Tran

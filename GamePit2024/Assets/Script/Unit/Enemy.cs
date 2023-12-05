@@ -50,8 +50,12 @@ namespace Game.Unit
             }
             set
             {
+                if (hp == value) return;
+                var last = value;
                 hp = value;
                 if (hp > MaxHp) hp = MaxHp;
+
+                EventQueueSystem.QueueEvent(new EnemyHpChangeEvent(EnemyUnitData.InsId, last, hp));
             }
         }
 

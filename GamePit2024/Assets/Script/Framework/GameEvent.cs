@@ -96,6 +96,19 @@ namespace Game.Framework
         }
     }
 
+    public class EnemyHpChangeEvent : GameEvent
+    {
+        public int enemyId;
+        public float lastHp;
+        public float nowHp;
+        public EnemyHpChangeEvent(int enemyId, float lastHp, float nowHp)
+        {
+            this.enemyId = enemyId;
+            this.lastHp = lastHp;
+            this.nowHp = nowHp;
+        }
+    }
+
     //public class OnGameStartEvent:GameEvent 
     //{
     //    public int playerId;

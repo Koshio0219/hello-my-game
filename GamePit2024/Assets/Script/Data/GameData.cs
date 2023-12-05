@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Unity.VisualScripting.Antlr3.Runtime;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 namespace Game.Data
@@ -16,6 +17,7 @@ namespace Game.Data
     {
         public BlockTypeConfig BlockTypeConfig { get; private set; }
         public EnemyCreateConfig EnemyCreateConfig { get; private set; }
+        public HudConfig HudConfig { get; private set; }
         private PlayerParameter playerParameter =null;
 
         public async void Init()
@@ -23,6 +25,7 @@ namespace Game.Data
             var token = Manager.GameManager.Instance.CancelTokenOnGameDestroy;
             BlockTypeConfig = await AssetLoader.Instance.Load<BlockTypeConfig>(AssetType.Config, "Assets/Config/BlockTypeConfig.asset", token);
             EnemyCreateConfig = await AssetLoader.Instance.Load<EnemyCreateConfig>(AssetType.Config, "Assets/Config/EnemyCreateConfig.asset", token);
+            HudConfig = await AssetLoader.Instance.Load<HudConfig>(AssetType.Config, "Assets/Config/HudConfig.asset", token);
         }
 
         public async UniTask<PlayerParameter> GetPlayerParameter()
