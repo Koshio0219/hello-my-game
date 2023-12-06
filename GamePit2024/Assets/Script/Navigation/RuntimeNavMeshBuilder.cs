@@ -12,7 +12,15 @@ namespace Game.Navigation
     {
         // The center of the build
         public Transform tracked;
-        public Vector3 CenterPoint { get; set; }
+        public Vector3 CenterPoint
+        {
+            get 
+            {
+                if (tracked == null)
+                    return transform.position;
+                return tracked.position;
+            }
+        }
 
         // The size of the build bounds
         public Vector3 size = new Vector3(80.0f, 20.0f, 80.0f);
@@ -21,21 +29,21 @@ namespace Game.Navigation
         private NavMeshDataInstance mInstance;
         private List<NavMeshBuildSource> mSources = new List<NavMeshBuildSource>();
 
-        public void Build()
+        public async UniTask Build()
         {
             mInstance.Remove();
             mNavMesh = new NavMeshData();
             mInstance = NavMesh.AddNavMeshData(mNavMesh);
-            if (tracked == null)
-                CenterPoint = transform.position;
+            //if (tracked == null)
+            //    CenterPoint = transform.position;
 
-            BuildMesh();
+            await BuildMesh();
         }
 
-        protected virtual void BuildMesh()
+        protected virtual async UniTask BuildMesh()
         {
             if (!isActiveAndEnabled) return;
-            UpdateNavMesh().Forget();
+            await UpdateNavMesh();
         }
 
 #if DEBUG_MODE
@@ -47,12 +55,19 @@ namespace Game.Navigation
         private void Awake()
         {
             EventQueueSystem.AddListener<StageStatesEvent>(StageStatesHandler);
+            EventQueueSystem.AddListener<UpdateNavMeshEvent>(UpdateNavMeshHandler);
         }
 
-        private void StageStatesHandler(StageStatesEvent e)
+        private void UpdateNavMeshHandler(UpdateNavMeshEvent e)
+        {
+            Build().Forget();
+        }
+
+        private async void StageStatesHandler(StageStatesEvent e)
         {
             if (e.to != Manager.StageStates.NavMeshBuildStart) return;
-            Build();
+            await Build();
+            EventQueueSystem.QueueEvent(new StageStatesEvent(Manager.StageStates.NavMeshBuildEnd));
         }
 
         protected virtual void OnDestroy()
@@ -60,15 +75,15 @@ namespace Game.Navigation
             // Unload navmesh and clear handle
             mInstance.Remove();
             EventQueueSystem.RemoveListener<StageStatesEvent>(StageStatesHandler);
+            EventQueueSystem.RemoveListener<UpdateNavMeshEvent>(UpdateNavMeshHandler);
         }
 
-        protected virtual async UniTaskVoid UpdateNavMesh()
+        protected virtual async UniTask UpdateNavMesh()
         {
             NavMeshObject.Collect(ref mSources);
             var settings = NavMesh.GetSettingsByID(0);
             var bounds = QuantizedBounds();
             await NavMeshBuilder.UpdateNavMeshDataAsync(mNavMesh, settings, mSources, bounds).ToUniTask();
-            EventQueueSystem.QueueEvent(new StageStatesEvent(Manager.StageStates.NavMeshBuildEnd));
         }
 
         protected static Vector3 Quantize(Vector3 v, Vector3 quant)
@@ -82,7 +97,7 @@ namespace Game.Navigation
         protected Bounds QuantizedBounds()
         {
             // Quantize the bounds to update only when theres a 0.1% change in size
-            var center = tracked ? tracked.position : CenterPoint;
+            var center =  CenterPoint;
             return new Bounds(Quantize(center, .001f * size), size);
         }
 
@@ -99,7 +114,7 @@ namespace Game.Navigation
             Gizmos.DrawWireCube(bounds.center, bounds.size);
 
             Gizmos.color = Color.green;
-            var center = tracked ? tracked.position : CenterPoint;
+            var center =  CenterPoint;
             Gizmos.DrawWireCube(center, size);
         }
     }

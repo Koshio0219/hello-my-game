@@ -61,7 +61,7 @@ namespace Game.Action
                 {
                     var one = enemyCreateConfig.EnemyConfig[i];
 
-                    //
+                    //TODO
                     //..build and init..
                     //
 

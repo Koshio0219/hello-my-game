@@ -116,6 +116,7 @@ namespace Game.Manager
         {
             EventQueueSystem.QueueEvent(new StageStatesEvent(state));
             StageState = state;
+            Debug.Log($"current stage state is :{state}");
         }
 
         private bool IsLastStage()

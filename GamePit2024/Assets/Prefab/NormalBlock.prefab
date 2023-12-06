@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4514535141509693404}
   - component: {fileID: 4514535141509693405}
   - component: {fileID: 4514535141509693393}
+  - component: {fileID: 3586801953052803017}
   m_Layer: 0
   m_Name: NormalBlock
   m_TagString: Untagged
@@ -108,5 +109,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3e88cc26ba84f742930844b1af7be91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3586801953052803017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4514535141509693406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f34c672c31fe3242925516a667865a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

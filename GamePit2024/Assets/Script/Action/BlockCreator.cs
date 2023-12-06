@@ -76,6 +76,7 @@ namespace Game.Action
             }
             Debug.Log("create end!");
             EventQueueSystem.QueueEvent(new StageStatesEvent(StageStates.MapBlockCreateEnd));
+            EventQueueSystem.QueueEvent(new UpdateNavMeshEvent());
         });
     }
 }

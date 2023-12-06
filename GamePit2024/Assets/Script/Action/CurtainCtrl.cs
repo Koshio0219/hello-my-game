@@ -117,7 +117,8 @@ namespace Game.Action
             target.DOLocalMoveX(openedX, movingTime).SetEase(Ease.InOutCirc).OnComplete(() =>
             {
                 CurtainState = CurtainState.Opened;
-                EventQueueSystem.QueueEvent(new StageStatesEvent(Manager.StageStates.CurtainInputEnd));
+
+                if (selfX > 0) EventQueueSystem.QueueEvent(new StageStatesEvent(Manager.StageStates.CurtainInputEnd));
             });
         }
 
