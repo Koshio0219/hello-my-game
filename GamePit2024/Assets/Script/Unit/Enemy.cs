@@ -51,7 +51,7 @@ namespace Game.Unit
             set
             {
                 if (hp == value) return;
-                var last = value;
+                var last = hp;
                 hp = value;
                 if (hp > MaxHp) hp = MaxHp;
 
