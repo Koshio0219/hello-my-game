@@ -6,10 +6,14 @@ using UnityEngine.UI;
 using Game.Loader;
 using UnityEngine.InputSystem;
 using Game.Data;
+using Game.Framework;
+using Game.Manager;
+using Game.Base;
+using Game.Unit;
 
 namespace Game.Test
 {
-    public class MeleeActor : MonoBehaviour, Game.Base.PlayerBase
+    public class MeleeActor :Player
     {
         #region define
         /// <summary> 僾儗僀儎乕偺忬懺 </summary>
@@ -49,8 +53,12 @@ namespace Game.Test
 
         #region Unity private function
 
-        private async void Awake()
+        protected override async void Awake()
         {
+            //add id
+            base.Awake();
+            //GameManager.stageManager.AddOnePlayer(gameObject.GetInstanceID(), gameObject);
+
             _PlayerParameter = await GameData.Instance.GetPlayerParameter();
             Debug.Log("_PlayerParameter.GamepadNumber_M: " + _PlayerParameter.GamepadNumber_M.ToString() + ", _PlayerParameter.GamepadNumber_D: " + _PlayerParameter.GamepadNumber_D.ToString() + ", _PlayerParameter.GamepadNumber_L: " + _PlayerParameter.GamepadNumber_L.ToString());
         }
@@ -182,6 +190,18 @@ namespace Game.Test
                         if (Gamepad.all[_PlayerParameter.GamepadNumber_M].buttonEast.wasPressedThisFrame && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Waiting") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Rising") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Falling") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
                         {
                             ChangeState(StateEnum.Attack);
+                            //eg
+                            GameHelper.ShootRay(transform.position, transform.forward, 10f, "Enemy", (info) =>
+                            {
+                                var up = info.transform.GetRootParent();
+                                var enemy = up.GetComponent<IEnemyBaseAction>();
+                                if (enemy != null)
+                                {
+                                    var id = enemy.EnemyUnitData.InsId;
+                                    Attack(id, Atk);
+                                }
+                            });
+
                         }
                     }
                     break;
@@ -235,22 +255,23 @@ namespace Game.Test
         }
         #endregion
 
-        public virtual void Attack(int targetID, float damage)
+        public override void Attack(int targetID, float damage)
+        {
+            //...
+            EventQueueSystem.QueueEvent(new SendDamageEvent(InsId, targetID, damage));
+        }
+
+        public override void Hit(int sourceId, float damage)
         {
 
         }
 
-        public virtual void Hit(int sourceId, float damage)
+        public override void Dead()
         {
 
         }
 
-        public virtual void Dead()
-        {
-
-        }
-
-        public virtual void Move()
+        public override void Move()
         {
 
         }

@@ -6,10 +6,12 @@ using UnityEngine.UI;
 using Game.Loader;
 using UnityEngine.InputSystem;
 using Game.Data;
+using Game.Manager;
+using Game.Base;
 
 namespace Game.Test
 {
-    public class LongRangeActor : MonoBehaviour, Game.Base.PlayerBase
+    public class LongRangeActor : Player
     {
         #region define
         /// <summary> 僾儗僀儎乕偺忬懺 </summary>
@@ -57,8 +59,12 @@ namespace Game.Test
 
         #region Unity private function
 
-        private async void Awake()
+        protected override async void Awake()
         {
+            //add id
+            base.Awake();
+            //GameManager.stageManager.AddOnePlayer(gameObject.GetInstanceID(), gameObject);
+
             _PlayerParameter = await GameData.Instance.GetPlayerParameter();
             _SkillImage = _SkillObject.GetComponent<Image>();
         }
@@ -282,22 +288,22 @@ namespace Game.Test
             ChangeState(StateEnum.Move);
         }
 
-        public virtual void Attack(int targetID, float damage)
+        public override void Attack(int targetID, float damage)
+        {
+            //
+        }
+
+        public override void Hit(int sourceId, float damage)
         {
 
         }
 
-        public virtual void Hit(int sourceId, float damage)
+        public override void Dead()
         {
 
         }
 
-        public virtual void Dead()
-        {
-
-        }
-
-        public virtual void Move()
+        public override void Move()
         {
 
         }
