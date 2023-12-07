@@ -9,7 +9,7 @@ using Game.Data;
 
 namespace Game.Test
 {
-    public class LongRangeActor : MonoBehaviour
+    public class LongRangeActor : MonoBehaviour, Game.Base.PlayerBase
     {
         #region define
         /// <summary> 僾儗僀儎乕偺忬懺 </summary>
@@ -280,6 +280,26 @@ namespace Game.Test
         private void AttackEnd()
         {
             ChangeState(StateEnum.Move);
+        }
+
+        public virtual void Attack(int targetID, float damage)
+        {
+
+        }
+
+        public virtual void Hit(int sourceId, float damage)
+        {
+
+        }
+
+        public virtual void Dead()
+        {
+
+        }
+
+        public virtual void Move()
+        {
+
         }
 
         IEnumerator ChargeShot()

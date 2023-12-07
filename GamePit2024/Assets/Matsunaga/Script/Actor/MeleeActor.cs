@@ -9,7 +9,7 @@ using Game.Data;
 
 namespace Game.Test
 {
-    public class MeleeActor : MonoBehaviour
+    public class MeleeActor : MonoBehaviour, Game.Base.PlayerBase
     {
         #region define
         /// <summary> 僾儗僀儎乕偺忬懺 </summary>
@@ -234,6 +234,26 @@ namespace Game.Test
             }
         }
         #endregion
+
+        public virtual void Attack(int targetID, float damage)
+        {
+
+        }
+
+        public virtual void Hit(int sourceId, float damage)
+        {
+
+        }
+
+        public virtual void Dead()
+        {
+
+        }
+
+        public virtual void Move()
+        {
+
+        }
 
         /// <summary> 傾僯儊乕僔儑儞僀儀儞僩 Attack廔椆帪偵婲摦偡傞儊僜僢僪 </summary>
         private void AttackStart()
