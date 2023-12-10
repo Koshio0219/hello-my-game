@@ -85,7 +85,7 @@ namespace Game.Unit
             {
                 prop.speed += deltaTime * prop.acceleration;
             }
-            transform.position += transform.forward * prop.speed * deltaTime;
+            transform.position += deltaTime * prop.speed * transform.forward;
         }
 
         private void OnDisable()

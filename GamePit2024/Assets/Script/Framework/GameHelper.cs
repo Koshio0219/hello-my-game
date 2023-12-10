@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -22,6 +23,22 @@ namespace Game.Framework
         {
             return temp_id++;
         }
+
+        public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 euler)
+        {
+            Vector3 direction = point - pivot;
+            Vector3 rotatedDirection = Quaternion.Euler(euler) * direction;
+            Vector3 rotatedPoint = rotatedDirection + pivot;
+            return rotatedPoint;
+        }
+
+        public static Vector3 RotateDirectionByPivot(Vector3 direction, Vector3 pivot, Vector3 euler)
+        {
+            Vector3 rotatedDirection = Quaternion.Euler(euler) * direction;
+            Vector3 rotatedPoint = rotatedDirection + pivot;
+            return rotatedPoint;
+        }
+
         #endregion
 
         #region Enum 関連
