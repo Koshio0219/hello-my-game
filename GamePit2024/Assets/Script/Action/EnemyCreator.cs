@@ -57,9 +57,9 @@ namespace Game.Action
             {
                 Debug.Log("enemy build start!");
                 if (enemyCreateConfig == null) return;
-                for (int i = 0; i < enemyCreateConfig.EnemyConfig.Count; i++)
+                for (int i = 0; i < enemyCreateConfig.MapEnemyTypeIDToData.Count; i++)
                 {
-                    var one = enemyCreateConfig.EnemyConfig[i];
+                    //var one = enemyCreateConfig.MapEnemyTypeIDToData[i];
 
                     //TODO
                     //..build and init..

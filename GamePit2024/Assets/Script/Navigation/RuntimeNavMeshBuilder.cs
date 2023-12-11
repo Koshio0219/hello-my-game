@@ -23,7 +23,7 @@ namespace Game.Navigation
         }
 
         // The size of the build bounds
-        public Vector3 size = new Vector3(80.0f, 20.0f, 80.0f);
+        public Vector3 size = new(80.0f, 20.0f, 80.0f);
 
         private NavMeshData mNavMesh;
         private NavMeshDataInstance mInstance;

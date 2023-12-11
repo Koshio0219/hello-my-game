@@ -6,6 +6,11 @@ using UnityEngine;
 
 namespace Game.Data
 {
+    public enum EnemyTypeID
+    {
+        _101,_102,_103,_104,_105
+    }
+
     public enum EnemyRaceType
     {
         Slime
@@ -66,4 +71,3 @@ namespace Game.Data
         }
     }
 }
-

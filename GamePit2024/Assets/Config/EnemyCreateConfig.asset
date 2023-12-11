@@ -13,21 +13,82 @@ MonoBehaviour:
   m_Name: EnemyCreateConfig
   m_EditorClassIdentifier: 
   EnemyConfig:
-  - raceType: 0
-    attackType: 0
-    prop:
-      maxHp: 100
-      attack: 10
-    skillIds: 
-  - raceType: 0
-    attackType: 1
-    prop:
-      maxHp: 50
-      attack: 20
-    skillIds: 
-  - raceType: 0
-    attackType: 2
-    prop:
-      maxHp: 1000
-      attack: 50
-    skillIds: 
+  - typeID: 0
+    unitData:
+      raceType: 0
+      attackType: 0
+      prop:
+        maxHp: 100
+        attack: 10
+      skillIds: 
+    assetReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - typeID: 1
+    unitData:
+      raceType: 0
+      attackType: 1
+      prop:
+        maxHp: 50
+        attack: 20
+      skillIds: 
+    assetReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - typeID: 2
+    unitData:
+      raceType: 0
+      attackType: 0
+      prop:
+        maxHp: 200
+        attack: 20
+      skillIds: 
+    assetReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - typeID: 3
+    unitData:
+      raceType: 0
+      attackType: 1
+      prop:
+        maxHp: 100
+        attack: 50
+      skillIds: 
+    assetReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - typeID: 4
+    unitData:
+      raceType: 0
+      attackType: 2
+      prop:
+        maxHp: 1000
+        attack: 60
+      skillIds: 
+    assetReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  levelEnemyData:
+  - enemies:
+    - typeID: 0
+      pos: {x: 0, y: 0, z: 0}
+    - typeID: 1
+      pos: {x: 0, y: 0, z: 0}
+  - enemies:
+    - typeID: 2
+      pos: {x: 0, y: 0, z: 0}
+    - typeID: 3
+      pos: {x: 0, y: 0, z: 0}
+  - enemies:
+    - typeID: 4
+      pos: {x: 0, y: 0, z: 0}
