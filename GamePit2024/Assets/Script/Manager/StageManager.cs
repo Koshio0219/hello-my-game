@@ -1,4 +1,5 @@
-﻿using Game.Framework;
+﻿using Game.Data;
+using Game.Framework;
 using Game.Loader;
 using Game.Unit;
 using System;
@@ -35,6 +36,19 @@ namespace Game.Manager
         private Dictionary<int, GameObject> MapPlayerIdToInstance { get; set; } = new();
         private Dictionary<int, Enemy> MapEnemyIdToInstance { get; set; } = new();
 
+        private int levelIdx;
+        public int LevelIdx 
+        {
+            get
+            {
+                return levelIdx;
+            }
+            set
+            {
+                levelIdx = value;
+            }
+        }
+
         private void Awake()
         {
             GameManager.stageManager = this;
@@ -63,11 +77,13 @@ namespace Game.Manager
         {
             //lose
             //...something else...
+            Debug.Log($"Game Over!");
             SceneLoader.Instance.BackToMenu();
         }
 
         private void BattleClearEndHandler()
         {
+            Debug.Log($"battle clear !");
             if (IsLastStage())
             {
                 Win();
@@ -121,18 +137,20 @@ namespace Game.Manager
 
         private bool IsLastStage()
         {
-
-            return true;
+            return LevelIdx >= GameData.Instance.EnemyCreateConfig.levelEnemyData.Count - 1;
         }
 
         private void NextStage()
         {
-
+            LevelIdx++;
+            Debug.Log($"next stage! current level idx is {LevelIdx}");
+            //...something else...
         }
 
         private void Win()
         {
             //...something else...
+            Debug.Log($"game win !");
             SceneLoader.Instance.BackToMenu();
         }
 

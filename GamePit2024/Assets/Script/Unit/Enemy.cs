@@ -96,10 +96,13 @@ namespace Game.Unit
             EventQueueSystem.AddListener<SendDamageEvent>(DamageEventHandler);
         }
 
-        public virtual void Dead()
+        public virtual async void Dead()
         {
             EventQueueSystem.RemoveListener<SendDamageEvent>(DamageEventHandler);
             ChangeState(EnemyState.Dead);
+            //dead animation time delay
+            await UniTask.Delay(1000);
+            GameManager.stageManager.RemoveOneEnemy(enemyUnitData.InsId);
         }
 
         protected virtual void DamageEventHandler(SendDamageEvent e)

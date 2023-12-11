@@ -23,8 +23,8 @@ namespace Game.Loader
 
     public class AssetLoader : Singleton<AssetLoader>
     {
-        private readonly Dictionary<AssetType, string> mapTypeToPath = new Dictionary<AssetType, string>() 
-        { 
+        private readonly Dictionary<AssetType, string> mapTypeToPath = new Dictionary<AssetType, string>()
+        {
             { AssetType.Prefab,""},
             { AssetType.Sprite,""},
             { AssetType.Texture,""},
@@ -35,24 +35,24 @@ namespace Game.Loader
              //others...
         };
 
-        public async UniTask<T> Load<T>(AssetType type,string name, CancellationToken token)
+        public async UniTask<T> Load<T>(AssetType type, string name, CancellationToken token)
         {
             var path = mapTypeToPath[type];
-            var wPath= Path.Combine(path, name);
+            var wPath = Path.Combine(path, name);
             var result = await Addressables.LoadAssetAsync<T>(wPath).WithCancellation(token);
-            
+
             return result;
         }
 
-        public async UniTask<T> Load<T>(string name, CancellationToken token) where T:MonoBehaviour
+        public async UniTask<T> Load<T>(string name, CancellationToken token, bool usePool = true) where T : MonoBehaviour
         {
             //var res = Load<GameObject>(AssetType.Prefab, name, token).GetAwaiter().GetResult();
             var res = await Load<GameObject>(AssetType.Prefab, name, token);
-            var obj = GameObjectPool.Instance.GetObj(res);
-            
-            if (obj.TryGetComponent<T>(out var t))                           
+            var obj = usePool ? GameObjectPool.Instance.GetObj(res) : Object.Instantiate(res);
+
+            if (obj.TryGetComponent<T>(out var t))
                 return t;
-            
+
             throw new System.Exception($"GetComponent is error. component name:{typeof(T)}");
         }
 
@@ -62,10 +62,10 @@ namespace Game.Loader
             return result;
         }
 
-        public async UniTask<T> Load<T>(AssetReference key, CancellationToken token) where T : MonoBehaviour
+        public async UniTask<T> Load<T>(AssetReference key, CancellationToken token, bool usePool = true) where T : MonoBehaviour
         {
             var res = await Load<GameObject>(key, token);
-            var obj = GameObjectPool.Instance.GetObj(res);
+            var obj = usePool ? GameObjectPool.Instance.GetObj(res) : Object.Instantiate(res);
 
             if (obj.TryGetComponent<T>(out var t))
                 return t;
@@ -74,8 +74,8 @@ namespace Game.Loader
         }
 
         public void Release<T>(T t)
-        {          
-           Addressables.Release(t);
+        {
+            Addressables.Release(t);
         }
     }
 }

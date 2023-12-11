@@ -22,7 +22,7 @@ namespace Game.Data
     {
         [SerializeField] private List<BlockTypeUnit> blockTypeUnits;
 
-        private Dictionary<BlockUseType, BlockTypeUnit> mapBlockTypeToUnit = new Dictionary<BlockUseType, BlockTypeUnit>();
+        private readonly Dictionary<BlockUseType, BlockTypeUnit> mapBlockTypeToUnit = new();
         public Dictionary<BlockUseType, BlockTypeUnit> MapBlockTypeToUnit
         {
             get

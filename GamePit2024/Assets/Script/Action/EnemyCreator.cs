@@ -2,7 +2,9 @@
 using Game.Base;
 using Game.Data;
 using Game.Framework;
+using Game.Loader;
 using Game.Manager;
+using Game.Unit;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,6 +36,7 @@ namespace Game.Action
         private void OnDestroy()
         {
             buildAction = null;
+            insEnemy.Clear();
             EventQueueSystem.RemoveListener<StageStatesEvent>(StageStatesHandler);
         }
 
@@ -53,18 +56,22 @@ namespace Game.Action
         public void Init()
         {
             enemyCreateConfig = GameData.Instance.EnemyCreateConfig;
+
             buildAction = UniTask.UnityAction(async (_) =>
             {
+                insEnemy.Clear();
                 Debug.Log("enemy build start!");
                 if (enemyCreateConfig == null) return;
-                for (int i = 0; i < enemyCreateConfig.MapEnemyTypeIDToData.Count; i++)
+                var levelIdx = GameManager.stageManager.LevelIdx;
+                var data = enemyCreateConfig.levelEnemyData[levelIdx];
+                foreach(var one in data.enemies)
                 {
-                    //var one = enemyCreateConfig.MapEnemyTypeIDToData[i];
-
-                    //TODO
-                    //..build and init..
-                    //
-
+                    var createData = enemyCreateConfig.MapEnemyTypeIDToData[one.typeID];
+                    var ins = await AssetLoader.Instance.Load<Enemy>
+                    (createData.assetReference, this.GetCancellationTokenOnDestroy(), false);
+                    ins.transform.position = one.pos;
+                    ins.Born(createData.unitData);
+                    insEnemy.Add(ins);
                     await UniTask.DelayFrame(1);
                 }
                 Debug.Log("enemy build end!");
@@ -73,4 +80,3 @@ namespace Game.Action
         }
     }
 }
-
