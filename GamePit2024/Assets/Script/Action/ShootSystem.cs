@@ -80,7 +80,8 @@ namespace Game.Action
                 var dir = CalBulletDirection(angle);
                 var pos = baseProp.firePos.position + dir * advanceProp.offseDistance;
                 CreatOne(creatorId,pos,dir).Forget();
-                await UniTask.Delay((int)(advanceProp.timeInterval * 1000), cancellationToken: TokenSource.Token);
+                var delay = advanceProp.timeInterval == 0 ? Time.deltaTime : advanceProp.timeInterval;
+                await UniTask.Delay((int)(delay * 1000), cancellationToken: TokenSource.Token);
             }
         }
 
@@ -117,16 +118,16 @@ namespace Game.Action
                     return baseProp.firePos.forward;
                 case AngleOffseMode.XoY_Plane:
                     {
-                        var dir1 = Vector3.ProjectOnPlane(baseProp.firePos.forward, Vector3.forward).normalized;
-                        var dir2 = GameHelper.RotateDirectionByPivot
-                            (dir1, baseProp.firePos.position, new Vector3(0, 0, angle));
+                        //var dir1 = Vector3.ProjectOnPlane(baseProp.firePos.forward, Vector3.forward).normalized;
+                        var dir2 = GameHelper.RotateDirection
+                            (baseProp.firePos.forward, angle, Vector3.forward);
                         return dir2.normalized;
                     }
                 case AngleOffseMode.XoZ_Plane:
                     {
-                        var dir1 = Vector3.ProjectOnPlane(baseProp.firePos.forward, Vector3.up).normalized;
-                        var dir2 = GameHelper.RotateDirectionByPivot
-                            (dir1, baseProp.firePos.position, new Vector3(0, angle, 0));
+                        //var dir1 = Vector3.ProjectOnPlane(baseProp.firePos.forward, Vector3.up).normalized;
+                        var dir2 = GameHelper.RotateDirection
+                            (baseProp.firePos.forward, angle, Vector3.up);
                         return dir2.normalized;
                     }
             }

@@ -32,11 +32,10 @@ namespace Game.Framework
             return rotatedPoint;
         }
 
-        public static Vector3 RotateDirectionByPivot(Vector3 direction, Vector3 pivot, Vector3 euler)
+        public static Vector3 RotateDirection(Vector3 direction,float angle,Vector3 axis)
         {
-            Vector3 rotatedDirection = Quaternion.Euler(euler) * direction;
-            Vector3 rotatedPoint = rotatedDirection + pivot;
-            return rotatedPoint;
+            Vector3 rotatedDirection = Quaternion.AngleAxis(angle,axis) * direction;
+            return rotatedDirection ;
         }
 
         #endregion
