@@ -28,6 +28,8 @@ namespace Game.BehaviorTask
             if (target.Value == null || agent == null) return;
             status = TaskStatus.Running;
             agent.speed = speed.Value;
+            //fix up the agent pos with the obj current pos
+            agent.Warp(transform.position);
         }
 
         public override TaskStatus OnUpdate()

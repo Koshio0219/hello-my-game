@@ -22,7 +22,7 @@ MonoBehaviour:
         attack: 10
       skillIds: 
     assetReference:
-      m_AssetGUID: 
+      m_AssetGUID: 3e983d9a782610b4d8e67bcecd9f80d5
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -35,7 +35,7 @@ MonoBehaviour:
         attack: 20
       skillIds: 
     assetReference:
-      m_AssetGUID: 
+      m_AssetGUID: 3e983d9a782610b4d8e67bcecd9f80d5
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
         attack: 20
       skillIds: 
     assetReference:
-      m_AssetGUID: 
+      m_AssetGUID: 3e983d9a782610b4d8e67bcecd9f80d5
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -61,7 +61,7 @@ MonoBehaviour:
         attack: 50
       skillIds: 
     assetReference:
-      m_AssetGUID: 
+      m_AssetGUID: 3e983d9a782610b4d8e67bcecd9f80d5
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -74,21 +74,21 @@ MonoBehaviour:
         attack: 60
       skillIds: 
     assetReference:
-      m_AssetGUID: 
+      m_AssetGUID: 3e983d9a782610b4d8e67bcecd9f80d5
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   levelEnemyData:
   - enemies:
     - typeID: 0
-      pos: {x: 0, y: 0, z: 0}
+      pos: {x: 0, y: -2, z: -15}
     - typeID: 1
-      pos: {x: 0, y: 0, z: 0}
+      pos: {x: 2, y: -2, z: -15}
   - enemies:
     - typeID: 2
-      pos: {x: 0, y: 0, z: 0}
+      pos: {x: -1, y: -2, z: -15}
     - typeID: 3
-      pos: {x: 0, y: 0, z: 0}
+      pos: {x: 1, y: -2, z: -15}
   - enemies:
     - typeID: 4
-      pos: {x: 0, y: 0, z: 0}
+      pos: {x: 0, y: -2, z: -15}

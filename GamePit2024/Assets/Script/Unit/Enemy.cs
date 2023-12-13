@@ -93,6 +93,7 @@ namespace Game.Unit
             GameManager.stageManager.AddOneEnemy(data.InsId, this);
             ChangeState(EnemyState.Idle);
 
+            EventQueueSystem.QueueEvent(new InitEnemyHpEvent(data.InsId, MaxHp));
             EventQueueSystem.AddListener<SendDamageEvent>(DamageEventHandler);
         }
 

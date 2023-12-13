@@ -34,6 +34,8 @@ namespace Game.BehaviorTask
             if (agent == null) return;
             status = TaskStatus.Running;
             agent.speed = speed.Value;
+            //fix up the agent pos with the obj current pos
+            agent.Warp(transform.position);
             DoWander();
         }
 
@@ -72,8 +74,7 @@ namespace Game.BehaviorTask
                 wanderPos = (Random.insideUnitSphere * max) + agent.transform.position;
             }
 
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(wanderPos, out hit, float.PositiveInfinity, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(wanderPos, out NavMeshHit hit, float.PositiveInfinity, NavMesh.AllAreas))
             {
                 agent.SetDestination(hit.position);
             }
