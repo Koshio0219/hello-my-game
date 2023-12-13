@@ -8,15 +8,17 @@ using Game.Unit;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
+using UnityEngine.Purchasing;
 
 namespace Game.Action
 {
-    public class EnemyCreator : MonoBehaviour,IInit
+    public class EnemyCreator : MonoBehaviour, IInit
     {
         private EnemyCreateConfig enemyCreateConfig;
 
-        private List<IEnemyBaseAction> insEnemy = new();
+        private readonly List<IEnemyBaseAction> insEnemy = new();
 
         private UnityAction buildAction = null;
 
@@ -64,7 +66,7 @@ namespace Game.Action
                 if (enemyCreateConfig == null) return;
                 var levelIdx = GameManager.stageManager.LevelIdx;
                 var data = enemyCreateConfig.levelEnemyData[levelIdx];
-                foreach(var one in data.enemies)
+                foreach (var one in data.enemies)
                 {
                     var createData = enemyCreateConfig.MapEnemyTypeIDToData[one.typeID];
                     var ins = await AssetLoader.Instance.Load<Enemy>
@@ -76,7 +78,7 @@ namespace Game.Action
                 }
                 Debug.Log("enemy build end!");
                 EventQueueSystem.QueueEvent(new StageStatesEvent(StageStates.EnemyBuildEnd));
-            },this.GetCancellationTokenOnDestroy());
+            }, this.GetCancellationTokenOnDestroy());
         }
     }
 }

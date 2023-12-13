@@ -10,10 +10,12 @@ using UnityEngine.UI;
 using Game.Manager;
 using Game.Framework;
 using System;
+using UnityEngine.AI;
+using BehaviorDesigner.Runtime;
 
 namespace Game.Unit
 {
-    public class Enemy : MonoBehaviour, IEnemyBaseAction,IInit
+    public class Enemy : MonoBehaviour, IEnemyBaseAction, IInit
     {
         private EnemyUnitData enemyUnitData;
         public EnemyUnitData EnemyUnitData => enemyUnitData;
@@ -22,13 +24,13 @@ namespace Game.Unit
         private EnemyState State { get => state; set => state = value; }
         public EnemyState EnemyState => State;
 
-        protected readonly Dictionary<EnemyState, UnityAction> mapStateToAction =new(5);
+        protected readonly Dictionary<EnemyState, UnityAction> mapStateToAction = new(5);
 
         private AttackState attackState;
         private AttackState AttackState { get => attackState; set => attackState = value; }
         public AttackState EnemyAttackState => AttackState;
 
-        private float maxHp; 
+        private float maxHp;
         public virtual float MaxHp
         {
             get
@@ -89,7 +91,7 @@ namespace Game.Unit
             Init();
             data.Init();
             enemyUnitData = data;
-            SetBaseProp(data.prop);
+            InitBaseProp(data.prop);
             GameManager.stageManager.AddOneEnemy(data.InsId, this);
             ChangeState(EnemyState.Idle);
 
@@ -128,11 +130,11 @@ namespace Game.Unit
             ChangeState(EnemyState.Moving);
         }
 
-        protected virtual void SetBaseProp(EnemyBaseProp baseProp)
+        protected virtual void InitBaseProp(EnemyBaseProp baseProp)
         {
-            MaxHp = baseProp.maxHp;
-            Hp = baseProp.Hp;
-            Atk = baseProp.attack;
+            maxHp = baseProp.maxHp;
+            hp = baseProp.Hp;
+            atk = baseProp.attack;
         }
 
         public virtual void ChangeState(EnemyState toState)

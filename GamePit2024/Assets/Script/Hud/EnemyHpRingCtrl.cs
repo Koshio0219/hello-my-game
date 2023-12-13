@@ -48,8 +48,9 @@ namespace Game.Hud
 
         private void InitEnemyHpHandler(InitEnemyHpEvent e)
         {
-            if (RootObjId != GameManager.stageManager.GetEnemy(e.enemyId).GetInstanceID()) return;
-            view.InitHpView(e.hp);
+            var targetId = GameManager.stageManager.GetEnemy(e.enemyId).gameObject.GetInstanceID();
+            if (RootObjId != targetId) return;
+            View.InitHpView(e.hp);
         }
 
         private void OnEnable()
@@ -61,8 +62,8 @@ namespace Game.Hud
         {
             //var up = transform.GetRootParent();
             //var objId = up.gameObject.GetInstanceID();
-            if (RootObjId != GameManager.stageManager.GetEnemy(e.enemyId).GetInstanceID()) return;
-            view.UpdateHpView(e.lastHp, e.nowHp);
+            if (RootObjId != GameManager.stageManager.GetEnemy(e.enemyId).gameObject.GetInstanceID()) return;
+            View.UpdateHpView(e.lastHp, e.nowHp);
         }
 
         private void OnDisable()
