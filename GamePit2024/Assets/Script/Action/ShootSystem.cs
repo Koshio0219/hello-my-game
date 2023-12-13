@@ -80,7 +80,7 @@ namespace Game.Action
                 var dir = CalBulletDirection(angle);
                 var pos = baseProp.firePos.position + dir * advanceProp.offseDistance;
                 CreatOne(creatorId,pos,dir).Forget();
-                await UniTask.Delay((int)(advanceProp.timeInterval * 1000), cancellationToken: tokenSource.Token);
+                await UniTask.Delay((int)(advanceProp.timeInterval * 1000), cancellationToken: TokenSource.Token);
             }
         }
 
@@ -88,7 +88,7 @@ namespace Game.Action
         {
             //move
             var bullet = await AssetLoader.Instance.Load<Bullet>
-                (baseProp.bulletPrefab, tokenSource.Token);
+                (baseProp.bulletPrefab, TokenSource.Token);
             bullet.transform.SetParent(null);
             bullet.transform.position = position;
             bullet.transform.forward = direction;

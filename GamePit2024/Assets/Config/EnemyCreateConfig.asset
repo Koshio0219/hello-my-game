@@ -35,7 +35,7 @@ MonoBehaviour:
         attack: 20
       skillIds: 
     assetReference:
-      m_AssetGUID: 3e983d9a782610b4d8e67bcecd9f80d5
+      m_AssetGUID: 7b0c0fac2cde795499635f9298d135d0
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -61,7 +61,7 @@ MonoBehaviour:
         attack: 50
       skillIds: 
     assetReference:
-      m_AssetGUID: 3e983d9a782610b4d8e67bcecd9f80d5
+      m_AssetGUID: 7b0c0fac2cde795499635f9298d135d0
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

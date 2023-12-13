@@ -72,6 +72,8 @@ namespace Game.Action
                     var ins = await AssetLoader.Instance.Load<Enemy>
                     (createData.assetReference, this.GetCancellationTokenOnDestroy(), false);
                     ins.transform.position = one.pos;
+                    //face to left
+                    ins.transform.forward = Vector3.left;
                     ins.Born(createData.unitData);
                     insEnemy.Add(ins);
                     await UniTask.DelayFrame(1);

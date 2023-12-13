@@ -12,7 +12,7 @@ public class SimpleBillboard : MonoBehaviour
         var main = Camera.main;
         UniTask.Void(async (_) =>
         {
-            while (isActiveAndEnabled && !_.IsCancellationRequested)
+            while (this && isActiveAndEnabled && !_.IsCancellationRequested)
             {
                 transform.forward = main.transform.forward;
                 await UniTask.DelayFrame(1, playerLoopTiming, this.GetCancellationTokenOnDestroy());

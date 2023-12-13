@@ -17,21 +17,41 @@ namespace Game.Unit
 
         public float angleSpeed = 120f;
 
-        public float acceleration = 30f;
+        public float acceleration = 3f;
 
-        public float maxSpeed = 600f;
+        public float maxSpeed = 60f;
+
+        public BulletProp(float sp,float lt,float ans,float acc,float ms)
+        {
+            speed = sp;
+            lifeTime = lt;
+            angleSpeed = ans;
+            acceleration = acc;
+            maxSpeed = ms;
+        }
+
+        public BulletProp(BulletProp prop)
+        {
+            speed = prop.speed;
+            lifeTime = prop.lifeTime;
+            angleSpeed = prop.angleSpeed;
+            acceleration = prop.acceleration;
+            maxSpeed = prop.maxSpeed;
+        }
     }
 
     public class Bullet : MonoBehaviour
     {
         public BulletProp prop;
-        public GameObject Target { get;private set; }
+        public GameObject Target { get; private set; }
 
         private CancellationToken token = CancellationToken.None;
         //private CancellationTokenSource tokenSource;
 
         private System.Action recycleAction = null;
         private System.Action moveAction = null;
+
+        private BulletProp initProp;
 
         public void Init(GameObject target)
         {
@@ -40,7 +60,8 @@ namespace Game.Unit
             //tokenSource = new CancellationTokenSource();
             //token = tokenSource.Token;
             token = this.GetCancellationTokenOnDisable();
-
+            initProp = new BulletProp(prop);
+            
             InitAction();
             recycleAction.Invoke();
             moveAction.Invoke();
@@ -53,14 +74,14 @@ namespace Game.Unit
 
         private void InitAction()
         {
-             recycleAction = UniTask.Action(async (_) =>
-             {
-                 await UniTask.Delay((int)(prop.lifeTime * 1000));
-                 Recycle();
-             }, token);
+            recycleAction = UniTask.Action(async (_) =>
+            {
+                await UniTask.Delay((int)(prop.lifeTime * 1000));
+                Recycle();
+            }, token);
             moveAction = UniTask.Action(async (_) =>
             {
-                while (isActiveAndEnabled)
+                while (this && isActiveAndEnabled)
                 {
                     Move();
                     await UniTask.DelayFrame(1, PlayerLoopTiming.FixedUpdate);
@@ -91,6 +112,7 @@ namespace Game.Unit
         private void OnDisable()
         {
             //tokenSource.Cancel();
+            prop = initProp;
             recycleAction = null;
             moveAction = null;
             token = CancellationToken.None;
