@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb3b2169e99005641ab8b7c7e92e0dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Atk: 0
   _Camera: {fileID: 1079687128}
   _Bullet: {fileID: 100004, guid: 96536afb634b32043bb988d4576053d3, type: 3}
   _Beam: {fileID: 184784280905412948, guid: 2dd557cb25d74024797509f794a2a039, type: 3}
@@ -782,7 +783,7 @@ PrefabInstance:
     - target: {fileID: 3725680173231446836, guid: 48c897de7006f436ebc613446e766067,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4107167189488714126, guid: 48c897de7006f436ebc613446e766067,
         type: 3}
@@ -802,7 +803,7 @@ PrefabInstance:
     - target: {fileID: 4107167189488714126, guid: 48c897de7006f436ebc613446e766067,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 1.511
       objectReference: {fileID: 0}
     - target: {fileID: 4107167189488714126, guid: 48c897de7006f436ebc613446e766067,
         type: 3}
@@ -1424,7 +1425,7 @@ PrefabInstance:
     - target: {fileID: 8189980434977739222, guid: 2dfbb63c9cdf7504faf4ff26b0581598,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8855052669661678444, guid: 2dfbb63c9cdf7504faf4ff26b0581598,
         type: 3}
@@ -1559,6 +1560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4e103d1d9fb884d892f144faf0bf4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Atk: 0
   _Camera: {fileID: 1079687128}
 --- !u!1 &2109055397
 GameObject:
