@@ -21,7 +21,7 @@ namespace Game.Base
             get => gameObject.GetInstanceID();
         }
 
-        public float Atk;
+        //public float Atk;
 
         protected virtual void Awake() 
         {
@@ -35,7 +35,7 @@ namespace Game.Base
 
         public virtual void Dead()
         {
-
+            GameManager.stageManager.RemoveOnePlayer(InsId, gameObject);
         }
 
         public virtual void Hit(int sourceId, float damage)

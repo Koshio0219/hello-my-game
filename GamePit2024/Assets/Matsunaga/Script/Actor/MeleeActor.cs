@@ -44,6 +44,7 @@ namespace Game.Test
         private Vector3 _Velocity;
         private Rigidbody _Rigidbody;
         private float _Speed = 0.6f;
+        private float _Hp;
         private PlayerParameter _PlayerParameter;
         #endregion
 
@@ -60,6 +61,7 @@ namespace Game.Test
             //GameManager.stageManager.AddOnePlayer(gameObject.GetInstanceID(), gameObject);
 
             _PlayerParameter = await GameData.Instance.GetPlayerParameter();
+            _Hp = _PlayerParameter.hp_M;
             Debug.Log("_PlayerParameter.GamepadNumber_M: " + _PlayerParameter.GamepadNumber_M.ToString() + ", _PlayerParameter.GamepadNumber_D: " + _PlayerParameter.GamepadNumber_D.ToString() + ", _PlayerParameter.GamepadNumber_L: " + _PlayerParameter.GamepadNumber_L.ToString());
         }
         /// <summary>
@@ -190,17 +192,6 @@ namespace Game.Test
                         if (Gamepad.all[_PlayerParameter.GamepadNumber_M].buttonEast.wasPressedThisFrame && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Waiting") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Rising") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Falling") && !_Animator.GetCurrentAnimatorStateInfo(0).IsName("Landing"))
                         {
                             ChangeState(StateEnum.Attack);
-                            //eg
-                            GameHelper.ShootRay(transform.position, transform.forward, 10f, "Enemy", (info) =>
-                            {
-                                var up = info.transform.GetRootParent();
-                                var enemy = up.GetComponent<IEnemyBaseAction>();
-                                if (enemy != null)
-                                {
-                                    var id = enemy.EnemyUnitData.InsId;
-                                    Attack(id, Atk);
-                                }
-                            });
 
                         }
                     }
@@ -261,14 +252,14 @@ namespace Game.Test
             EventQueueSystem.QueueEvent(new SendDamageEvent(InsId, targetID, damage));
         }
 
-        public override void Hit(int sourceId, float damage)
+        /*public override void Hit(int sourceId, float damage)
         {
 
-        }
+        }*/
 
         public override void Dead()
         {
-
+            base.Dead();
         }
 
         public override void Move()
@@ -279,7 +270,17 @@ namespace Game.Test
         /// <summary> 傾僯儊乕僔儑儞僀儀儞僩 Attack廔椆帪偵婲摦偡傞儊僜僢僪 </summary>
         private void AttackStart()
         {
-
+            //eg
+            GameHelper.ShootRay(transform.position, transform.forward, 10f, "Enemy", (info) =>
+            {
+                var up = info.transform.GetRootParent();
+                var enemy = up.GetComponent<IEnemyBaseAction>();
+                if (enemy != null)
+                {
+                    var id = enemy.EnemyUnitData.InsId;
+                    Attack(id, _PlayerParameter.attack_M);
+                }
+            });
         }
 
         /// <summary> 傾僯儊乕僔儑儞僀儀儞僩 Attack廔椆帪偵婲摦偡傞儊僜僢僪 </summary>
