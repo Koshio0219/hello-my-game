@@ -122,6 +122,10 @@ namespace Game.Framework
     }
 
     public class UpdateNavMeshEvent : GameEvent { }
+
+    public class StageTimeUpEvent : GameEvent {
+    
+    }
     //public class OnGameStartEvent:GameEvent 
     //{
     //    public int playerId;
