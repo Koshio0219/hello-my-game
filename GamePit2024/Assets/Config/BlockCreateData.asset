@@ -13,27 +13,66 @@ MonoBehaviour:
   m_Name: BlockCreateData
   m_EditorClassIdentifier: 
   blockUnitDatas:
-  - baseType: 3
-    useType: 0
-  - baseType: 0
-    useType: 0
-  - baseType: 3
-    useType: 0
-  - baseType: 3
-    useType: 0
-  - baseType: 0
-    useType: 0
-  - baseType: 3
-    useType: 0
-  - baseType: 0
-    useType: 0
-  - baseType: 3
-    useType: 0
-  - baseType: 3
-    useType: 0
-  - baseType: 0
-    useType: 0
-  - baseType: 3
-    useType: 0
-  - baseType: 3
-    useType: 0
+  - blockUnits:
+    - baseType: 1
+      useType: 0
+      offseY: 0
+    - baseType: 4
+      useType: 0
+      offseY: 3
+  - blockUnits:
+    - baseType: 1
+      useType: 0
+      offseY: 0
+  - blockUnits:
+    - baseType: 2
+      useType: 0
+      offseY: 0
+  - blockUnits:
+    - baseType: 1
+      useType: 0
+      offseY: 0
+    - baseType: 2
+      useType: 0
+      offseY: 3
+  - blockUnits:
+    - baseType: 2
+      useType: 0
+      offseY: 0
+  - blockUnits:
+    - baseType: 0
+      useType: 0
+      offseY: 0
+  - blockUnits:
+    - baseType: 2
+      useType: 0
+      offseY: 0
+    - baseType: 2
+      useType: 0
+      offseY: 3
+  - blockUnits:
+    - baseType: 3
+      useType: 0
+      offseY: 1
+    - baseType: 2
+      useType: 0
+      offseY: 3
+  - blockUnits:
+    - baseType: 1
+      useType: 0
+      offseY: 0
+  - blockUnits:
+    - baseType: 2
+      useType: 0
+      offseY: 0
+  - blockUnits:
+    - baseType: 1
+      useType: 0
+      offseY: 0
+  - blockUnits:
+    - baseType: 1
+      useType: 0
+      offseY: 0
+    - baseType: 1
+      useType: 0
+      offseY: 3

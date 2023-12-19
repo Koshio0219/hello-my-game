@@ -56,23 +56,28 @@ namespace Game.Action
             if (blockCreateData == null) return;
             for (int i = 0; i < blockCreateData.blockUnitDatas.Count; i++)
             {
-                var one = blockCreateData.blockUnitDatas[i];
-                if (one.baseType == BlockBaseType.Null) continue;
-
-                var prefab = GameData.Instance.BlockTypeConfig.GetBlockPrefab(one.useType);
-                var ins = GameObjectPool.Instance.GetObj(prefab, transform, false);
-                ins.transform.SetLocalPositionX(i * 2);
-
-                var block = ins.GetComponent<BlockBase>(); 
-                block.OnInstance(one);
-                insBlocks.Add(block);
-
-                if (i == 0)
+                var blockUnits= blockCreateData.blockUnitDatas[i].blockUnits;
+                for (int j = 0; j < blockUnits.Count; j++)
                 {
-                    currentSelected = block;
-                    block.OnSelected();
+                    var one = blockUnits[j];
+                    if (one.baseType == BlockBaseType.Null) continue;
+
+                    var prefab = GameData.Instance.BlockTypeConfig.GetBlockPrefab(one.useType);
+                    var ins = GameObjectPool.Instance.GetObj(prefab, transform, false);
+                    ins.transform.SetLocalPositionX(i * 2);
+                    ins.transform.SetLocalPositionY(ins.transform.localPosition.y + one.offseY);
+
+                    var block = ins.GetComponent<BlockBase>();
+                    block.OnInstance(one);
+                    insBlocks.Add(block);
+
+                    if (i == 0 && j == 0)
+                    {
+                        currentSelected = block;
+                        block.OnSelected();
+                    }
+                    await UniTask.DelayFrame(1);
                 }
-                await UniTask.DelayFrame(1);
             }
             Debug.Log("create end!");
             EventQueueSystem.QueueEvent(new StageStatesEvent(StageStates.MapBlockCreateEnd));

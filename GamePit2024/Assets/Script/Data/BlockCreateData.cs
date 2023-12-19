@@ -11,12 +11,18 @@ namespace Game.Data
     {
         public BlockBaseType baseType;
         public BlockUseType useType;
-       // public List<int> heights;
+        public int offseY;
+    }
+
+    [System.Serializable]
+    public struct BlockColumnData
+    {
+        public List<BlockUnitData> blockUnits;
     }
 
     [CreateAssetMenu(fileName = "BlockCreateData", menuName = "GamePit2024/BlockCreateData")]
     public class BlockCreateData : ScriptableObject
     {
-        public List<BlockUnitData> blockUnitDatas;
+        public List<BlockColumnData> blockUnitDatas;
     }
 }
