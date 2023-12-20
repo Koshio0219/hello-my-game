@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeStateDead : IPlayerState
+public class LongRangeStateDead : IPlayerState
 {
     private Animator _animator;
     private bool isState;
     private int _GamePadNumber;
     private string _anim_name = "Dead";
 
-    public MeleeStateDead(Animator animator, int GampePadNumber)
+    public LongRangeStateDead(Animator animator, int GampePadNumber)
     {
         _GamePadNumber = GampePadNumber;
         _animator = animator;
@@ -37,4 +37,5 @@ public class MeleeStateDead : IPlayerState
         isState = true;
     }
 }
+
 

@@ -1,4 +1,4 @@
-using Game.Base;
+﻿using Game.Base;
 using Game.Framework;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +13,6 @@ public class MeleeStateAttack : IPlayerState
     private Transform _player;
     private int _instanceID;
     private int _GamePadNumber;
-    private bool isState;
     private float _attackPower;
     private string _anim_name = "Attack";
 
@@ -30,22 +29,32 @@ public class MeleeStateAttack : IPlayerState
 
     public PlayerState stayUpdate()
     {
-        if (isState) return PlayerState.IDLE;
+        //Debug.Log(_animator.runtimeAnimatorController.animationClips[0].name);
+        //Debug.Log(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+        if (_animator.animationEnd(_anim_name))
+        {
+            return PlayerState.IDLE;
+        }
         return PlayerState.ATTACK;
     }
 
     public void enter()
     {
-        _animator.SetTrigger("AttackTrigger");
-        isState = false;
-    }
 
-    public void stayFixedUpdate() { }
-    public void exit() { }
-    private void AttackStart()
-    {
-        //eg
-        GameHelper.ShootRay(_player.position, _player.forward, 10f, "Enemy", (info) =>
+        _animator.animationStart(_anim_name);
+        //_animator.SetTrigger("AttackTrigger");
+        /*RuntimeAnimatorController ac = _animator.runtimeAnimatorController;
+        UnityEditor.Animations.AnimatorController acc = ac as UnityEditor.Animations.AnimatorController;
+        for (int layer = 0; layer < acc.layers.Length; layer++)
+        {
+            for (int s = 0; s < acc.layers[layer].stateMachine.states.Length; s++)
+            {
+                UnityEditor.Animations.ChildAnimatorState state = acc.layers[layer].stateMachine.states[s];
+                Debug.Log(state.state.name);
+            }
+        }*/
+        //Debug.Log("IsAnimationAttack: " + _animator.GetCurrentAnimatorStateInfo(0).IsName(_anim_name));
+        /*GameHelper.ShootRay(_player.position, _player.forward, 10f, "Enemy", (info) =>
         {
             var up = info.transform.GetRootParent();
             var enemy = up.GetComponent<IEnemyBaseAction>();
@@ -54,13 +63,11 @@ public class MeleeStateAttack : IPlayerState
                 var id = enemy.EnemyUnitData.InsId;
                 Attack(id, _attackPower);
             }
-        });
+        });*/
     }
 
-    private void AttackEnd()
-    {
-        isState = true;
-    }
+    public void stayFixedUpdate() { }
+    public void exit() { }
 
     private void Attack(int targetID, float damage)
     {

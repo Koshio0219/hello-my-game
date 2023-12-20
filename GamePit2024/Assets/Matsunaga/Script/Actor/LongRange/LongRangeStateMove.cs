@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MeleeStateMove : IPlayerState
+public class LongRangeStateMove : IPlayerState
 {
     private Animator _animator;
     private Rigidbody _rigidbody;
@@ -13,7 +13,7 @@ public class MeleeStateMove : IPlayerState
     private string _anim_name = "Walk";
     private float _speed;
 
-    public MeleeStateMove(Animator animator, int GampePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, float speed)
+    public LongRangeStateMove(Animator animator, int GampePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, float speed)
     {
         _GamePadNumber = GampePadNumber;
         _animator = animator;
@@ -42,7 +42,8 @@ public class MeleeStateMove : IPlayerState
         {
             _animator.SetFloat("Speed", 0f);
             return PlayerState.IDLE;
-        } else
+        }
+        else
         {
             Move();
         }
@@ -68,7 +69,7 @@ public class MeleeStateMove : IPlayerState
         if (_velocity.magnitude > 0.085f)
         {
             _animator.SetFloat("Speed", _velocity.magnitude);
-            
+
             _player.LookAt(_player.position + _velocity);
             _rigidbody.MovePosition(_rigidbody.position + _velocity * _speed * Time.deltaTime);
         }

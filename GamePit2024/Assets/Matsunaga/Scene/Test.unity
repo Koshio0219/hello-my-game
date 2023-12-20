@@ -159,7 +159,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &95700426
+--- !u!95 &95700428 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9530184, guid: 33cf96e7c28302643ace35c3d203f5e0,
+    type: 3}
+  m_PrefabInstance: {fileID: 2099549424}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &95700430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,32 +174,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 95700416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fea22e2ec0cfad4b9deab630a44fcb3, type: 3}
+  m_Script: {fileID: 11500000, guid: 632ea0efadc4fe84cac9efabb03d0af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rigidBody: {fileID: 95700422}
+  _animator: {fileID: 95700428}
+  _mainCamera: {fileID: 1079687128}
+  _Bullet: {fileID: 100004, guid: 96536afb634b32043bb988d4576053d3, type: 3}
+  _Beam: {fileID: 100000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
   _jump_power_up: 0.085
   _jump_power_max: 8
   distance_list_limit: 5
   ground_distance_limit: 0.2
   raycastSearchDistance: 100
---- !u!114 &95700427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95700416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb3b2169e99005641ab8b7c7e92e0dbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Atk: 0
-  _Camera: {fileID: 1079687128}
-  _Bullet: {fileID: 100004, guid: 96536afb634b32043bb988d4576053d3, type: 3}
-  _Beam: {fileID: 184784280905412948, guid: 2dd557cb25d74024797509f794a2a039, type: 3}
-  _SkillObject: {fileID: 804783303}
-  _CoolTime: 2
 --- !u!1 &574526209 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3725680173231446836, guid: 48c897de7006f436ebc613446e766067,
@@ -783,7 +776,7 @@ PrefabInstance:
     - target: {fileID: 3725680173231446836, guid: 48c897de7006f436ebc613446e766067,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4107167189488714126, guid: 48c897de7006f436ebc613446e766067,
         type: 3}
@@ -1425,7 +1418,7 @@ PrefabInstance:
     - target: {fileID: 8189980434977739222, guid: 2dfbb63c9cdf7504faf4ff26b0581598,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8855052669661678444, guid: 2dfbb63c9cdf7504faf4ff26b0581598,
         type: 3}
@@ -1440,12 +1433,12 @@ PrefabInstance:
     - target: {fileID: 8855052669661678444, guid: 2dfbb63c9cdf7504faf4ff26b0581598,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8855052669661678444, guid: 2dfbb63c9cdf7504faf4ff26b0581598,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8855052669661678444, guid: 2dfbb63c9cdf7504faf4ff26b0581598,
         type: 3}
@@ -1531,7 +1524,7 @@ CapsuleCollider:
   m_Height: 1.6
   m_Direction: 1
   m_Center: {x: 0, y: 0.75, z: 0}
---- !u!114 &2103187298
+--- !u!114 &2103187300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1540,28 +1533,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2103187289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22a673319445b054b80505661b34370a, type: 3}
+  m_Script: {fileID: 11500000, guid: 487abe7333a84024196e029b2f39fbd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rigidBody: {fileID: 2103187293}
+  _animator: {fileID: 2103187301}
+  _mainCamera: {fileID: 1079687128}
   _jump_power_up: 0.085
   _jump_power_max: 10
   distance_list_limit: 5
   ground_distance_limit: 0.3
   raycastSearchDistance: 100
---- !u!114 &2103187299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+--- !u!95 &2103187301 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9036980633323257398, guid: 2dfbb63c9cdf7504faf4ff26b0581598,
+    type: 3}
+  m_PrefabInstance: {fileID: 2103187288}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2103187289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f4e103d1d9fb884d892f144faf0bf4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Atk: 0
-  _Camera: {fileID: 1079687128}
 --- !u!1 &2109055397
 GameObject:
   m_ObjectHideFlags: 0

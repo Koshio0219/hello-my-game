@@ -5,11 +5,13 @@ using Game.Data;
 using Game.Test;
 using Game.Manager;
 
-public class MeleeStateController : MonoBehaviour
+public class LongRangeStateController : MonoBehaviour
 {
     [SerializeField] Rigidbody _rigidBody;
     [SerializeField] Animator _animator;
     [SerializeField] Transform _mainCamera;
+    [SerializeField] private GameObject _Bullet;
+    [SerializeField] private GameObject _Beam;
     ///<summary>
     ///    キーを押している間に溜めるジャンプ力の1フレーム分
     ///</summary>
@@ -36,7 +38,7 @@ public class MeleeStateController : MonoBehaviour
     ///</summary>
     [SerializeField] float raycastSearchDistance;
     private Dictionary<PlayerState, IPlayerState> _player_state_list;
-    private int GamePadNumber_M = 0;
+    private int GamePadNumber_L = 0;
     private PlayerState _state_old = PlayerState.IDLE;
     private IPlayerState _state_instance;
     private PlayerParameter _PlayerParameter;
@@ -56,12 +58,14 @@ public class MeleeStateController : MonoBehaviour
     {
         _player_state_list = new Dictionary<PlayerState, IPlayerState>();
         _player_state_list = new Dictionary<PlayerState, IPlayerState> {
-            { PlayerState.IDLE, new MeleeStateIdle(_animator, GamePadNumber_M) },
-            { PlayerState.MOVE, new MeleeStateMove(_animator, GamePadNumber_M, _rigidBody, _mainCamera, transform, 0.65f) },
-            { PlayerState.ATTACK, new MeleeStateAttack(_animator, GamePadNumber_M, _rigidBody, _mainCamera, transform, InsId, 1.0f) },
-            { PlayerState.JUMP, new MeleeStateJump(_animator, GamePadNumber_M, transform, _rigidBody, _jump_power_up, _jump_power_max, distance_list_limit, ground_distance_limit, raycastSearchDistance) },
-            { PlayerState.DAMAGE, new MeleeStateDamage(_animator, GamePadNumber_M) },
-            { PlayerState.DEAD, new MeleeStateDead(_animator, GamePadNumber_M) },
+            { PlayerState.IDLE, new LongRangeStateIdle(_animator, GamePadNumber_L) },
+            { PlayerState.MOVE, new LongRangeStateMove(_animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, 0.65f) },
+            { PlayerState.ATTACK, new LongRangeStateAttack(_Bullet, _animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, InsId, 1.0f) },
+            { PlayerState.SKILLATTACKFIRST, new LongRangeStateSAF(_Bullet, _animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, InsId, 1.0f) },
+            { PlayerState.SKILLATTACKSECOND, new LongRangeStateSAS(_Beam, _animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, InsId, 1.0f) },
+            { PlayerState.JUMP, new LongRangeStateJump(_animator, GamePadNumber_L, transform, _rigidBody, _jump_power_up, _jump_power_max, distance_list_limit, ground_distance_limit, raycastSearchDistance) },
+            { PlayerState.DAMAGE, new LongRangeStateDamage(_animator, GamePadNumber_L) },
+            { PlayerState.DEAD, new LongRangeStateDead(_animator, GamePadNumber_L) },
         };
 
         _state_instance = _player_state_list[PlayerState.IDLE];
@@ -71,22 +75,17 @@ public class MeleeStateController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("PlayerStateLength: " + _player_state_list.Count);
+
         PlayerState state = _state_instance.stayUpdate();
-        //Debug.Log(state.ToString());
+
         if (state == _state_old)
         {
-            /*foreach (var keyValuePair in _player_state_list)
-            {
-                PlayerState key = keyValuePair.Key;
-                Debug.Log($"key:{key}");
-            }*/
             return;
         }
         Debug.Log(state.ToString());
         if (_player_state_list.ContainsKey(state))
         {
-            Debug.Log(state.ToString());
+            Debug.Log("State: (" + _state_old.ToString() + ") -> (" + state.ToString() + ")");
             _state_instance.exit();
             _state_instance = _player_state_list[state];
             _state_instance.enter();

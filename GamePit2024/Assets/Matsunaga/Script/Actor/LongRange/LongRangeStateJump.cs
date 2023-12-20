@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MeleeStateJump : IPlayerState
+public class LongRangeStateJump : IPlayerState
 {
     private Animator _animator;
     private int _GamePadNumber;
@@ -28,7 +28,7 @@ public class MeleeStateJump : IPlayerState
 
     private float _speed;
 
-    public MeleeStateJump(Animator animator, int GampePadNumber, Transform Player, Rigidbody rigidbody, float JumpPowerUp, float JumpPowerMax, int DistanceListLimit, float GroundDistanceLimit, float RayCastSearchDistance)
+    public LongRangeStateJump(Animator animator, int GampePadNumber, Transform Player, Rigidbody rigidbody, float JumpPowerUp, float JumpPowerMax, int DistanceListLimit, float GroundDistanceLimit, float RayCastSearchDistance)
     {
         _GamePadNumber = GampePadNumber;
         _animator = animator;
@@ -73,7 +73,7 @@ public class MeleeStateJump : IPlayerState
         _state_instance.enter();
         _state_instance.SetGamepadNumber(_GamePadNumber);
         _state_old = state;
-        if(state == JumpState.IDLE)
+        if (state == JumpState.IDLE)
         {
             return PlayerState.IDLE;
         }
@@ -84,7 +84,8 @@ public class MeleeStateJump : IPlayerState
     {
     }
 
-    public void stayFixedUpdate() {
+    public void stayFixedUpdate()
+    {
         _state_instance.stay_fixed_update();
     }
     public void exit() { }

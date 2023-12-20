@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,7 +18,7 @@ public class MeleeStateDamage : IPlayerState
 
     public PlayerState stayUpdate()
     {
-        if (isState) return PlayerState.IDLE;
+        if (_animator.animationEnd(_anim_name)) return PlayerState.IDLE;
         return PlayerState.DAMAGE;
     }
 
