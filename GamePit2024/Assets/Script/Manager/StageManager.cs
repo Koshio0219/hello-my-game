@@ -228,6 +228,11 @@ namespace Game.Manager
         {
             return (MapPlayerIdToInstance.ContainsKey(id1) && MapPlayerIdToInstance.ContainsKey(id2)) || (MapEnemyIdToInstance.ContainsKey(id1) && MapEnemyIdToInstance.ContainsKey(id2));
         }
+
+        public void Timer(StageTimerEvent e)
+        {
+
+        }
     }
 }
 
