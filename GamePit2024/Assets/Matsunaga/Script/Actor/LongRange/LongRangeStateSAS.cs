@@ -78,15 +78,13 @@ public class LongRangeStateSAS : MonoBehaviour, IPlayerState
         }
         for(int i = 0; i < BeamLoad; i++)
         {
-            float t = BeamLoad * i * 2.0f * Mathf.PI;
+            float t = i * 2.0f * Mathf.PI / BeamLoad;
             float x = Mathf.Sin(t) * 2.0f;
             float z = Mathf.Cos(t) * 2.0f;
             _BeamInstance[i].transform.position = _SetPosition + new Vector3(x, 0.0f, z);
             //_BeamInstance[i] = Instantiate<GameObject>(_Beam, _SetPosition + new Vector3(x, 0.0f, z), Quaternion.identity);
-            _BeamInstance[i].GetComponent<BeamController>().Init(_player.position, _SetPosition + direction * 4f, 2.0f, 0);
+            _BeamInstance[i].GetComponent<BeamController>().Init(_SetPosition, _SetPosition + direction * 4f, 2.0f, t);
         }
-        //StartCoroutine(ChargeShot());
-        //_animator.animationStart(_anim_name);
     }
 
     public void stayFixedUpdate() { }
@@ -98,17 +96,4 @@ public class LongRangeStateSAS : MonoBehaviour, IPlayerState
         EventQueueSystem.QueueEvent(new SendDamageEvent(_instanceID, targetID, damage));
     }
 
-    IEnumerator ChargeShot()
-    {//チャージショット
-
-        Vector3 _SetPosition = new Vector3(_player.position.x, 1.5f, _player.position.z);
-        Vector3 direction = _player.forward;
-        direction.Normalize();
-        //var bulletInstance = Instantiate<GameObject>(_Bullet, _SetPosition + direction * 1.2f, Quaternion.identity);
-        //bulletInstance.GetComponent<BulletController>().setDirection(direction);
-        yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") == true);
-        isState = true;
-        //bulletInstance.GetComponent<BulletController>().setAttackTrigger();
-        //PlayerState.IDLE;
-    }
 }
