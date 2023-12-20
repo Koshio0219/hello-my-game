@@ -46,22 +46,26 @@ namespace Game.Unit
         public GameObject Target { get; private set; }
 
         private CancellationToken token = CancellationToken.None;
-        //private CancellationTokenSource tokenSource;
+        private CancellationTokenSource tokenSource = null;
 
         private System.Action recycleAction = null;
         private System.Action moveAction = null;
 
         private BulletProp initProp;
 
+        private void Awake()
+        {
+            initProp = new BulletProp(prop);
+        }
+
         public void Init(GameObject target)
         {
             Target = target;
             //token = this.GetCancellationTokenOnDestroy();
-            //tokenSource = new CancellationTokenSource();
-            //token = tokenSource.Token;
-            token = this.GetCancellationTokenOnDisable();
-            initProp = new BulletProp(prop);
-            
+            tokenSource = new CancellationTokenSource();
+            token = tokenSource.Token;
+            //token = this.GetCancellationTokenOnDisable();
+
             InitAction();
             recycleAction.Invoke();
             moveAction.Invoke();
@@ -76,7 +80,7 @@ namespace Game.Unit
         {
             recycleAction = UniTask.Action(async (_) =>
             {
-                await UniTask.Delay((int)(prop.lifeTime * 1000));
+                await UniTask.Delay((int)(prop.lifeTime * 1000),cancellationToken: token);
                 Recycle();
             }, token);
             moveAction = UniTask.Action(async (_) =>
@@ -84,7 +88,7 @@ namespace Game.Unit
                 while (this && isActiveAndEnabled)
                 {
                     Move();
-                    await UniTask.DelayFrame(1, PlayerLoopTiming.FixedUpdate);
+                    await UniTask.DelayFrame(1, PlayerLoopTiming.FixedUpdate, token);
                 }
             }, token);
         }
@@ -111,10 +115,11 @@ namespace Game.Unit
 
         private void OnDisable()
         {
-            //tokenSource.Cancel();
-            prop = initProp;
+            tokenSource.Cancel();
+            prop = new BulletProp(initProp);
             recycleAction = null;
             moveAction = null;
+            tokenSource = null;
             token = CancellationToken.None;
         }
     }

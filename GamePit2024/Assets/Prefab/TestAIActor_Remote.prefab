@@ -235,7 +235,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   normal_fire: {fileID: 6419139466393883190}
   skill_fire: {fileID: 7001187993410268299}
-  test_skill_fire: 0
+  test_skill_fire: 1
 --- !u!1 &6419139466393883188
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,7 +352,7 @@ MonoBehaviour:
     extraCount: 9
     timeInterval: 0
     offseDistance: 0
-    angleOffseMode: 2
+    angleOffseMode: 1
     offseAngle: 30
 --- !u!1001 &5264962158533542168
 PrefabInstance:
