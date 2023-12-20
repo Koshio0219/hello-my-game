@@ -123,6 +123,15 @@ namespace Game.Framework
 
     public class UpdateNavMeshEvent : GameEvent { }
 
+    public class StageTimerEvent : GameEvent
+    {
+        public GameTimer gameTimer;
+        public StageTimerEvent(float remaingTime)
+        {
+            gameTimer = new GameTimer(remaingTime);
+        }
+    }
+
     public class StageTimeUpEvent : GameEvent {
     
     }

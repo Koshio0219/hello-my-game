@@ -86,7 +86,7 @@ public class MeleeStateController : MonoBehaviour
         Debug.Log(state.ToString());
         if (_player_state_list.ContainsKey(state))
         {
-            Debug.Log(state.ToString());
+            Debug.Log("State: (" + _state_old.ToString() + ") -> (" + state.ToString() + ")");
             _state_instance.exit();
             _state_instance = _player_state_list[state];
             _state_instance.enter();
