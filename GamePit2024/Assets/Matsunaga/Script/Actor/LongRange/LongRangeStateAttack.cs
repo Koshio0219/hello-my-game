@@ -38,7 +38,7 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
         if (!Gamepad.all[_GamePadNumber].buttonEast.isPressed)
         {
             _animator.SetTrigger("AttackTrigger");
-            _BulletInstance.GetComponent<BulletController>().setAttackTrigger();
+            _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID);
             isState = true;
         }
         //Debug.Log(_animator.runtimeAnimatorController.animationClips[0].name);

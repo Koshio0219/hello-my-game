@@ -44,7 +44,7 @@ public class LongRangeStateSAS : MonoBehaviour, IPlayerState
             _animator.SetTrigger("AttackTrigger");
             for(int i = 0; i < _BeamInstance.Count; i++)
             {
-                _BeamInstance[i].GetComponent<BeamController>().setAttackTrigger();
+                _BeamInstance[i].GetComponent<BeamController>().setAttackTrigger(_instanceID);
             }
            
             isState = true;

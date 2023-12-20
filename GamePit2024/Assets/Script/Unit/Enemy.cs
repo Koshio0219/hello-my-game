@@ -12,6 +12,7 @@ using Game.Framework;
 using System;
 using UnityEngine.AI;
 using BehaviorDesigner.Runtime;
+using UnityEngine.Networking.Types;
 
 namespace Game.Unit
 {
@@ -167,6 +168,16 @@ namespace Game.Unit
             mapStateToAction.Add(EnemyState.Hit, OnChangeHit);
             mapStateToAction.Add(EnemyState.Moving, OnChangeMove);
             mapStateToAction.Add(EnemyState.Attack, OnChangeAttack);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            var up = collision.transform.GetRootParent();
+            Debug.Log($"enemy name:{gameObject.name} had OnCollisionEnter,target name:{up.name}");
+            if (!up.TryGetComponent<IDamageable>(out _)) return;
+            var pId = GameManager.stageManager.MatchPlayerId(up.gameObject);
+            if (pId == -1) return;
+            EventQueueSystem.QueueEvent(new SendDamageEvent(enemyUnitData.InsId, up.gameObject, Atk));
         }
     }
 }

@@ -1,11 +1,15 @@
+ï»¿using Game.Base;
+using Game.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking.Types;
 
 public class BeamController : MonoBehaviour
 {
     private bool AttackTrigger;
-
+    private int sourceId;
+    private float damage;
     private Vector3 _velocity;
     private Vector3 _axis;
     private Vector3 _selfPosition;
@@ -13,11 +17,6 @@ public class BeamController : MonoBehaviour
     private float _period;
     private float _time;
     private float _offset;
-
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -44,10 +43,10 @@ public class BeamController : MonoBehaviour
             _time += Time.deltaTime;
             //transform.RotateAround(_selfPosition, _axis, 360 / _period * Time.deltaTime + (180 * _offset) / 4.0f);
             /*var tr = transform;
-            // ‰ñ“]‚ÌƒNƒH[ƒ^ƒjƒIƒ“ì¬
+            // å¤æ®åºåƒ‹åƒ…ä¹•åƒåƒ¯åƒ†å„å¶Œæƒ‰
             var angleAxis = Quaternion.AngleAxis(60.0f * Time.deltaTime, _axis);
 
-            // ‰~‰^“®‚ÌˆÊ’uŒvZ
+            // å¢Œå¡£æ‘¦åºåŸµæŠ²å¯å¶¼
             var pos = tr.position;
 
             pos -= _selfPosition;
@@ -59,9 +58,11 @@ public class BeamController : MonoBehaviour
         }
     }
 
-    public void setAttackTrigger()
+    public void setAttackTrigger(int id, float _damage = 10f)
     {
         AttackTrigger = true;
+        sourceId = id;
+        damage = _damage;
     }
 
     public void setTargetPosition(Vector3 targetPosition)
@@ -95,5 +96,12 @@ public class BeamController : MonoBehaviour
         _velocity += acceleration * Time.deltaTime;
         this.transform.position = this.transform.position + _velocity * Time.deltaTime;
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var up = other.transform.GetRootParent();
+        if (!up.TryGetComponent<IDamageable>(out _)) return;
+        EventQueueSystem.QueueEvent(new SendDamageEvent(sourceId, up.gameObject, damage));
     }
 }

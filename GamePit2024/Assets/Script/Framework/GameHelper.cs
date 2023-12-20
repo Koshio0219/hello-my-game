@@ -77,7 +77,7 @@ namespace Game.Framework
             RaycastHit info;
             if (Physics.Raycast(orgin, dir, out info, dis))
             {
-                if (info.collider.tag == tag)
+                if (tag == ""|| info.collider.tag == tag)
                 {
                     if (callback != null)
                         callback(info);

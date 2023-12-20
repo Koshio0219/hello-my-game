@@ -48,8 +48,8 @@ namespace Game.Unit
         private CancellationToken token = CancellationToken.None;
         private CancellationTokenSource tokenSource = null;
 
-        private System.Action recycleAction = null;
-        private System.Action moveAction = null;
+        //private System.Action recycleAction = null;
+        //private System.Action moveAction = null;
 
         private BulletProp initProp;
 
@@ -67,23 +67,24 @@ namespace Game.Unit
             //token = this.GetCancellationTokenOnDisable();
 
             InitAction();
-            recycleAction.Invoke();
-            moveAction.Invoke();
+            //recycleAction.Invoke();
+            //moveAction.Invoke();
         }
 
         public void Recycle()
         {
+            ResetAction();
             GameObjectPool.Instance.RecycleObj(gameObject);
         }
 
         private void InitAction()
         {
-            recycleAction = UniTask.Action(async (_) =>
+            UniTask.Void(async (_) =>
             {
                 await UniTask.Delay((int)(prop.lifeTime * 1000),cancellationToken: token);
                 Recycle();
             }, token);
-            moveAction = UniTask.Action(async (_) =>
+            UniTask.Void(async (_) =>
             {
                 while (this && isActiveAndEnabled)
                 {
@@ -113,14 +114,14 @@ namespace Game.Unit
             transform.position += deltaTime * prop.speed * transform.forward;
         }
 
-        private void OnDisable()
+        private void ResetAction()
         {
             tokenSource.Cancel();
             prop = new BulletProp(initProp);
-            recycleAction = null;
-            moveAction = null;
-            tokenSource = null;
-            token = CancellationToken.None;
+            //recycleAction = ()=> { };
+            //moveAction = ()=> { };
+            //tokenSource = null;
+            //token = CancellationToken.None;
         }
     }
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,13 +16,13 @@ namespace Game.Framework
             var _name = perfab.name;
             var result = CheckPool(_name);
 
-            //Pool¤ÎÖĞ¤Ë¤¢¤ëˆöºÏ
+            //Poolã®ä¸­ã«ã‚ã‚‹å ´åˆ
             if (result != null)
             {
                 return result;
             }
  
-            //Pool¤ÎÖĞ¤Ë¤Ê¤¤ˆöºÏ
+            //Poolã®ä¸­ã«ãªã„å ´åˆ
             result = Object.Instantiate(perfab);
             result.name = _name;
             return result;
@@ -65,6 +65,7 @@ namespace Game.Framework
 
         public void RecycleObj(GameObject obj, bool worldPositionStays = true)
         {
+            if (obj != null && (!obj.activeSelf)) return;
             if (_pool == null)
             {
                 _pool = new GameObject("_objectPool_");

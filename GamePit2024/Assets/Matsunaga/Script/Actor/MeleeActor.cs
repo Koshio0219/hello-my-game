@@ -49,7 +49,7 @@ namespace Game.Test
         #endregion
 
         #region property
-
+        protected override float Hp { get => _Hp; set => _Hp = value; }
         #endregion
 
         #region Unity private function
@@ -270,12 +270,11 @@ namespace Game.Test
         /// <summary> 傾僯儊乕僔儑儞僀儀儞僩 Attack廔椆帪偵婲摦偡傞儊僜僢僪 </summary>
         private void AttackStart()
         {
-            //eg
-            GameHelper.ShootRay(transform.position, transform.forward, 10f, "Enemy", (info) =>
+            //eg (attack range is 2)
+            GameHelper.ShootRay(transform.position, transform.forward, 2f, "", (info) =>
             {
                 var up = info.transform.GetRootParent();
-                var enemy = up.GetComponent<IEnemyBaseAction>();
-                if (enemy != null)
+                if (up.TryGetComponent<IEnemyBaseAction>(out var enemy))
                 {
                     var id = enemy.EnemyUnitData.InsId;
                     Attack(id, _PlayerParameter.attack_M);
