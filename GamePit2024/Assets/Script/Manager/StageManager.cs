@@ -210,6 +210,26 @@ namespace Game.Manager
             return MapEnemyIdToInstance[enemyId];
         }
 
+        public Enemy FindCloseEnemy(Vector3 pos)
+        {
+            if (MapEnemyIdToInstance.Count == 0) return null;
+            var result = MapEnemyIdToInstance[0];
+            var offse = pos - result.transform.position;
+            var dis = Vector3.SqrMagnitude(offse);
+            for(int i = 1; i < MapEnemyIdToInstance.Count; i++)
+            {
+                var one = MapEnemyIdToInstance[i];
+                var temOffse = pos - one.transform.position;
+                var temDis = Vector3.SqrMagnitude(temOffse);
+                if (temDis < dis)
+                {
+                    dis = temDis;
+                    result = one;
+                }
+            }
+            return result;
+        }
+
         public int MatchPlayerId(GameObject target)
         {
             foreach (var item in MapPlayerIdToInstance)
