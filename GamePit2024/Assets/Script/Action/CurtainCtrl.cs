@@ -66,9 +66,10 @@ namespace Game.Action
             }
 #endif
             if (!inputable) return;
-            if (Gamepad.all.Count > 0 && inputIdx > 0 && Gamepad.all[inputIdx] != null)
+            if (Gamepad.all.Count > 0 && inputIdx >= 0 && Gamepad.all[inputIdx] != null)
             {
-                var input = Gamepad.all[inputIdx].startButton.isPressed;
+                var input = Gamepad.all[inputIdx].startButton.wasPressedThisFrame;
+                //var input = Gamepad.all[inputIdx].startButton.isPressed;
                 if (!input) return;
                 MapStateToAction[CurtainState].Invoke();
                 inputable = false;
