@@ -38,18 +38,10 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
 
     public PlayerState stayUpdate()
     {
-        if (!Gamepad.all[_GamePadNumber].buttonEast.isPressed)
-        {
-            _animator.SetTrigger("AttackTrigger");
-            _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID,_atk);
-            isState = true;
-        }
-        //Debug.Log(_animator.runtimeAnimatorController.animationClips[0].name);
-        //Debug.Log(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
-        //if (_animator.animationEnd(_anim_name))
-        //{
-        //    return PlayerState.IDLE;
-        //}
+        _animator.SetTrigger("AttackTrigger");
+        _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID, _atk);
+        isState = true;
+
         if (isState)
         {
             isState = false;
@@ -66,8 +58,7 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
         direction.Normalize();
         _BulletInstance = Instantiate<GameObject>(_Bullet, _SetPosition + direction * 1.2f, Quaternion.identity);
         _BulletInstance.GetComponent<BulletController>().setDirection(direction);
-        //StartCoroutine(ChargeShot());
-        //_animator.animationStart(_anim_name);
+
     }
 
     public void stayFixedUpdate() { }
@@ -77,19 +68,5 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
     {
         //...
         EventQueueSystem.QueueEvent(new SendDamageEvent(_instanceID, targetID, damage));
-    }
-
-    IEnumerator ChargeShot()
-    {//チャージショット
-
-        Vector3 _SetPosition = new Vector3(_player.position.x, 1.5f, _player.position.z);
-        Vector3 direction = _player.forward;
-        direction.Normalize();
-        //var bulletInstance = Instantiate<GameObject>(_Bullet, _SetPosition + direction * 1.2f, Quaternion.identity);
-        //bulletInstance.GetComponent<BulletController>().setDirection(direction);
-        yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") == true);
-        isState = true;
-        //bulletInstance.GetComponent<BulletController>().setAttackTrigger();
-        //PlayerState.IDLE;
     }
 }

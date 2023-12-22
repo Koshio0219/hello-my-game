@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Game.Manager;
 
 public class LongRangeStateSAS : MonoBehaviour, IPlayerState
 {
@@ -84,7 +85,8 @@ public class LongRangeStateSAS : MonoBehaviour, IPlayerState
             float z = Mathf.Cos(t) * 2.0f;
             _BeamInstance[i].transform.position = _SetPosition + new Vector3(x, 0.0f, z);
             //_BeamInstance[i] = Instantiate<GameObject>(_Beam, _SetPosition + new Vector3(x, 0.0f, z), Quaternion.identity);
-            _BeamInstance[i].GetComponent<BeamController>().Init(_SetPosition, _SetPosition + direction * 4f, 2.0f, t);
+            //_BeamInstance[i].GetComponent<BeamController>().Init(_SetPosition, _SetPosition + direction * 4f, 2.0f, t);
+            _BeamInstance[i].GetComponent<BeamController>().Init(_SetPosition, GameManager.stageManager.FindCloseEnemy(_SetPosition).gameObject.transform.position, 2.0f, t);
         }
     }
 
