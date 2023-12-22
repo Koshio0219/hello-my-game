@@ -34,7 +34,7 @@ public class MeleeStateAttack : IPlayerState
     {
         //Debug.Log(_animator.runtimeAnimatorController.animationClips[0].name);
         //Debug.Log(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
-        if (_animator.animationEnd(_anim_name))
+        if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Attack01_SwordAndShiled")
         {
             return PlayerState.IDLE;
         }
