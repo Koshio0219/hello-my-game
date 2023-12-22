@@ -306,6 +306,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChaWitch
       objectReference: {fileID: 0}
+    - target: {fileID: 7903193100828604339, guid: 7db716ac8be0d0643887a74e4fdf4b4e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7903193102312446011, guid: 7db716ac8be0d0643887a74e4fdf4b4e,
         type: 3}
       propertyPath: _mainCamera
@@ -1058,7 +1063,7 @@ GameObject:
   - component: {fileID: 456592295}
   - component: {fileID: 456592294}
   - component: {fileID: 456592298}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1785,6 +1790,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MaleCharacterPBR
       objectReference: {fileID: 0}
+    - target: {fileID: 2918051125740685601, guid: 180d51568037eaf4bbde3afd3268baac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6473827543610595531, guid: 180d51568037eaf4bbde3afd3268baac,
         type: 3}
       propertyPath: _mainCamera
@@ -2116,7 +2126,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 1079
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

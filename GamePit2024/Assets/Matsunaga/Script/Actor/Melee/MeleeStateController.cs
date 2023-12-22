@@ -4,8 +4,10 @@ using UnityEngine;
 using Game.Data;
 using Game.Test;
 using Game.Manager;
+using Game.Base;
+using Cysharp.Threading.Tasks;
 
-public class MeleeStateController : MonoBehaviour
+public class MeleeStateController : Player
 {
     [SerializeField] Rigidbody _rigidBody;
     [SerializeField] Animator _animator;
@@ -39,26 +41,43 @@ public class MeleeStateController : MonoBehaviour
     private int GamePadNumber_M = 0;
     private PlayerState _state_old = PlayerState.IDLE;
     private IPlayerState _state_instance;
-    private PlayerParameter _PlayerParameter;
-    public int InsId
-    {
-        get => gameObject.GetInstanceID();
-    }
-    private async void Awake()
-    {
-        _PlayerParameter = await GameData.Instance.GetPlayerParameter();
 
-        //GameManager.stageManager.AddOnePlayer(InsId, gameObject);
-    }
+    private float _hp;
+    protected override float Hp { get => _hp; set => _hp = value; }
+    //private PlayerParameter _PlayerParameter;
+    //public int InsId
+    //{
+    //    get => gameObject.GetInstanceID();
+    //}
+    //private async void Awake()
+    //{
+    //    _PlayerParameter = await GameData.Instance.GetPlayerParameter();
+
+    //    //GameManager.stageManager.AddOnePlayer(InsId, gameObject);
+    //}
+    //protected async override void Awake()
+    //{
+    //    base.Awake();
+    //    _hp = _PlayerParameter.hp_M;
+    //}
+
+
+    //private async void Awake()
+    //{
+    //    await base.Init();
+    //    _hp = _PlayerParameter.hp_L;
+    //}
 
     // Start is called before the first frame update
-    void Start()
+    async void Start()
     {
+        await base.Init();
+        _hp = _PlayerParameter.hp_M;
         _player_state_list = new Dictionary<PlayerState, IPlayerState>();
         _player_state_list = new Dictionary<PlayerState, IPlayerState> {
             { PlayerState.IDLE, new MeleeStateIdle(_animator, GamePadNumber_M) },
             { PlayerState.MOVE, new MeleeStateMove(_animator, GamePadNumber_M, _rigidBody, _mainCamera, transform, 0.65f) },
-            { PlayerState.ATTACK, new MeleeStateAttack(_animator, GamePadNumber_M, _rigidBody, _mainCamera, transform, InsId, 1.0f) },
+            { PlayerState.ATTACK, new MeleeStateAttack(_animator, GamePadNumber_M, _rigidBody, _mainCamera, transform, InsId, 1.0f,_PlayerParameter.attack_M) },
             { PlayerState.JUMP, new MeleeStateJump(_animator, GamePadNumber_M, transform, _rigidBody, _jump_power_up, _jump_power_max, distance_list_limit, ground_distance_limit, raycastSearchDistance) },
             { PlayerState.DAMAGE, new MeleeStateDamage(_animator, GamePadNumber_M) },
             { PlayerState.DEAD, new MeleeStateDead(_animator, GamePadNumber_M) },
@@ -71,6 +90,7 @@ public class MeleeStateController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_state_instance == null) return;
         //Debug.Log("PlayerStateLength: " + _player_state_list.Count);
         PlayerState state = _state_instance.stayUpdate();
         //Debug.Log(state.ToString());
@@ -97,6 +117,7 @@ public class MeleeStateController : MonoBehaviour
 
     public void FixedUpdate()
     {
+        if (_state_instance == null) return;
         _state_instance.stayFixedUpdate();
     }
 }

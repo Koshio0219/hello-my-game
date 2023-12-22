@@ -59,10 +59,10 @@ namespace Game.Test
 
         #region Unity private function
 
-        protected override async void Awake()
+        protected async void Awake()
         {
             //add id
-            base.Awake();
+            //base.Awake();
             //GameManager.stageManager.AddOnePlayer(gameObject.GetInstanceID(), gameObject);
 
             _PlayerParameter = await GameData.Instance.GetPlayerParameter();

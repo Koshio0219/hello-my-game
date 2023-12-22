@@ -19,8 +19,9 @@ public class LongRangeStateSAS : MonoBehaviour, IPlayerState
     private float _attackPower;
     private bool isState;
     private string _anim_name = "Attack";
+    private float _atk;
 
-    public LongRangeStateSAS(GameObject Beam, Animator animator, int GamePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, int InstanceID, float AttackPower)
+    public LongRangeStateSAS(GameObject Beam, Animator animator, int GamePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, int InstanceID, float AttackPower,float atk)
     {
         _Beam = Beam;
         _GamePadNumber = GamePadNumber;
@@ -34,7 +35,7 @@ public class LongRangeStateSAS : MonoBehaviour, IPlayerState
         
         BeamLoad = 4;
         _BeamInstance = new List<GameObject>();
-
+        _atk = atk;
     }
 
     public PlayerState stayUpdate()
@@ -44,7 +45,7 @@ public class LongRangeStateSAS : MonoBehaviour, IPlayerState
             _animator.SetTrigger("AttackTrigger");
             for(int i = 0; i < _BeamInstance.Count; i++)
             {
-                _BeamInstance[i].GetComponent<BeamController>().setAttackTrigger(_instanceID);
+                _BeamInstance[i].GetComponent<BeamController>().setAttackTrigger(_instanceID,_atk);
             }
            
             isState = true;

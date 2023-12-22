@@ -5,6 +5,9 @@ using Game.Data;
 using Game.Manager;
 using Game.Framework;
 using System;
+using Game.Test;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace Game.Base
 {
@@ -23,11 +26,14 @@ namespace Game.Base
             get => gameObject.GetInstanceID();
         }
 
+        protected PlayerParameter _PlayerParameter;
+
         protected virtual float Hp { get; set; }
         //public float Atk;
 
-        protected virtual void Awake() 
+        protected async virtual UniTask Init()
         {
+            _PlayerParameter = await GameData.Instance.GetPlayerParameter();
             GameManager.stageManager.AddOnePlayer(InsId, gameObject);
             EventQueueSystem.AddListener<SendDamageEvent>(DamageEventHandler);
         }

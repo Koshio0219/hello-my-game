@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Game.Data;
 
 public class LongRangeStateAttack : MonoBehaviour, IPlayerState
 {
@@ -19,8 +20,9 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
     private float _attackPower;
     private bool isState;
     private string _anim_name = "Attack";
+    private float _atk;
 
-    public LongRangeStateAttack(GameObject Bullet, Animator animator, int GamePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, int InstanceID, float AttackPower)
+    public LongRangeStateAttack(GameObject Bullet, Animator animator, int GamePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, int InstanceID, float AttackPower,float atk)
     {
         _Bullet = Bullet;
         _GamePadNumber = GamePadNumber;
@@ -31,6 +33,7 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
         isState = false;
         _instanceID = InstanceID;
         _attackPower = AttackPower;
+        _atk = atk;
     }
 
     public PlayerState stayUpdate()
@@ -38,7 +41,7 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
         if (!Gamepad.all[_GamePadNumber].buttonEast.isPressed)
         {
             _animator.SetTrigger("AttackTrigger");
-            _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID);
+            _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID,_atk);
             isState = true;
         }
         //Debug.Log(_animator.runtimeAnimatorController.animationClips[0].name);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
+/// < summary >
 /// 時間を測るクラス
 /// 使用例
 /// class Test : MonoBehaviour
@@ -17,9 +17,9 @@ using UnityEngine;
 ///				// 1秒ごとに呼ばれる処理
 ///				_Timer.ResetTimer();
 ///			}
-///		}
+///       }
 /// }
-/// </summary>
+/// </ summary >
 public class GameTimer
 {
     #region field

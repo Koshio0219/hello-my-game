@@ -306,6 +306,10 @@ namespace Game.Framework
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, z);
         }
 
+        public static Vector3 FixHeight(this Vector3 vector,float height = 0f)
+        {
+            return new Vector3(vector.x, height, vector.z);
+        }
 
         #endregion
 

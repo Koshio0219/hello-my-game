@@ -74,13 +74,12 @@ namespace Game.Framework
         #region Ray
         public static bool ShootRay(Vector3 orgin, Vector3 dir, float dis, string tag, Action<RaycastHit> callback)
         {
-            RaycastHit info;
-            if (Physics.Raycast(orgin, dir, out info, dis))
+            Debug.DrawLine(orgin, orgin + dir * dis, UnityEngine.Color.red);
+            if (Physics.Raycast(orgin, dir, out RaycastHit info, dis))
             {
-                if (tag == ""|| info.collider.tag == tag)
+                if (tag == "" || info.collider.CompareTag(tag))
                 {
-                    if (callback != null)
-                        callback(info);
+                    callback?.Invoke(info);
                     return true;
                 }
             }

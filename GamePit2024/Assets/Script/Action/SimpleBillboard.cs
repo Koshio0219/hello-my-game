@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using Game.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,4 +20,15 @@ public class SimpleBillboard : MonoBehaviour
             }
         },this.GetCancellationTokenOnDestroy());
     }
+
+    
+    //private void Start()
+    //{
+    //    UniTask.Void(async (_) =>
+    //    {
+    //        await UniTask.DelayFrame(3000, playerLoopTiming, this.GetCancellationTokenOnDestroy());
+    //        EventQueueSystem.QueueEvent(new StageTimeUpEvent());
+            
+    //    }, this.GetCancellationTokenOnDestroy());
+    //}
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -56,6 +56,11 @@ namespace Game
         {
             if (debugType == DebugType.CLOSE) return;
             UnityEngine.Debug.LogError(log);
+        }
+
+        public static void DrawLine(Vector3 start, Vector3 end, Color color)
+        {
+            UnityEngine.Debug.DrawLine(start, end, color,10);
         }
     }
 }

@@ -18,8 +18,9 @@ public class LongRangeStateSAF : MonoBehaviour, IPlayerState
     private float _attackPower;
     private bool isState;
     private string _anim_name = "Attack";
+    private float _atk;
 
-    public LongRangeStateSAF(GameObject Bullet, Animator animator, int GamePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, int InstanceID, float AttackPower)
+    public LongRangeStateSAF(GameObject Bullet, Animator animator, int GamePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, int InstanceID, float AttackPower,float atk)
     {
         _Bullet = Bullet;
         _GamePadNumber = GamePadNumber;
@@ -30,6 +31,7 @@ public class LongRangeStateSAF : MonoBehaviour, IPlayerState
         isState = false;
         _instanceID = InstanceID;
         _attackPower = AttackPower;
+        _atk = atk;
     }
 
     public PlayerState stayUpdate()
@@ -37,7 +39,7 @@ public class LongRangeStateSAF : MonoBehaviour, IPlayerState
         if (!Gamepad.all[_GamePadNumber].buttonNorth.isPressed)
         {
             _animator.SetTrigger("AttackTrigger");
-            _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID);
+            _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID,_atk);
             isState = true;
         }
         //Debug.Log(_animator.runtimeAnimatorController.animationClips[0].name);

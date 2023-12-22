@@ -4,8 +4,10 @@ using UnityEngine;
 using Game.Data;
 using Game.Test;
 using Game.Manager;
+using Game.Base;
+using Cysharp.Threading.Tasks;
 
-public class LongRangeStateController : MonoBehaviour
+public class LongRangeStateController : Player
 {
     [SerializeField] Rigidbody _rigidBody;
     [SerializeField] Animator _animator;
@@ -41,28 +43,42 @@ public class LongRangeStateController : MonoBehaviour
     private int GamePadNumber_L = 0;
     private PlayerState _state_old = PlayerState.IDLE;
     private IPlayerState _state_instance;
-    private PlayerParameter _PlayerParameter;
-    public int InsId
-    {
-        get => gameObject.GetInstanceID();
-    }
-    private async void Awake()
-    {
-        _PlayerParameter = await GameData.Instance.GetPlayerParameter();
 
-        //GameManager.stageManager.AddOnePlayer(InsId, gameObject);
-    }
+    private float _hp;
+    protected override float Hp { get => _hp; set => _hp = value; }
+    // private PlayerParameter _PlayerParameter;
+
+    //private async void Awake()
+    //{
+    //    //_PlayerParameter = await GameData.Instance.GetPlayerParameter();
+
+    //    //GameManager.stageManager.AddOnePlayer(InsId, gameObject);
+    //}
 
     // Start is called before the first frame update
-    void Start()
+    //protected override async UniTask Awake()
+    //{
+    //    await base.Awake();
+
+    //}
+
+    //private async void Awake()
+    //{
+    //    await base.Init();
+    //    _hp = _PlayerParameter.hp_L;
+    //}
+
+     async void Start()
     {
+        await base.Init();
+        _hp = _PlayerParameter.hp_L;
         _player_state_list = new Dictionary<PlayerState, IPlayerState>();
         _player_state_list = new Dictionary<PlayerState, IPlayerState> {
             { PlayerState.IDLE, new LongRangeStateIdle(_animator, GamePadNumber_L) },
             { PlayerState.MOVE, new LongRangeStateMove(_animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, 0.65f) },
-            { PlayerState.ATTACK, new LongRangeStateAttack(_Bullet, _animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, InsId, 1.0f) },
-            { PlayerState.SKILLATTACKFIRST, new LongRangeStateSAF(_Bullet, _animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, InsId, 1.0f) },
-            { PlayerState.SKILLATTACKSECOND, new LongRangeStateSAS(_Beam, _animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, InsId, 1.0f) },
+            { PlayerState.ATTACK, new LongRangeStateAttack(_Bullet, _animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, InsId, 1.0f,_PlayerParameter.attack_L) },
+            { PlayerState.SKILLATTACKFIRST, new LongRangeStateSAF(_Bullet, _animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, InsId, 1.0f,_PlayerParameter.attack_L) },
+            { PlayerState.SKILLATTACKSECOND, new LongRangeStateSAS(_Beam, _animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, InsId, 1.0f,_PlayerParameter.attack_L) },
             { PlayerState.JUMP, new LongRangeStateJump(_animator, GamePadNumber_L, transform, _rigidBody, _jump_power_up, _jump_power_max, distance_list_limit, ground_distance_limit, raycastSearchDistance) },
             { PlayerState.DAMAGE, new LongRangeStateDamage(_animator, GamePadNumber_L) },
             { PlayerState.DEAD, new LongRangeStateDead(_animator, GamePadNumber_L) },
@@ -75,7 +91,7 @@ public class LongRangeStateController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (_state_instance == null) return;
         PlayerState state = _state_instance.stayUpdate();
 
         if (state == _state_old)
@@ -96,6 +112,7 @@ public class LongRangeStateController : MonoBehaviour
 
     public void FixedUpdate()
     {
+        if (_state_instance == null) return;
         _state_instance.stayFixedUpdate();
     }
 }
