@@ -56,7 +56,9 @@ namespace Game.Unit
                 if (hp == value) return;
                 var last = hp;
                 hp = value;
+
                 if (hp > MaxHp) hp = MaxHp;
+                if (hp <= 0) Dead();
 
                 EventQueueSystem.QueueEvent(new EnemyHpChangeEvent(EnemyUnitData.InsId, last, hp));
             }
