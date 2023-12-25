@@ -309,7 +309,7 @@ PrefabInstance:
     - target: {fileID: 7903193100828604339, guid: 7db716ac8be0d0643887a74e4fdf4b4e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7903193102312446011, guid: 7db716ac8be0d0643887a74e4fdf4b4e,
         type: 3}
@@ -1288,6 +1288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 717251986}
   - component: {fileID: 717251987}
+  - component: {fileID: 717251988}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -1322,6 +1323,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a620c5c2943cd442b69f7bc1ee13508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &717251988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717251985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338b4e5546effe64fb5e6639ea45e1de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textHeight: 1.5
 --- !u!1 &1040023358
 GameObject:
   m_ObjectHideFlags: 0

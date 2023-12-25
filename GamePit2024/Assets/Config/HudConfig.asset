@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430936bdede3e0b43bb7ddaceb183a4a, type: 3}
   m_Name: HudConfig
   m_EditorClassIdentifier: 
+  popupTextPrefab: {fileID: 9036107827998520552, guid: e206b285987f2c9488bfb6bbb0ff1a60,
+    type: 3}

@@ -121,6 +121,8 @@ namespace Game.Unit
         {
             if (sourceId == enemyUnitData.InsId) return;
             if (GameManager.stageManager.IsFriend(sourceId, enemyUnitData.InsId)) return;
+
+            EventQueueSystem.QueueEvent(new PopupTextEvent(transform, (int)damage, Color.blue));
             Hp -= damage;
             Debug.Log($"enemy id :{enemyUnitData.InsId},name:{gameObject.name} had receive damage:{damage},current hp :{Hp}");
             ChangeState(EnemyState.Hit);

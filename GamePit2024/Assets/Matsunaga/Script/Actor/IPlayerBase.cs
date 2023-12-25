@@ -63,6 +63,8 @@ namespace Game.Base
             if (GameManager.stageManager.IsFriend(sourceId, InsId)) return;
             Debug.Log($"player id :{InsId},name:{gameObject.name} had receive damage:{damage} from id:{sourceId}");
             //今、Hp は base class　に　い　ない　
+
+            EventQueueSystem.QueueEvent(new PopupTextEvent(transform, (int)damage,Color.red));
             Hp -= damage;
         }
 

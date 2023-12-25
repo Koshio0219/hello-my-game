@@ -21,7 +21,7 @@ namespace Game.Unit
 
         public float maxSpeed = 60f;
 
-        public BulletProp(float sp,float lt,float ans,float acc,float ms)
+        public BulletProp(float sp, float lt, float ans, float acc, float ms)
         {
             speed = sp;
             lifeTime = lt;
@@ -40,7 +40,7 @@ namespace Game.Unit
         }
     }
 
-    public class Bullet : MonoBehaviour
+    public class Bullet : MonoBehaviour, IInit<GameObject>
     {
         public BulletProp prop;
         public GameObject Target { get; private set; }
@@ -81,7 +81,7 @@ namespace Game.Unit
         {
             UniTask.Void(async (_) =>
             {
-                await UniTask.Delay((int)(prop.lifeTime * 1000),cancellationToken: token);
+                await UniTask.Delay((int)(prop.lifeTime * 1000), cancellationToken: token);
                 Recycle();
             }, token);
             UniTask.Void(async (_) =>

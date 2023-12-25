@@ -97,16 +97,19 @@ namespace Game.Action
 
             //hit
             var hit = bullet.GetComponent<BulletHit>();
-            var enterTrigger = hit.GetAsyncTriggerEnterTrigger();
-            var enter = await enterTrigger.OnTriggerEnterAsync(hit.GetCancellationTokenOnDestroy());
-            hit.OnEnterHit(enter, creatorId, baseProp.damage);
+            hit.Init((creatorId, baseProp.damage));
+            //var cts = new CancellationTokenSource();
+            //var enterTrigger = hit.GetAsyncTriggerEnterTrigger();
+            //var enter = await enterTrigger.OnTriggerEnterAsync(cts.Token);
+            //hit.OnEnterHit(enter, creatorId, baseProp.damage);
+            //cts.Cancel();
 
             //recycle
-            var self = transform.GetRootParent();
-            var up = enter.transform.GetRootParent().gameObject;
-            if (up.GetComponent<Bullet>()) return;
-            if (up.GetInstanceID() == self.GetInstanceID()) return;
-            bullet.Recycle();
+            //var self = transform.GetRootParent();
+            //var up = enter.transform.GetRootParent().gameObject;
+            //if (up.GetComponent<Bullet>()) return;
+            //if (up.GetInstanceID() == self.GetInstanceID()) return;
+            //bullet.Recycle();
         }
 
         private Vector3 CalBulletDirection(float angle)
