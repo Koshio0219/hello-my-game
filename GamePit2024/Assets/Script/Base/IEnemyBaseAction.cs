@@ -13,5 +13,6 @@ namespace Game.Base
         void Attack(int targetId, float damage);
         //void Hit(int sourceId, float damage);
         void Move();
+        void Idle();
     }
 }

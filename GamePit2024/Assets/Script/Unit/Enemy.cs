@@ -144,7 +144,7 @@ namespace Game.Unit
             atk = baseProp.attack;
         }
 
-        public virtual void ChangeState(EnemyState toState)
+        protected virtual void ChangeState(EnemyState toState)
         {
             if (State == toState) return;
             State = toState;
@@ -197,6 +197,11 @@ namespace Game.Unit
             behaviorTree.SetProp("TargetList", list);
             //test null
             //behaviorTree.SetProp("TargetList156", 12);
+        }
+
+        public virtual void Idle()
+        {
+            ChangeState(EnemyState.Idle);
         }
     }
 }
