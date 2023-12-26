@@ -1,4 +1,5 @@
-﻿using Game.Base;
+﻿using Cysharp.Threading.Tasks;
+using Game.Base;
 using Game.Data;
 using Game.Framework;
 using Game.Hud;
@@ -13,11 +14,11 @@ namespace Game.Hud
     public class EnemyHpRingCtrl : MonoBehaviour
     {
         private EnemyHpRingView view = null;
-        public EnemyHpRingView View 
-        { 
+        public EnemyHpRingView View
+        {
             get
             {
-                if(view == null)
+                if (view == null)
                 {
                     view = GetComponent<EnemyHpRingView>();
                 }
@@ -31,11 +32,13 @@ namespace Game.Hud
         {
             get
             {
-                if(rootObjId == -1)
+                if (rootObjId == -1)
                 {
                     var up = transform.GetRootParent();
                     var objId = up.gameObject.GetInstanceID();
                     rootObjId = objId;
+                    //detach the hpui with enemy
+                    Detach();
                 }
                 return rootObjId;
             }
@@ -82,6 +85,20 @@ namespace Game.Hud
         {
             view = null;
             rootObjId = -1;
+        }
+
+        private void Detach()
+        {
+            var par = transform.parent;
+            transform.SetParent(null);
+            UniTask.Void(async () =>
+            {
+                while (par != null && this && isActiveAndEnabled)
+                {
+                    transform.position = par.position + new Vector3(0.5f, 1f, -1f);
+                    await UniTask.DelayFrame(1, PlayerLoopTiming.PreLateUpdate);
+                }
+            });
         }
     }
 }
