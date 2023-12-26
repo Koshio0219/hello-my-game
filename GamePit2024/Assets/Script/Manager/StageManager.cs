@@ -5,6 +5,7 @@ using Game.Unit;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -249,6 +250,8 @@ namespace Game.Manager
             return (MapPlayerIdToInstance.ContainsKey(id1) && MapPlayerIdToInstance.ContainsKey(id2)) || (MapEnemyIdToInstance.ContainsKey(id1) && MapEnemyIdToInstance.ContainsKey(id2));
         }
 
+        public List<GameObject> GetAllPlayer() => MapPlayerIdToInstance.Values.ToList();
+   
         public void Timer(StageTimerEvent e)
         {
             

@@ -1,4 +1,6 @@
 ﻿using Game.Data;
+using Game.Framework;
+using Game.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +21,11 @@ namespace Game.Unit
         {
             base.Born(data);
             faceMaterial = smileBody.GetComponent<Renderer>().materials[1];
+        }
+
+        protected override void InitBehaviorTree()
+        {
+            base.InitBehaviorTree();
         }
 
         void SetFace(Texture tex)

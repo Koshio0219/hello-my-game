@@ -82,6 +82,7 @@ namespace Game.Unit
         //private AsyncReactiveProperty<float> hp;
 
         [SerializeField] protected Animator animator;
+        [SerializeField] protected BehaviorTree behaviorTree;
 
         public virtual void Attack(int targetId, float damage)
         {
@@ -95,6 +96,7 @@ namespace Game.Unit
             data.Init();
             enemyUnitData = data;
             InitBaseProp(data.prop);
+            InitBehaviorTree();
             GameManager.stageManager.AddOneEnemy(data.InsId, this);
             ChangeState(EnemyState.Idle);
 
@@ -182,6 +184,19 @@ namespace Game.Unit
             var pId = GameManager.stageManager.MatchPlayerId(up.gameObject);
             if (pId == -1) return;
             EventQueueSystem.QueueEvent(new SendDamageEvent(enemyUnitData.InsId, up.gameObject, Atk));
+        }
+
+        protected virtual void InitBehaviorTree() 
+        {
+            var list = new List<Transform>();
+            foreach (var item in GameManager.stageManager.GetAllPlayer())
+            {
+                list.Add(item.transform);
+            }
+
+            behaviorTree.SetProp("TargetList", list);
+            //test null
+            //behaviorTree.SetProp("TargetList156", 12);
         }
     }
 }

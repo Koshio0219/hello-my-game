@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using BehaviorDesigner.Runtime;
+using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
 using System;
 using System.Collections;
@@ -351,6 +352,30 @@ namespace Game.Framework
             var disTrigger = component.GetAsyncDisableTrigger();
             await disTrigger.OnDisableAsync();
             tokenSource.Cancel();
+        }
+
+        #endregion
+
+        #region BehaviorTree関連
+
+        public static void SetProp(this BehaviorTree tree, string propName, object v)
+        {
+            if (tree == null)          
+                return;
+            if (tree.GetVariable(propName) == null) 
+                return;
+            tree.SetVariableValue(propName, v);
+        }
+
+        public static object GetProp(this BehaviorTree tree, string propName)
+        {
+            if (tree == null)           
+                return null;
+            var temp = tree.GetVariable(propName);
+            if (temp == null)
+                return null;
+
+            return temp.GetValue();
         }
 
         #endregion

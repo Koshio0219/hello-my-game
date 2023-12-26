@@ -37,14 +37,13 @@ namespace Game.BehaviorTask
                 if (angle > this.angle.Value * .5f)
                     continue;
 
-                Ray ray = new Ray(transform.position, offse);
-                RaycastHit info;
-                if (Physics.Raycast(ray, out info, radius.Value))
+                Ray ray = new(transform.position, offse);
+                if (Physics.Raycast(ray, out RaycastHit info, radius.Value))
                 {
                     if (info.collider.gameObject == target.gameObject)
                     {
                         results.Value.Add(target);
-                        sqrDis.Add(target,_sqrDis);
+                        sqrDis.Add(target, _sqrDis);
                     }
                 }
             }
