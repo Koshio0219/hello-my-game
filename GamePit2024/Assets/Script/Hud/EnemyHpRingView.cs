@@ -44,7 +44,7 @@ namespace Game.Hud
             Debug.Log($"down enemy hp! hp: {nowHp}");
             text_hp.text = nowHp.ToString();
             ring_hp.fillAmount = nowHp * 1.0f / maxHp;
-            DOTween.To(() => ring_mod.fillAmount, (x) => ring_mod.fillAmount = x, ring_hp.fillAmount, changeTime);
+            DOTween.To(() => ring_mod.fillAmount, (x) => ring_mod.fillAmount = x, ring_hp.fillAmount, changeTime).OnComplete(() => Destroy(gameObject));
         }
     }
 }

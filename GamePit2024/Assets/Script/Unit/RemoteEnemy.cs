@@ -10,13 +10,17 @@ namespace Game.Unit
 {
     public class RemoteEnemy : Enemy
     {
-        public FireBase normal_fire;
-        public FireBase skill_fire;
+        public List<FireBase> normal_fire;
+        public List<FireBase> skill_fire;
 
         public override void Attack(int targetId, float damage)
         {
             if (test_skill_fire) return;
-            Fire(normal_fire, targetId, damage);
+
+            normal_fire.ForEach(one =>
+            {
+                Fire(one, targetId, damage);
+            });
         }
 
         private void Fire(FireBase fire,int targetId, float damage)
@@ -41,7 +45,10 @@ namespace Game.Unit
             {
                 while(this && isActiveAndEnabled)
                 {
-                    Fire(skill_fire, 0, 50);
+                    skill_fire.ForEach(one =>
+                    {
+                        Fire(one, 0, 50);
+                    });
                     await UniTask.Delay(500);
                 }
             });

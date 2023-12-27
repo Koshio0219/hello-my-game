@@ -52,6 +52,7 @@ namespace Game.Unit
         //private System.Action moveAction = null;
 
         private BulletProp initProp;
+        private Vector3 targetPos;
 
         private void Awake()
         {
@@ -61,6 +62,8 @@ namespace Game.Unit
         public void Init(GameObject target)
         {
             Target = target;
+            //fix to player center with height 0.6f
+            targetPos = Target.transform.position.FixHeight(Target.transform.position.y + .6f);
             //token = this.GetCancellationTokenOnDestroy();
             tokenSource = new CancellationTokenSource();
             token = tokenSource.Token;
@@ -99,7 +102,7 @@ namespace Game.Unit
             float deltaTime = Time.fixedDeltaTime;
             if (Target != null && prop.angleSpeed > 0)
             {
-                Vector3 offset = (Target.transform.position - transform.position).normalized;
+                Vector3 offset = (targetPos- transform.position).normalized;
 
                 float angle = Vector3.Angle(transform.forward, offset);
 

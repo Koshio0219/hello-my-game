@@ -101,7 +101,7 @@ MonoBehaviour:
   prop:
     speed: 0
     lifeTime: 3
-    angleSpeed: 120
+    angleSpeed: 30
     acceleration: 3
     maxSpeed: 60
 --- !u!114 &5583036101744098327

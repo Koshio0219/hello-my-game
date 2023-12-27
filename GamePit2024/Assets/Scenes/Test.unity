@@ -1348,6 +1348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1373984691}
+  behaviorTree: {fileID: 0}
   faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
   smileBody: {fileID: 6080307934900497557}
   damType: 0
@@ -2444,26 +2445,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6199058164825075953, guid: 7b0c0fac2cde795499635f9298d135d0,
-        type: 3}
-      propertyPath: mBehaviorSource.mTaskData.fieldSerializationData.unityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 1348879691}
-    - target: {fileID: 6199058164825075953, guid: 7b0c0fac2cde795499635f9298d135d0,
-        type: 3}
-      propertyPath: mBehaviorSource.mTaskData.fieldSerializationData.unityObjects.Array.data[1]
-      value: 
-      objectReference: {fileID: 988361673}
-    - target: {fileID: 6199058164825075953, guid: 7b0c0fac2cde795499635f9298d135d0,
-        type: 3}
-      propertyPath: mBehaviorSource.mTaskData.fieldSerializationData.unityObjects.Array.data[4]
-      value: 
-      objectReference: {fileID: 1348879691}
-    - target: {fileID: 6199058164825075953, guid: 7b0c0fac2cde795499635f9298d135d0,
-        type: 3}
-      propertyPath: mBehaviorSource.mTaskData.fieldSerializationData.unityObjects.Array.data[5]
-      value: 
-      objectReference: {fileID: 988361673}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b0c0fac2cde795499635f9298d135d0, type: 3}

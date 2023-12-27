@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 6333455266019853039}
   - component: {fileID: 6333455266019853038}
   m_Layer: 0
-  m_Name: TestAIActor_Follow
+  m_Name: Slime1_Follow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
