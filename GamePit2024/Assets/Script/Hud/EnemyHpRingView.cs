@@ -26,7 +26,7 @@ namespace Game.Hud
         public void UpdateHpView(float lastHp, float nowHp, float changeTime = .3f)
         {
             if (lastHp > nowHp)
-                HpDown(nowHp,changeTime);
+                HpDown(nowHp, changeTime);
             else if (lastHp < nowHp)
                 HpUp(nowHp);
         }
@@ -44,7 +44,11 @@ namespace Game.Hud
             Debug.Log($"down enemy hp! hp: {nowHp}");
             text_hp.text = nowHp.ToString();
             ring_hp.fillAmount = nowHp * 1.0f / maxHp;
-            DOTween.To(() => ring_mod.fillAmount, (x) => ring_mod.fillAmount = x, ring_hp.fillAmount, changeTime).OnComplete(() => Destroy(gameObject));
+            DOTween.To(() => ring_mod.fillAmount, (x) => ring_mod.fillAmount = x, ring_hp.fillAmount, changeTime).OnComplete(() =>
+            {
+                if (nowHp <= 0)
+                    Destroy(gameObject);
+            });
         }
     }
 }
