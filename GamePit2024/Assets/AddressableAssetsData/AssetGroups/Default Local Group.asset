@@ -57,6 +57,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62436167bb6c48541bc627e4eaaf70df
+    m_Address: Assets/Prefab/Ghost1_Fly.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a9a884110fcbf2747af0afa5e24971a5, type: 2}
   m_SchemaSet:

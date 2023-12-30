@@ -23,10 +23,10 @@ namespace Game.Unit
             faceMaterial = smileBody.GetComponent<Renderer>().materials[1];
         }
 
-        protected override void InitBehaviorTree()
-        {
-            base.InitBehaviorTree();
-        }
+        //protected override void InitBehaviorTree()
+        //{
+        //    base.InitBehaviorTree();
+        //}
 
         void SetFace(Texture tex)
         {
