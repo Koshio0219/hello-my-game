@@ -11,7 +11,7 @@ namespace Game.Manager
 {
     public class HudManager : MonoSingleton<HudManager>
     {
-        private readonly Dictionary<int, HudBase> hudDic = new();
+        private readonly Dictionary<int, HudView> hudDic = new();
 
         public List<int> openList = new();
 
@@ -76,7 +76,7 @@ namespace Game.Manager
 
             var id = GameHelper.GetId();
 
-            HudBase _hudbase = await CreatHud(_hudType);
+            HudView _hudbase = await CreatHud(_hudType);
             _hudbase._type = _hudType;
 
             if (_hudbase != null)
@@ -95,10 +95,11 @@ namespace Game.Manager
             throw new Exception($"created hud is null, hudType is {_hudType}");
         }
 
-        private async UniTask<HudBase> CreatHud(HudType _hudType)
+        private async UniTask<HudView> CreatHud(HudType _hudType)
         {
             //do creat...
-            var obj =await AssetLoader.Instance.Load<HudBase>(_hudType.ToString(), this.GetCancellationTokenOnDestroy());
+            var name = $"Assets/Prefab/{_hudType}.prefab";
+            var obj =await AssetLoader.Instance.Load<HudView>(name, this.GetCancellationTokenOnDestroy());
             return obj;
         }
     }
@@ -106,9 +107,9 @@ namespace Game.Manager
     public enum HudType
     {
         None,
-        Menu_Panel,
-        Setting_Panel,
-        Loading_Panel,
-        Stage_Panel
+        LoadingPanel,
+        StagePrePanel,
+        StageShowPanel,
+        StageEndPanel
     }
 }

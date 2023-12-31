@@ -7,7 +7,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace Game.Base
 {
-    public class HudBase : MonoBehaviour
+    public class HudView : MonoBehaviour
     {
         public HudState state;
         public HudType _type;
