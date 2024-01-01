@@ -7,6 +7,11 @@ namespace Game.Hud
 {
     public class StageShowView : HudView
     {
+        public CustomBarView maleHpbar;
+        public CustomBarView majoHpbar;
+        public CustomBarView timerBar;
+        public CustomBarView pointBar;
+
 
     }
 }

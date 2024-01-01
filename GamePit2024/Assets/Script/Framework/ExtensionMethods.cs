@@ -169,9 +169,17 @@ namespace Game.Framework
             return -1;
         }
 
-        public static void Show(this GameObject obj) => obj.SetActive(true);
+        public static void Show(this GameObject obj) 
+        {
+            if (obj.activeSelf) return;
+            obj.SetActive(true);
+        }
 
-        public static void Hide(this GameObject obj) => obj.SetActive(false);
+        public static void Hide(this GameObject obj)
+        {
+            if (obj.activeSelf)
+                obj.SetActive(false);
+        }
 
         public static void ShowAllChildren(this GameObject target)
         {

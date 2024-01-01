@@ -1,9 +1,11 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Game.Framework
 {
@@ -84,6 +86,23 @@ namespace Game.Framework
                 }
             }
             return false;
+        }
+        #endregion
+
+        #region Hud
+
+        public static void FadeIn(GameObject gameObject,UnityAction callback=null,float time =.3f)
+        {
+            var cg = gameObject.GetOrAddComponent<CanvasGroup>();
+            cg.alpha = 0f;
+            cg.DOFade(1f, time).OnComplete(()=>callback?.Invoke());
+        }
+
+        public static void FadeOut(GameObject gameObject, UnityAction callback = null, float time = .3f)
+        {
+            var cg = gameObject.GetOrAddComponent<CanvasGroup>();
+            cg.alpha = 1f;
+            cg.DOFade(0f, time).OnComplete(() => callback?.Invoke());
         }
         #endregion
 

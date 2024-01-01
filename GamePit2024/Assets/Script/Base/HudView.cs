@@ -39,7 +39,7 @@ namespace Game.Base
 
         public virtual void OnShow()
         {
-
+            FadeIn();
         }
 
         public virtual void OnClose()
@@ -51,6 +51,10 @@ namespace Game.Base
         }
 
         public virtual void OnRemove() { }
+
+        public virtual void FadeIn() => GameHelper.FadeIn(gameObject);
+
+        public virtual void FadeOut() => GameHelper.FadeOut(gameObject, () => gameObject.Hide());
 
     }
 
