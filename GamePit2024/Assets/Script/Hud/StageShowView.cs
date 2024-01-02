@@ -35,6 +35,12 @@ namespace Game.Hud
             maxPoint = point;
         }
 
+        public void InitTimerBar(int time)
+        {
+            timerBar.InitValueView($"{time}/{time} s", time);
+            maxTime = time;
+        }
+
         public void UpdateSwordHpbar(float lastHp,float nowHp)
         {
             maleHpbar.UpdateBarView($"{nowHp}/{swordMaxHp}", lastHp, nowHp);
@@ -51,6 +57,11 @@ namespace Game.Hud
                 pointBar.UpdateBarView("exit appeared", last, now);
             else
                 pointBar.UpdateBarView($"{now}/{maxPoint}", last, now);
+        }
+
+        public void UpdateTimerBar(int now)
+        {
+            timerBar.UpdateBarView($"{now}/{maxTime} s", now + 1, now);
         }
     }
 }

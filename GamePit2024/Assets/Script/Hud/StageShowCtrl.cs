@@ -5,11 +5,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Framework;
 using System;
+using Game.Data;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 namespace Game.Hud
 {
     public class StageShowCtrl : HudCtrl<StageShowView>
     {
+        private int curTime;
+        private CancellationTokenSource tokenSource;
+
         private void Awake()
         {
             EventQueueSystem.AddListener<PlayerHpChangeEvent>(PlayerHpChangeHandler);
@@ -42,8 +48,10 @@ namespace Game.Hud
 
         private void Start()
         {
+            tokenSource = new CancellationTokenSource();
             InitPlayersHpbar();
             View.InitPointBar(GameManager.pointManager.GoalPoint);
+            InitTimerBar();
         }
 
         private void InitPlayersHpbar()
@@ -62,6 +70,32 @@ namespace Game.Hud
                 }
             }
         }
+
+        private void InitTimerBar()
+        {
+            curTime = GameData.Instance.LevelConfig.levelDatas[GameManager.Instance.LevelIdx].showTime;
+            View.InitTimerBar(curTime);
+
+            UniTask.Void(async (_) =>
+            {
+                while (this && isActiveAndEnabled && !_.IsCancellationRequested)
+                {
+                    await UniTask.Delay(1000, cancellationToken: tokenSource.Token);
+                    curTime--;
+                    View.UpdateTimerBar(curTime);
+
+                    if(curTime <= 0)
+                    {
+                        EventQueueSystem.QueueEvent(new StageTimeUpEvent());
+                        break;
+                    }
+                }
+            }, tokenSource.Token);
+        }
+
+        private void OnDisable()
+        {
+            tokenSource.Cancel();
+        }
     }
 }
-
