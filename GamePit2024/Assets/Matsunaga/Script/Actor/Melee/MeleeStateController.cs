@@ -6,6 +6,7 @@ using Game.Test;
 using Game.Manager;
 using Game.Base;
 using Cysharp.Threading.Tasks;
+using Game.Framework;
 
 public class MeleeStateController : Player
 {
@@ -43,7 +44,8 @@ public class MeleeStateController : Player
     private IPlayerState _state_instance;
 
     private float _hp;
-    protected override float Hp { get => _hp; set => _hp = value; }
+    public override float Hp { get => _hp; set => _hp = value; }
+    public override PlayerType PlayerType => PlayerType.Swordsman;
     //private PlayerParameter _PlayerParameter;
     //public int InsId
     //{

@@ -28,7 +28,8 @@ namespace Game.Base
 
         protected PlayerParameter _PlayerParameter;
 
-        protected virtual float Hp { get; set; }
+        public virtual float Hp { get; set; }
+        public virtual PlayerType PlayerType { get; }
         //public float Atk;
 
         protected async virtual UniTask Init()
@@ -65,7 +66,10 @@ namespace Game.Base
             //今、Hp は base class　に　い　ない　
 
             EventQueueSystem.QueueEvent(new PopupTextEvent(transform, (int)damage,Color.red));
+
+            var lastHp = Hp;
             Hp -= damage;
+            EventQueueSystem.QueueEvent(new PlayerHpChangeEvent(PlayerType, lastHp, Hp));
         }
 
         public virtual void Move()

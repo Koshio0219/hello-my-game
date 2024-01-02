@@ -121,6 +121,25 @@ namespace Game.Framework
         }
     }
 
+    public enum PlayerType
+    {
+        Swordsman,
+        Witch
+    }
+
+    public class PlayerHpChangeEvent : GameEvent
+    {
+        public PlayerType playerType;
+        public float lastHp;
+        public float nowHp;
+        public PlayerHpChangeEvent(PlayerType playerType, float lastHp, float nowHp)
+        {
+            this.playerType = playerType;
+            this.lastHp = lastHp;
+            this.nowHp = nowHp;
+        }
+    }
+
     public class UpdateNavMeshEvent : GameEvent { }
 
     public class StageTimerEvent : GameEvent

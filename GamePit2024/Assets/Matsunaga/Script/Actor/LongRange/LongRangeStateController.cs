@@ -6,6 +6,7 @@ using Game.Test;
 using Game.Manager;
 using Game.Base;
 using Cysharp.Threading.Tasks;
+using Game.Framework;
 
 public class LongRangeStateController : Player
 {
@@ -45,7 +46,8 @@ public class LongRangeStateController : Player
     private IPlayerState _state_instance;
 
     private float _hp;
-    protected override float Hp { get => _hp; set => _hp = value; }
+    public override float Hp { get => _hp; set => _hp = value; }
+    public override PlayerType PlayerType => PlayerType.Witch;
     // private PlayerParameter _PlayerParameter;
 
     //private async void Awake()
@@ -68,7 +70,7 @@ public class LongRangeStateController : Player
     //    _hp = _PlayerParameter.hp_L;
     //}
 
-     async void Start()
+    async void Start()
     {
         await base.Init();
         _hp = _PlayerParameter.hp_L;

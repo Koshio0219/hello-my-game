@@ -49,7 +49,7 @@ namespace Game.Test
         #endregion
 
         #region property
-        protected override float Hp { get => _Hp; set => _Hp = value; }
+        public override float Hp { get => _Hp; set => _Hp = value; }
         #endregion
 
         #region Unity private function
