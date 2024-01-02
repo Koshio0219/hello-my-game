@@ -1,6 +1,7 @@
 ﻿using BehaviorDesigner.Runtime;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
+using Game.Loader;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using Radom = UnityEngine.Random;
 
 namespace Game.Framework
@@ -360,6 +364,22 @@ namespace Game.Framework
             var disTrigger = component.GetAsyncDisableTrigger();
             await disTrigger.OnDisableAsync();
             tokenSource.Cancel();
+        }
+
+        public static void WaitInput(this MonoBehaviour mono, ButtonControl buttonControl, UnityAction callback)
+        {
+            UniTask.Void(async (_) =>
+            {
+                while (mono && mono.isActiveAndEnabled && !_.IsCancellationRequested)
+                {
+                    await UniTask.DelayFrame(1, cancellationToken: mono.GetCancellationTokenOnDestroy());
+                    if (buttonControl.wasPressedThisFrame)
+                    {
+                        callback.Invoke();
+                        break;
+                    }
+                }
+            }, mono.GetCancellationTokenOnDestroy());
         }
 
         #endregion

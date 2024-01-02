@@ -74,18 +74,7 @@ namespace Game.Manager
             Debug.Log($"Game Over!");
             GameManager.Instance.LevelIdx = 0;
             await UniTask.Delay(1000, cancellationToken: this.GetCancellationTokenOnDestroy());
-            UniTask.Void(async (_) =>
-            {
-                while (this && isActiveAndEnabled && !_.IsCancellationRequested)
-                {
-                    await UniTask.DelayFrame(1, cancellationToken: this.GetCancellationTokenOnDestroy());
-                    if (Gamepad.current.circleButton.wasPressedThisFrame)
-                    {
-                        SceneLoader.Instance.BackToMenu();
-                        break;
-                    }
-                }
-            }, this.GetCancellationTokenOnDestroy());
+            this.WaitInput(Gamepad.current.circleButton, () => SceneLoader.Instance.BackToMenu());
         }
 
         private void BattleClearEndHandler()
@@ -147,19 +136,22 @@ namespace Game.Manager
             return GameManager.Instance.LevelIdx >= GameData.Instance.LevelConfig.levelDatas.Count - 1;
         }
 
-        private void NextStage()
+        private async void NextStage()
         {
             GameManager.Instance.LevelIdx++;
             Debug.Log($"next stage! current level idx is {GameManager.Instance.LevelIdx}");
             //...something else...
+            await UniTask.Delay(1000);
+            this.WaitInput(Gamepad.current.circleButton, () => SceneLoader.Instance.GoToStage());
         }
 
-        private void Win()
+        private async void Win()
         {
             //...something else...
             Debug.Log($"game win !");
             GameManager.Instance.LevelIdx = 0;
-            SceneLoader.Instance.BackToMenu();
+            await UniTask.Delay(1000);
+            this.WaitInput(Gamepad.current.circleButton, () => SceneLoader.Instance.BackToMenu());
         }
 
         public void AddOnePlayer(int playerId,GameObject playerIns)

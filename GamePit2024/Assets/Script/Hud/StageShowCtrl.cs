@@ -86,6 +86,7 @@ namespace Game.Hud
 
                     if(curTime <= 0)
                     {
+                        View.FadeOut();
                         EventQueueSystem.QueueEvent(new StageTimeUpEvent());
                         break;
                     }
