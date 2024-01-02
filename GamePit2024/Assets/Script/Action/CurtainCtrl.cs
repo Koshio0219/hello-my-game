@@ -1,7 +1,9 @@
-﻿using Deform;
+﻿using Cysharp.Threading.Tasks;
+using Deform;
 using DG.Tweening;
 using Game.Data;
 using Game.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +45,15 @@ namespace Game.Action
             InitData();
 
             EventQueueSystem.AddListener<StageStatesEvent>(StageStatesHandler);
+            EventQueueSystem.AddListener<StageTimeUpEvent>(StageTimeUpHandler);
+        }
+
+        private async void StageTimeUpHandler(StageTimeUpEvent e)
+        {
+            MapStateToAction[CurtainState].Invoke();
+            if (selfX < 0) return;
+            await UniTask.Delay((int)(movingTime * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
+            EventQueueSystem.QueueEvent(new StageStatesEvent(Manager.StageStates.GameOver));
         }
 
         private void StageStatesHandler(StageStatesEvent e)
@@ -54,6 +65,7 @@ namespace Game.Action
         private void OnDestroy()
         {
             EventQueueSystem.RemoveListener<StageStatesEvent>(StageStatesHandler);
+            EventQueueSystem.RemoveListener<StageTimeUpEvent>(StageTimeUpHandler);
         }
 
         private void Update()

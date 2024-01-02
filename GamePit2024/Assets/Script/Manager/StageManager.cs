@@ -1,4 +1,5 @@
-﻿using Game.Data;
+﻿using Cysharp.Threading.Tasks;
+using Game.Data;
 using Game.Framework;
 using Game.Loader;
 using Game.Unit;
@@ -6,8 +7,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Services.Analytics.Platform;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace Game.Manager
 {
@@ -63,13 +67,25 @@ namespace Game.Manager
             mapStateToEvent.Add(StageStates.GameOver, GameOverHandler);
         }
 
-        private void GameOverHandler()
+        private async void GameOverHandler()
         {
             //lose
             //...something else...
             Debug.Log($"Game Over!");
             GameManager.Instance.LevelIdx = 0;
-            SceneLoader.Instance.BackToMenu();
+            await UniTask.Delay(1000, cancellationToken: this.GetCancellationTokenOnDestroy());
+            UniTask.Void(async (_) =>
+            {
+                while (this && isActiveAndEnabled && !_.IsCancellationRequested)
+                {
+                    await UniTask.DelayFrame(1, cancellationToken: this.GetCancellationTokenOnDestroy());
+                    if (Gamepad.current.circleButton.wasPressedThisFrame)
+                    {
+                        SceneLoader.Instance.BackToMenu();
+                        break;
+                    }
+                }
+            }, this.GetCancellationTokenOnDestroy());
         }
 
         private void BattleClearEndHandler()
@@ -243,10 +259,10 @@ namespace Game.Manager
 
         public List<GameObject> GetAllPlayer() => MapPlayerIdToInstance.Values.ToList();
    
-        public void Timer(StageTimerEvent e)
-        {
+        //public void Timer(StageTimerEvent e)
+        //{
             
-        }
+        //}
     }
 }
 

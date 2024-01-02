@@ -2448,26 +2448,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 604244386}
     m_Modifications:
-    - target: {fileID: 2020060207, guid: 1c931a45e55e68b419051e3299a9cdd6, type: 3}
-      propertyPath: m_fontColor.b
-      value: 0.38679248
-      objectReference: {fileID: 0}
-    - target: {fileID: 2020060207, guid: 1c931a45e55e68b419051e3299a9cdd6, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0.38679248
-      objectReference: {fileID: 0}
-    - target: {fileID: 2020060207, guid: 1c931a45e55e68b419051e3299a9cdd6, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0.38679248
-      objectReference: {fileID: 0}
-    - target: {fileID: 2020060207, guid: 1c931a45e55e68b419051e3299a9cdd6, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4284703587
-      objectReference: {fileID: 0}
-    - target: {fileID: 2020060207, guid: 1c931a45e55e68b419051e3299a9cdd6, type: 3}
-      propertyPath: m_TextStyleHashCode
-      value: 2427
-      objectReference: {fileID: 0}
     - target: {fileID: 4794196935907124628, guid: 1c931a45e55e68b419051e3299a9cdd6,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2577,11 +2557,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StageEndPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 4794196935907124629, guid: 1c931a45e55e68b419051e3299a9cdd6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
