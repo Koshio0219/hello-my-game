@@ -13,11 +13,18 @@ namespace Game.Hud
         private void Awake()
         {
             EventQueueSystem.AddListener<PlayerHpChangeEvent>(PlayerHpChangeHandler);
+            EventQueueSystem.AddListener<PointChangeEvent>(PointChangeHandler);
         }
 
         private void OnDestroy()
         {
             EventQueueSystem.RemoveListener<PlayerHpChangeEvent>(PlayerHpChangeHandler);
+            EventQueueSystem.RemoveListener<PointChangeEvent>(PointChangeHandler);
+        }
+
+        private void PointChangeHandler(PointChangeEvent e)
+        {
+            View.UpdatePointBar(e.lastP, e.nowP, e.reachGoal);
         }
 
         private void PlayerHpChangeHandler(PlayerHpChangeEvent e)
@@ -36,6 +43,7 @@ namespace Game.Hud
         private void Start()
         {
             InitPlayersHpbar();
+            View.InitPointBar(GameManager.pointManager.GoalPoint);
         }
 
         private void InitPlayersHpbar()

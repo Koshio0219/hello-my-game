@@ -13,7 +13,9 @@ namespace Game.Data
 
     public enum EnemyRaceType
     {
-        Slime
+        Slime,
+        Guard,
+        Ghost,
     }
 
     public enum EnemyAttackType
@@ -44,6 +46,7 @@ namespace Game.Data
         public float maxHp;
         public float Hp { get; private set; }
         public float attack;
+        public int killPoint;
 
         public void Init()
         {

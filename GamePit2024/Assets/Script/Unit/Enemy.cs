@@ -106,6 +106,7 @@ namespace Game.Unit
 
         public virtual async void Dead()
         {
+            CalDeadPoint();
             EventQueueSystem.RemoveListener<SendDamageEvent>(DamageEventHandler);
             ChangeState(EnemyState.Dead);
             //dead animation time delay
@@ -202,6 +203,22 @@ namespace Game.Unit
         public virtual void Idle()
         {
             ChangeState(EnemyState.Idle);
+        }
+
+        protected virtual void CalDeadPoint()
+        {
+            switch (EnemyUnitData.raceType)
+            {
+                case EnemyRaceType.Slime:
+                    GameManager.pointManager.AddPoint(GetPointItem.KillSlime, EnemyUnitData.prop.killPoint);
+                    break;           
+                case EnemyRaceType.Guard:
+                    GameManager.pointManager.AddPoint(GetPointItem.KillGuard, EnemyUnitData.prop.killPoint);
+                    break;           
+                case EnemyRaceType.Ghost:
+                    GameManager.pointManager.AddPoint(GetPointItem.KillGhost, EnemyUnitData.prop.killPoint);
+                    break;
+            }
         }
     }
 }
