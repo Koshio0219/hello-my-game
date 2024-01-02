@@ -25,6 +25,20 @@ namespace Game.Manager
         }
 
         internal static StageManager stageManager = null;
+        internal static PointManager pointManager = null;
+
+        private int levelIdx;
+        public int LevelIdx
+        {
+            get
+            {
+                return levelIdx;
+            }
+            set
+            {
+                levelIdx = value;
+            }
+        }
 
         protected override void Awake()
         {

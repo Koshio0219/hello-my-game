@@ -37,22 +37,10 @@ namespace Game.Manager
         private Dictionary<int, GameObject> MapPlayerIdToInstance { get; set; } = new();
         private Dictionary<int, Enemy> MapEnemyIdToInstance { get; set; } = new();
 
-        private int levelIdx;
-        public int LevelIdx 
-        {
-            get
-            {
-                return levelIdx;
-            }
-            set
-            {
-                levelIdx = value;
-            }
-        }
-
         private void Awake()
         {
             GameManager.stageManager = this;
+            GameManager.pointManager = new PointManager();
             EventQueueSystem.AddListener<StageStatesEvent>(StageStatesHandler);
             InitMap();
         }
@@ -60,6 +48,7 @@ namespace Game.Manager
         private void OnDestroy()
         {
             GameManager.stageManager = null;
+            GameManager.pointManager = null;
             EventQueueSystem.RemoveListener<StageStatesEvent>(StageStatesHandler);
         }
 
@@ -79,6 +68,7 @@ namespace Game.Manager
             //lose
             //...something else...
             Debug.Log($"Game Over!");
+            GameManager.Instance.LevelIdx = 0;
             SceneLoader.Instance.BackToMenu();
         }
 
@@ -138,13 +128,13 @@ namespace Game.Manager
 
         private bool IsLastStage()
         {
-            return LevelIdx >= GameData.Instance.EnemyCreateConfig.levelEnemyData.Count - 1;
+            return GameManager.Instance.LevelIdx >= GameData.Instance.LevelConfig.levelDatas.Count - 1;
         }
 
         private void NextStage()
         {
-            LevelIdx++;
-            Debug.Log($"next stage! current level idx is {LevelIdx}");
+            GameManager.Instance.LevelIdx++;
+            Debug.Log($"next stage! current level idx is {GameManager.Instance.LevelIdx}");
             //...something else...
         }
 
@@ -152,6 +142,7 @@ namespace Game.Manager
         {
             //...something else...
             Debug.Log($"game win !");
+            GameManager.Instance.LevelIdx = 0;
             SceneLoader.Instance.BackToMenu();
         }
 

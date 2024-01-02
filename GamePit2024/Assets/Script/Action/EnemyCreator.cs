@@ -64,7 +64,7 @@ namespace Game.Action
                 insEnemy.Clear();
                 Debug.Log("enemy build start!");
                 if (enemyCreateConfig == null) return;
-                var levelIdx = GameManager.stageManager.LevelIdx;
+                var levelIdx = GameManager.Instance.LevelIdx;
                 var data = enemyCreateConfig.levelEnemyData[levelIdx];
                 foreach (var one in data.enemies)
                 {

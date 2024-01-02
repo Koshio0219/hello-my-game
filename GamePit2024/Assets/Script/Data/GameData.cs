@@ -13,12 +13,13 @@ using UnityEngine;
 
 namespace Game.Data
 {
-    public class GameData : Singleton<GameData>,IInit
+    public class GameData : Singleton<GameData>, IInit
     {
         public BlockTypeConfig BlockTypeConfig { get; private set; }
         public EnemyCreateConfig EnemyCreateConfig { get; private set; }
         public HudConfig HudConfig { get; private set; }
-        private PlayerParameter playerParameter =null;
+        public LevelConfig LevelConfig { get; private set; }
+        private PlayerParameter playerParameter = null;
 
         public async void Init()
         {
@@ -26,6 +27,7 @@ namespace Game.Data
             BlockTypeConfig = await AssetLoader.Instance.Load<BlockTypeConfig>(AssetType.Config, "Assets/Config/BlockTypeConfig.asset", token);
             EnemyCreateConfig = await AssetLoader.Instance.Load<EnemyCreateConfig>(AssetType.Config, "Assets/Config/EnemyCreateConfig.asset", token);
             HudConfig = await AssetLoader.Instance.Load<HudConfig>(AssetType.Config, "Assets/Config/HudConfig.asset", token);
+            LevelConfig = await AssetLoader.Instance.Load<LevelConfig>(AssetType.Config, "Assets/Config/LevelConfig.asset", token);
         }
 
         public async UniTask<PlayerParameter> GetPlayerParameter()

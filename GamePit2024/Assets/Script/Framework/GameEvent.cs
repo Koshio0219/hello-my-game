@@ -151,6 +151,20 @@ namespace Game.Framework
         }
     }
 
+    public class PointChangeEvent: GameEvent
+    {
+        public int lastP;
+        public int nowP;
+        public bool reachGoal;
+
+        public PointChangeEvent(int lastP, int nowP, bool reachGoal)
+        {
+            this.lastP = lastP;
+            this.nowP = nowP;
+            this.reachGoal = reachGoal;
+        }
+    }
+
     public class StageTimeUpEvent : GameEvent {
     
     }
