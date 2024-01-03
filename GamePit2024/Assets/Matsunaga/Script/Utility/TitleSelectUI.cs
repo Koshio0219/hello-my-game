@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class TitleSelectUI : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class TitleSelectUI : MonoBehaviour
     }
     [SerializeField] private PlayerType _PlayerType;
     [SerializeField] private List<GameObject> _ParList = new List<GameObject>();
+
     private StateEnum _State = StateEnum.Start;
     public StateEnum DecideState = StateEnum.None;
     void Start()
@@ -119,4 +121,5 @@ public class TitleSelectUI : MonoBehaviour
         var index = (int)_State;
         _ParList[index].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
     }
+
 }

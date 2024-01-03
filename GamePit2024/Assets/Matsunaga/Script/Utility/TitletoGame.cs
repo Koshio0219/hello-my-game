@@ -12,7 +12,8 @@ public class TitletoGame : MonoBehaviour
     [SerializeField] private TitleSelectUI _FirstSelect;
     [SerializeField] private TitleSelectUI _SecondSelect;
     [SerializeField] private TitleSelectUI _ThirdSelect;
-
+    [SerializeField] private GameObject loadingUI;
+    private AsyncOperation async;
     private void Awake()
     {
     }
@@ -52,8 +53,10 @@ public class TitletoGame : MonoBehaviour
         }
         else
         {
+            // ロード画面を表示する
+            loadingUI.SetActive(true);
             var sceneIndex = (int)_FirstSelect.DecideState;
-            SceneLoader.Instance.GoToStage();
+            StartCoroutine(StageLoad());
             //SceneId nextScene = (SceneId)Enum.ToObject(typeof(SceneId), sceneIndex + 1);
             //SceneTransferManager.Instance.Load(nextScene);
         }
@@ -80,8 +83,10 @@ public class TitletoGame : MonoBehaviour
             }
             else
             {
+                // ロード画面を表示する
+                loadingUI.SetActive(true);
                 var sceneIndex = (int)_FirstSelect.DecideState;
-                SceneLoader.Instance.GoToStage();
+                StartCoroutine(StageLoad());
                 //SceneId nextScene = (SceneId)Enum.ToObject(typeof(SceneId), sceneIndex + 1);
                 //SceneTransferManager.Instance.Load(nextScene);
             }
@@ -104,8 +109,10 @@ public class TitletoGame : MonoBehaviour
             }
             else
             {
+                // ロード画面を表示する
+                loadingUI.SetActive(true);
                 var sceneIndex = (int)_FirstSelect.DecideState;
-                SceneLoader.Instance.GoToStage();
+                StartCoroutine(StageLoad());
                 //SceneId nextScene = (SceneId)Enum.ToObject(typeof(SceneId), sceneIndex + 1);
                 //SceneTransferManager.Instance.Load(nextScene);
             }
@@ -127,5 +134,22 @@ public class TitletoGame : MonoBehaviour
         #else
                 Application.Quit();//ゲームプレイ終了
         #endif
+    }
+
+    private IEnumerator StageLoad()
+    {
+
+
+        // シーンを非同期でロードする
+        async = SceneManager.LoadSceneAsync("Stage");
+
+        // ロードが完了するまで待機する
+        while (!async.isDone)
+        {
+            yield return null;
+        }
+        
+        // ロード画面を非表示にする
+        loadingUI.SetActive(false);
     }
 }
