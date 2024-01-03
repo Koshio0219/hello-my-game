@@ -14,6 +14,7 @@ namespace Game.Unit
 
         public override void Born(EnemyUnitData data)
         {
+            base.Born(data);
             ghost_normal.Show();
             ghost_parts.Hide();
         }

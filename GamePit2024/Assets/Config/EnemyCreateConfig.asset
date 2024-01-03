@@ -43,15 +43,15 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
   - typeID: 2
     unitData:
-      raceType: 0
-      attackType: 0
+      raceType: 2
+      attackType: 1
       prop:
         maxHp: 200
         attack: 20
         killPoint: 30
       skillIds: 
     assetReference:
-      m_AssetGUID: 3e983d9a782610b4d8e67bcecd9f80d5
+      m_AssetGUID: 62436167bb6c48541bc627e4eaaf70df
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
   - typeID: 4
     unitData:
-      raceType: 0
+      raceType: 2
       attackType: 2
       prop:
         maxHp: 1000
@@ -79,7 +79,7 @@ MonoBehaviour:
         killPoint: 50
       skillIds: 
     assetReference:
-      m_AssetGUID: 3e983d9a782610b4d8e67bcecd9f80d5
+      m_AssetGUID: 62436167bb6c48541bc627e4eaaf70df
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -89,6 +89,8 @@ MonoBehaviour:
       pos: {x: 0, y: -2, z: -15}
     - typeID: 1
       pos: {x: 2, y: -2, z: -15}
+    - typeID: 2
+      pos: {x: 3, y: 1, z: -15}
   - enemies:
     - typeID: 2
       pos: {x: -1, y: -2, z: -15}

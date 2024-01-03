@@ -61,9 +61,6 @@ namespace Game.Unit
 
         public void Init(GameObject target)
         {
-            Target = target;
-            //fix to player center with height 0.6f
-            targetPos = Target.transform.position.FixHeight(Target.transform.position.y + .6f);
             //token = this.GetCancellationTokenOnDestroy();
             tokenSource = new CancellationTokenSource();
             token = tokenSource.Token;
@@ -72,6 +69,11 @@ namespace Game.Unit
             InitAction();
             //recycleAction.Invoke();
             //moveAction.Invoke();
+
+            if (target == null) return;
+            Target = target;
+            //fix to player center with height 0.6f
+            targetPos = Target.transform.position.FixHeight(Target.transform.position.y + .6f);
         }
 
         public void Recycle()

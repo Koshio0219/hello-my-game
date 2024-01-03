@@ -25,6 +25,7 @@ namespace Game.BehaviorTask
             taskStatus = TaskStatus.Failure;
             if (targets == null || targets.Value.Count == 0) return;
             target = targets.Value.SelectOne();
+            if (target == null) return;
 
             taskStatus = TaskStatus.Running;
 
