@@ -166,7 +166,7 @@ namespace Game.Manager
         public void RemoveOnePlayer(int playerId,bool bDestroy = true) 
         {
             if (!MapPlayerIdToInstance.ContainsKey(playerId)) return;
-            if (bDestroy) Destroy(MapEnemyIdToInstance[playerId]);
+            if (bDestroy) Destroy(MapPlayerIdToInstance[playerId]);
             MapPlayerIdToInstance.Remove(playerId);
         }
 

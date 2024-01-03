@@ -46,6 +46,12 @@ namespace Game.Action
 
             EventQueueSystem.AddListener<StageStatesEvent>(StageStatesHandler);
             EventQueueSystem.AddListener<StageTimeUpEvent>(StageTimeUpHandler);
+            EventQueueSystem.AddListener<PlayerDeadEvent>(PlayerDeadHandler);
+        }
+
+        private void PlayerDeadHandler(PlayerDeadEvent e)
+        {
+            StageTimeUpHandler(null);
         }
 
         private async void StageTimeUpHandler(StageTimeUpEvent e)
@@ -66,6 +72,7 @@ namespace Game.Action
         {
             EventQueueSystem.RemoveListener<StageStatesEvent>(StageStatesHandler);
             EventQueueSystem.RemoveListener<StageTimeUpEvent>(StageTimeUpHandler);
+            EventQueueSystem.RemoveListener<PlayerDeadEvent>(PlayerDeadHandler);
         }
 
         private void Update()

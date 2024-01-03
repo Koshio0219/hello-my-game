@@ -20,12 +20,19 @@ namespace Game.Hud
         {
             EventQueueSystem.AddListener<PlayerHpChangeEvent>(PlayerHpChangeHandler);
             EventQueueSystem.AddListener<PointChangeEvent>(PointChangeHandler);
+            EventQueueSystem.AddListener<PlayerDeadEvent>(PlayerDeadHnadler);
         }
 
         private void OnDestroy()
         {
             EventQueueSystem.RemoveListener<PlayerHpChangeEvent>(PlayerHpChangeHandler);
             EventQueueSystem.RemoveListener<PointChangeEvent>(PointChangeHandler);
+            EventQueueSystem.RemoveListener<PlayerDeadEvent>(PlayerDeadHnadler);
+        }
+
+        private void PlayerDeadHnadler(PlayerDeadEvent e)
+        {
+            View.FadeOut();
         }
 
         private void PointChangeHandler(PointChangeEvent e)

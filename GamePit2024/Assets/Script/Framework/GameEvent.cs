@@ -169,6 +169,11 @@ namespace Game.Framework
     
     }
 
+    public class  PlayerDeadEvent : GameEvent
+    {
+        
+    }
+
     public class  PopupTextEvent:GameEvent
     {
         public Transform target;

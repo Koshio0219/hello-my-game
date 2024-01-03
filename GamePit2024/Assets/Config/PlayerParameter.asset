@@ -17,5 +17,5 @@ MonoBehaviour:
   hp_M: 10000
   GamepadNumber_L: 0
   attack_L: 10
-  hp_L: 5000
+  hp_L: 50
   GamepadNumber_D: 0

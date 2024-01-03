@@ -60,6 +60,9 @@ namespace Game.Base
         {
             GameManager.stageManager.RemoveOnePlayer(InsId, gameObject);
             EventQueueSystem.RemoveListener<SendDamageEvent>(DamageEventHandler);
+
+            //when one player dead,game over
+            EventQueueSystem.QueueEvent(new PlayerDeadEvent());
         }
 
         public virtual void Hit(int sourceId, float damage)
@@ -74,6 +77,8 @@ namespace Game.Base
             var lastHp = Hp;
             Hp -= damage;
             EventQueueSystem.QueueEvent(new PlayerHpChangeEvent(PlayerType, lastHp, Hp));
+
+            if (Hp <= 0) Dead();
         }
 
         public virtual void Move()
