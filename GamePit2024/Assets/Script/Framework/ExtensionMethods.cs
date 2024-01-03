@@ -140,8 +140,11 @@ namespace Game.Framework
 
         #region Component/Transform/GameObject 関連
 
-        public static T GetOrAddComponent<T>(this GameObject obj) where T : Component =>
-            obj.GetComponent<T>() ?? obj.AddComponent<T>();
+        public static T GetOrAddComponent<T>(this GameObject obj) where T : Component
+        {
+            if (obj.TryGetComponent<T>(out var component)) return component;
+            return obj.AddComponent<T>();
+        }
 
         public static Transform GetRootParent(this Transform transform)
         {
