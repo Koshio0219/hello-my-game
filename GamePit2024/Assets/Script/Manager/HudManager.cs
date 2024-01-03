@@ -9,7 +9,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Game.Manager
 {
-    public class HudManager : MonoSingleton<HudManager>
+    public class HudManager : MonoBehaviour
     {
         private readonly Dictionary<int, HudView> hudDic = new();
 

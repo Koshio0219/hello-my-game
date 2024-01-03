@@ -7,10 +7,13 @@ using UnityEngine;
 
 namespace Game.Loader
 {
+    [RequireComponent(typeof(HudManager))]
     public class HudLoader : MonoBehaviour
     {
+        private HudManager hudManager;
         private void Awake()
         {
+            hudManager = GetComponent<HudManager>();
             EventQueueSystem.AddListener<StageStatesEvent>(StageStatesHandler);
         }
 
@@ -19,14 +22,14 @@ namespace Game.Loader
             switch (e.to)
             {
                 case StageStates.CurtainInputStart:
-                    HudManager.Instance.Show(HudType.StagePrePanel).Forget();
+                    hudManager.Show(HudType.StagePrePanel).Forget();
                     break;
                 case StageStates.BattleStarted:
-                    HudManager.Instance.Show(HudType.StageShowPanel).Forget();
+                    hudManager.Show(HudType.StageShowPanel).Forget();
                     break;
                 case StageStates.BattleClear:
                 case StageStates.GameOver:
-                    HudManager.Instance.Show(HudType.StageEndPanel).Forget();
+                    hudManager.Show(HudType.StageEndPanel).Forget();
                     break;
             }
         }
