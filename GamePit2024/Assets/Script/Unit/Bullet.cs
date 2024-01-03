@@ -77,6 +77,7 @@ namespace Game.Unit
         public void Recycle()
         {
             ResetAction();
+            if (this == null) return;
             GameObjectPool.Instance.RecycleObj(gameObject);
         }
 

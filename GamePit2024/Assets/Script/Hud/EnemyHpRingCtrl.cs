@@ -47,6 +47,17 @@ namespace Game.Hud
         private void Awake()
         {
             EventQueueSystem.AddListener<InitEnemyHpEvent>(InitEnemyHpHandler);
+            EventQueueSystem.AddListener<StageStatesEvent>(StageStatesHandler);
+        }
+
+        private void StageStatesHandler(StageStatesEvent e)
+        {
+            switch (e.to)
+            {
+                case StageStates.GameOver:
+                    Destroy(gameObject);
+                    break;
+            }
         }
 
         private void InitEnemyHpHandler(InitEnemyHpEvent e)
@@ -78,6 +89,7 @@ namespace Game.Hud
         private void OnDestroy()
         {
             EventQueueSystem.RemoveListener<InitEnemyHpEvent>(InitEnemyHpHandler);
+            EventQueueSystem.RemoveListener<StageStatesEvent>(StageStatesHandler);
             ResetData();
         }
 

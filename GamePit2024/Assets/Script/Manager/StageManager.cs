@@ -73,7 +73,10 @@ namespace Game.Manager
             //...something else...
             Debug.Log($"Game Over!");
             GameManager.Instance.LevelIdx = 0;
-            await UniTask.Delay(1000, cancellationToken: this.GetCancellationTokenOnDestroy());
+            ClearAllEnemies();
+            ClearAllPlayers();
+
+            await UniTask.Delay(1000);
             this.WaitInput(Gamepad.current.circleButton, () => SceneLoader.Instance.BackToMenu());
         }
 

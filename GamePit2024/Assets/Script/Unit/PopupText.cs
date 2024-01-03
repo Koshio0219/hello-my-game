@@ -33,6 +33,7 @@ namespace Game.Unit
         private async UniTask WaitRecycle()
         {
             await UniTask.Delay((int)(lifeTime * 1000));
+            if (this == null) return;
             GameObjectPool.Instance.RecycleObj(gameObject);
         }
 

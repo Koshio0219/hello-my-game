@@ -52,7 +52,7 @@ namespace Game.Action
         {
             MapStateToAction[CurtainState].Invoke();
             if (selfX < 0) return;
-            await UniTask.Delay((int)(movingTime * 1000), cancellationToken: this.GetCancellationTokenOnDestroy());
+            await UniTask.Delay((int)(movingTime * 1000));
             EventQueueSystem.QueueEvent(new StageStatesEvent(Manager.StageStates.GameOver));
         }
 

@@ -220,5 +220,10 @@ namespace Game.Unit
                     break;
             }
         }
+
+        private void OnDestroy()
+        {
+            EventQueueSystem.RemoveListener<SendDamageEvent>(DamageEventHandler);
+        }
     }
 }

@@ -32,11 +32,15 @@ namespace Game.Base
         public virtual PlayerType PlayerType { get; }
         //public float Atk;
 
+        private void Awake()
+        {
+            EventQueueSystem.AddListener<SendDamageEvent>(DamageEventHandler);
+        }
+
         protected virtual void Start()
         {
             _PlayerParameter = GameData.Instance.PlayerParameter;
             GameManager.stageManager.AddOnePlayer(InsId, gameObject);
-            EventQueueSystem.AddListener<SendDamageEvent>(DamageEventHandler);
         }
 
         private void DamageEventHandler(SendDamageEvent e)
@@ -77,13 +81,17 @@ namespace Game.Base
 
         }
 
-        //debug
-        private void Update()
+        private void OnDestroy()
         {
-            if(gameObject == null)
-            {
-
-            }
+            EventQueueSystem.RemoveListener<SendDamageEvent>(DamageEventHandler);
         }
+        //debug
+        //private void Update()
+        //{
+        //    if(gameObject == null)
+        //    {
+
+        //    }
+        //}
     }
 }
