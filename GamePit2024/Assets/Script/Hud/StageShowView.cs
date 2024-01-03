@@ -48,7 +48,7 @@ namespace Game.Hud
 
         public void UpdateWitchHpbar(float lastHp, float nowHp)
         {
-            maleHpbar.UpdateBarView($"{nowHp}/{witchMaxHp}", lastHp, nowHp);
+            majoHpbar.UpdateBarView($"{nowHp}/{witchMaxHp}", lastHp, nowHp);
         }
 
         public void UpdatePointBar(int last,int now,bool reachGoal)

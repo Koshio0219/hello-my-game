@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelDatas:
   - goalPoint: 50
-    showTime: 6
+    showTime: 60
   - goalPoint: 60
     showTime: 90
   - goalPoint: 80
