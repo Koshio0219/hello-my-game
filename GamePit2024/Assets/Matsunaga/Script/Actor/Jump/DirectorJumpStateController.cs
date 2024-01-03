@@ -71,9 +71,9 @@ public class DirectorJumpStateController : MonoBehaviour
         [SerializeField] float raycastSearchDistance;
         private PlayerParameter _PlayerParameter;
 
-        private async void Awake()
+        private void Awake()
         {
-            _PlayerParameter = await GameData.Instance.GetPlayerParameter();
+            _PlayerParameter = GameData.Instance.PlayerParameter;
         }
 
         public void Start()

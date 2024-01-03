@@ -70,9 +70,9 @@ public class LongRangeStateController : Player
     //    _hp = _PlayerParameter.hp_L;
     //}
 
-    async void Start()
+     void Start()
     {
-        await base.Init();
+         base.Init();
         _hp = _PlayerParameter.hp_L;
         _player_state_list = new Dictionary<PlayerState, IPlayerState>();
         _player_state_list = new Dictionary<PlayerState, IPlayerState> {

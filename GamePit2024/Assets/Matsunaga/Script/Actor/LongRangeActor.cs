@@ -59,13 +59,13 @@ namespace Game.Test
 
         #region Unity private function
 
-        protected async void Awake()
+        protected void Awake()
         {
             //add id
             //base.Awake();
             //GameManager.stageManager.AddOnePlayer(gameObject.GetInstanceID(), gameObject);
 
-            _PlayerParameter = await GameData.Instance.GetPlayerParameter();
+            _PlayerParameter = GameData.Instance.PlayerParameter;
             _SkillImage = _SkillObject.GetComponent<Image>();
         }
         /// <summary>

@@ -54,13 +54,13 @@ namespace Game.Test
 
         #region Unity private function
 
-        protected async void Awake()
+        protected void Awake()
         {
             //add id
             //base.Awake();
             //GameManager.stageManager.AddOnePlayer(gameObject.GetInstanceID(), gameObject);
 
-            _PlayerParameter = await GameData.Instance.GetPlayerParameter();
+            _PlayerParameter = GameData.Instance.PlayerParameter;
             _Hp = _PlayerParameter.hp_M;
             Debug.Log("_PlayerParameter.GamepadNumber_M: " + _PlayerParameter.GamepadNumber_M.ToString() + ", _PlayerParameter.GamepadNumber_D: " + _PlayerParameter.GamepadNumber_D.ToString() + ", _PlayerParameter.GamepadNumber_L: " + _PlayerParameter.GamepadNumber_L.ToString());
         }

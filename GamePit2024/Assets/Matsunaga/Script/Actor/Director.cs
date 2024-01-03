@@ -49,9 +49,9 @@ namespace Game.Test
 
         #region Unity private function
 
-        private async void Awake()
+        private void Awake()
         {
-            _PlayerParameter = await GameData.Instance.GetPlayerParameter();
+            _PlayerParameter = GameData.Instance.PlayerParameter;
             _Animator = GetComponent<Animator>();
             _Rigidbody = GetComponent<Rigidbody>();
         }

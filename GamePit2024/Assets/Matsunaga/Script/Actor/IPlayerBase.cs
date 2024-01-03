@@ -32,9 +32,9 @@ namespace Game.Base
         public virtual PlayerType PlayerType { get; }
         //public float Atk;
 
-        protected async virtual UniTask Init()
+        protected virtual void Init()
         {
-            _PlayerParameter = await GameData.Instance.GetPlayerParameter();
+            _PlayerParameter = GameData.Instance.PlayerParameter;
             GameManager.stageManager.AddOnePlayer(InsId, gameObject);
             EventQueueSystem.AddListener<SendDamageEvent>(DamageEventHandler);
         }

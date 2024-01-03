@@ -32,10 +32,10 @@ public class GamePadCursor : MonoBehaviour
 
     private Game.Test.PlayerParameter _PlayerParameter;
 
-    private async void Awake()
+    private void Awake()
     {
         cursorSpeedDefault = cursorSpeed;
-        _PlayerParameter = await GameData.Instance.GetPlayerParameter();
+        _PlayerParameter =  GameData.Instance.PlayerParameter;
     }
 
     // Start is called before the first frame update

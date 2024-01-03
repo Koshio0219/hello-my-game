@@ -71,9 +71,9 @@ public class MeleeStateController : Player
     //}
 
     // Start is called before the first frame update
-    async void Start()
+     void Start()
     {
-        await base.Init();
+         base.Init();
         _hp = _PlayerParameter.hp_M;
         _player_state_list = new Dictionary<PlayerState, IPlayerState>();
         _player_state_list = new Dictionary<PlayerState, IPlayerState> {

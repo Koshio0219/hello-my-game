@@ -105,14 +105,14 @@ namespace Game.Action
             target.transform.SetLocalPositionX(closedX);
         }
 
-        async void InitData()
+         void InitData()
         {
             if (MapStateToAction.Count > 0) return;
             MapStateToAction.Add(CurtainState.Opened, CloseAction);
             MapStateToAction.Add(CurtainState.Closed, OpenAction);
             MapStateToAction.Add(CurtainState.Moving, MovingAction);
 
-            var data = await GameData.Instance.GetPlayerParameter();
+            var data =  GameData.Instance.PlayerParameter;
             inputIdx = data.GamepadNumber_D;
         }
 

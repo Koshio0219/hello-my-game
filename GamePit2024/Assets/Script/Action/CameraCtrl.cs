@@ -16,9 +16,9 @@ namespace Game.Action
         private int inputIdx;
         private bool inputable = false;
 
-        async void Awake()
+         void Awake()
         {
-            var data = await GameData.Instance.GetPlayerParameter();
+            var data =  GameData.Instance.PlayerParameter;
             inputIdx = data.GamepadNumber_D;
             inputable = false;
             EventQueueSystem.AddListener<StageStatesEvent>(StageStatesHandler);

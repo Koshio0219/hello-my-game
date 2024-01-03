@@ -19,7 +19,7 @@ namespace Game.Data
         public EnemyCreateConfig EnemyCreateConfig { get; private set; }
         public HudConfig HudConfig { get; private set; }
         public LevelConfig LevelConfig { get; private set; }
-        private PlayerParameter playerParameter = null;
+        public PlayerParameter PlayerParameter { get; private set; }
 
         public async void Init()
         {
@@ -28,15 +28,7 @@ namespace Game.Data
             EnemyCreateConfig = await AssetLoader.Instance.Load<EnemyCreateConfig>(AssetType.Config, "Assets/Config/EnemyCreateConfig.asset", token);
             HudConfig = await AssetLoader.Instance.Load<HudConfig>(AssetType.Config, "Assets/Config/HudConfig.asset", token);
             LevelConfig = await AssetLoader.Instance.Load<LevelConfig>(AssetType.Config, "Assets/Config/LevelConfig.asset", token);
-        }
-
-        public async UniTask<PlayerParameter> GetPlayerParameter()
-        {
-            if (playerParameter == null)
-            {
-                playerParameter = await AssetLoader.Instance.Load<PlayerParameter>(AssetType.Config, "Assets/Config/PlayerParameter.asset", Manager.GameManager.Instance.CancelTokenOnGameDestroy);
-            }
-            return playerParameter;
+            PlayerParameter = await AssetLoader.Instance.Load<PlayerParameter>(AssetType.Config, "Assets/Config/PlayerParameter.asset", token);
         }
     }
 }
