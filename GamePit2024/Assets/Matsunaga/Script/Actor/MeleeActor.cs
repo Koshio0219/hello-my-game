@@ -13,7 +13,7 @@ using Game.Unit;
 
 namespace Game.Test
 {
-    public class MeleeActor :Player
+    public class MeleeActor :MonoBehaviour
     {
         #region define
         /// <summary> 僾儗僀儎乕偺忬懺 </summary>
@@ -49,7 +49,7 @@ namespace Game.Test
         #endregion
 
         #region property
-        public override float Hp { get => _Hp; set => _Hp = value; }
+        //public override float Hp { get => _Hp; set => _Hp = value; }
         #endregion
 
         #region Unity private function
@@ -246,41 +246,41 @@ namespace Game.Test
         }
         #endregion
 
-        public override void Attack(int targetID, float damage)
-        {
-            //...
-            EventQueueSystem.QueueEvent(new SendDamageEvent(InsId, targetID, damage));
-        }
+        //public override void Attack(int targetID, float damage)
+        //{
+        //    //...
+        //    EventQueueSystem.QueueEvent(new SendDamageEvent(InsId, targetID, damage));
+        //}
 
-        /*public override void Hit(int sourceId, float damage)
-        {
+        ///*public override void Hit(int sourceId, float damage)
+        //{
 
-        }*/
+        //}*/
 
-        public override void Dead()
-        {
-            base.Dead();
-        }
+        //public override void Dead()
+        //{
+        //    base.Dead();
+        //}
 
-        public override void Move()
-        {
+        //public override void Move()
+        //{
 
-        }
+        //}
 
         /// <summary> 傾僯儊乕僔儑儞僀儀儞僩 Attack廔椆帪偵婲摦偡傞儊僜僢僪 </summary>
-        private void AttackStart()
-        {
-            //eg (attack range is 2)
-            GameHelper.ShootRay(transform.position, transform.forward, 2f, "", (info) =>
-            {
-                var up = info.transform.GetRootParent();
-                if (up.TryGetComponent<IEnemyBaseAction>(out var enemy))
-                {
-                    var id = enemy.EnemyUnitData.InsId;
-                    Attack(id, _PlayerParameter.attack_M);
-                }
-            });
-        }
+        //private void AttackStart()
+        //{
+        //    //eg (attack range is 2)
+        //    GameHelper.ShootRay(transform.position, transform.forward, 2f, "", (info) =>
+        //    {
+        //        var up = info.transform.GetRootParent();
+        //        if (up.TryGetComponent<IEnemyBaseAction>(out var enemy))
+        //        {
+        //            var id = enemy.EnemyUnitData.InsId;
+        //            Attack(id, _PlayerParameter.attack_M);
+        //        }
+        //    });
+        //}
 
         /// <summary> 傾僯儊乕僔儑儞僀儀儞僩 Attack廔椆帪偵婲摦偡傞儊僜僢僪 </summary>
         private void AttackEnd()

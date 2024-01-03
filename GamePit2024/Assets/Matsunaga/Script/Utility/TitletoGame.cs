@@ -138,7 +138,10 @@ public class TitletoGame : MonoBehaviour
 
     private IEnumerator StageLoad()
     {
-
+        if(async!=null && !async.isDone)
+        {
+            yield break;
+        }
 
         // シーンを非同期でロードする
         async = SceneManager.LoadSceneAsync("Stage");
@@ -148,7 +151,7 @@ public class TitletoGame : MonoBehaviour
         {
             yield return null;
         }
-        
+
         // ロード画面を非表示にする
         loadingUI.SetActive(false);
     }

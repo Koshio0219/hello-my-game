@@ -32,7 +32,7 @@ namespace Game.Base
         public virtual PlayerType PlayerType { get; }
         //public float Atk;
 
-        protected virtual void Init()
+        protected virtual void Start()
         {
             _PlayerParameter = GameData.Instance.PlayerParameter;
             GameManager.stageManager.AddOnePlayer(InsId, gameObject);
@@ -75,6 +75,15 @@ namespace Game.Base
         public virtual void Move()
         {
 
+        }
+
+        //debug
+        private void Update()
+        {
+            if(gameObject == null)
+            {
+
+            }
         }
     }
 }

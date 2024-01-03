@@ -11,7 +11,7 @@ using Game.Base;
 
 namespace Game.Test
 {
-    public class LongRangeActor : Player
+    public class LongRangeActor : MonoBehaviour
     {
         #region define
         /// <summary> 僾儗僀儎乕偺忬懺 </summary>
@@ -272,10 +272,10 @@ namespace Game.Test
         }
         #endregion
 
-        private void WaitAttackStart()
-        {
-            StartCoroutine(BeamShot());
-        }
+        //private void WaitAttackStart()
+        //{
+        //    StartCoroutine(BeamShot());
+        //}
         /// <summary> 傾僯儊乕僔儑儞僀儀儞僩 Attack廔椆帪偵婲摦偡傞儊僜僢僪 </summary>
         private void AttackStart()
         {
@@ -288,59 +288,59 @@ namespace Game.Test
             ChangeState(StateEnum.Move);
         }
 
-        public override void Attack(int targetID, float damage)
-        {
-            //
-        }
+        //public override void Attack(int targetID, float damage)
+        //{
+        //    //
+        //}
 
-        public override void Hit(int sourceId, float damage)
-        {
+        //public override void Hit(int sourceId, float damage)
+        //{
 
-        }
+        //}
 
-        public override void Dead()
-        {
+        //public override void Dead()
+        //{
 
-        }
+        //}
 
-        public override void Move()
-        {
+        //public override void Move()
+        //{
 
-        }
+        //}
 
-        IEnumerator ChargeShot()
-        {//チャージショット
+        //IEnumerator ChargeShot()
+        //{//チャージショット
 
-            Vector3 _SetPosition = new Vector3(transform.position.x, 1.5f, transform.position.z);
-            Vector3 direction = transform.forward;
-            direction.Normalize();
-            var bulletInstance = Instantiate<GameObject>(_Bullet, _SetPosition + direction * 1.2f, Quaternion.identity);
-            bulletInstance.GetComponent<BulletController>().setDirection(direction);
-            yield return new WaitUntil(() => _Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") == true);
-            bulletInstance.GetComponent<BulletController>().setAttackTrigger(InsId, _PlayerParameter.attack_L);
-            ChangeState(StateEnum.Move);
-        }
+        //    Vector3 _SetPosition = new Vector3(transform.position.x, 1.5f, transform.position.z);
+        //    Vector3 direction = transform.forward;
+        //    direction.Normalize();
+        //    var bulletInstance = Instantiate<GameObject>(_Bullet, _SetPosition + direction * 1.2f, Quaternion.identity);
+        //    bulletInstance.GetComponent<BulletController>().setDirection(direction);
+        //    yield return new WaitUntil(() => _Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") == true);
+        //    bulletInstance.GetComponent<BulletController>().setAttackTrigger(InsId, _PlayerParameter.attack_L);
+        //    ChangeState(StateEnum.Move);
+        //}
 
-        IEnumerator BeamShot()
-        {//ビームショット
+        //IEnumerator BeamShot()
+        //{//ビームショット
 
-            Vector3 _SetPosition = new Vector3(transform.position.x, 1.5f, transform.position.z);
-            Vector3 direction = transform.forward;
-            direction.Normalize();
-            var beamInstance = Instantiate<GameObject>(_Beam, _SetPosition + direction * 1.5f, Quaternion.identity);
-            beamInstance.GetComponent<BeamController>().Init(transform.position, _SetPosition + direction * 4f, 2.0f, 0);
-            var beamInstance2 = Instantiate<GameObject>(_Beam, _SetPosition - direction * 1.5f, Quaternion.identity);
-            beamInstance2.GetComponent<BeamController>().Init(transform.position, _SetPosition + direction * 4f, 2.0f, 0);
-            var beamInstance3 = Instantiate<GameObject>(_Beam, _SetPosition + transform.right.normalized * 1.5f, Quaternion.identity);
-            beamInstance3.GetComponent<BeamController>().Init(transform.position, _SetPosition + direction * 4f, 2.0f, 0);
-            var beamInstance4 = Instantiate<GameObject>(_Beam, _SetPosition - transform.right.normalized * 1.5f, Quaternion.identity);
-            beamInstance4.GetComponent<BeamController>().Init(transform.position, _SetPosition + direction * 4f, 2.0f, 0);
-            yield return new WaitUntil(() => _Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") == true);
-            beamInstance.GetComponent<BeamController>().setAttackTrigger(InsId,_PlayerParameter.attack_L);
-            beamInstance2.GetComponent<BeamController>().setAttackTrigger(InsId, _PlayerParameter.attack_L);
-            beamInstance3.GetComponent<BeamController>().setAttackTrigger(InsId, _PlayerParameter.attack_L);
-            beamInstance4.GetComponent<BeamController>().setAttackTrigger(InsId, _PlayerParameter.attack_L);
-            ChangeState(StateEnum.Move);
-        }
+        //    Vector3 _SetPosition = new Vector3(transform.position.x, 1.5f, transform.position.z);
+        //    Vector3 direction = transform.forward;
+        //    direction.Normalize();
+        //    var beamInstance = Instantiate<GameObject>(_Beam, _SetPosition + direction * 1.5f, Quaternion.identity);
+        //    beamInstance.GetComponent<BeamController>().Init(transform.position, _SetPosition + direction * 4f, 2.0f, 0);
+        //    var beamInstance2 = Instantiate<GameObject>(_Beam, _SetPosition - direction * 1.5f, Quaternion.identity);
+        //    beamInstance2.GetComponent<BeamController>().Init(transform.position, _SetPosition + direction * 4f, 2.0f, 0);
+        //    var beamInstance3 = Instantiate<GameObject>(_Beam, _SetPosition + transform.right.normalized * 1.5f, Quaternion.identity);
+        //    beamInstance3.GetComponent<BeamController>().Init(transform.position, _SetPosition + direction * 4f, 2.0f, 0);
+        //    var beamInstance4 = Instantiate<GameObject>(_Beam, _SetPosition - transform.right.normalized * 1.5f, Quaternion.identity);
+        //    beamInstance4.GetComponent<BeamController>().Init(transform.position, _SetPosition + direction * 4f, 2.0f, 0);
+        //    yield return new WaitUntil(() => _Animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") == true);
+        //    beamInstance.GetComponent<BeamController>().setAttackTrigger(InsId,_PlayerParameter.attack_L);
+        //    beamInstance2.GetComponent<BeamController>().setAttackTrigger(InsId, _PlayerParameter.attack_L);
+        //    beamInstance3.GetComponent<BeamController>().setAttackTrigger(InsId, _PlayerParameter.attack_L);
+        //    beamInstance4.GetComponent<BeamController>().setAttackTrigger(InsId, _PlayerParameter.attack_L);
+        //    ChangeState(StateEnum.Move);
+        //}
     }
 }
