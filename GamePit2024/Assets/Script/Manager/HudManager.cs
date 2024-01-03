@@ -81,8 +81,8 @@ namespace Game.Manager
 
             if (_hudbase != null)
             {
-                _hudbase.Tran.SetParent(Tran);
-                _hudbase.Tran.ResetLocal();
+                _hudbase.Tran.SetParent(Tran,false);
+                //_hudbase.Tran.ResetLocal();
 
                 if (!hudDic.ContainsKey(id))
                     hudDic.Add(id, _hudbase);
