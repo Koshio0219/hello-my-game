@@ -62,10 +62,10 @@ namespace Game.Hud
                 switch (player.PlayerType)
                 {
                     case PlayerType.Swordsman:
-                        View.InitSwordHpbar(player.Hp);
+                        View.InitSwordHpbar(GameData.Instance.PlayerParameter.hp_M);
                         break;
                     case PlayerType.Witch:
-                        View.InitWitchHpbar(player.Hp);
+                        View.InitWitchHpbar(GameData.Instance.PlayerParameter.hp_L);
                         break;
                 }
             }
