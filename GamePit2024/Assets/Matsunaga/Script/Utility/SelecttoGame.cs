@@ -25,6 +25,7 @@ public class SelecttoGame : MonoBehaviour
     private void Start()
     {
         UICanvas.SetActive(true);
+        loadingUI.SetActive(false);
     }
     void Update()
     {
@@ -197,7 +198,7 @@ public class SelecttoGame : MonoBehaviour
         UICanvas.SetActive(false);
         while (CubeChange.transform.eulerAngles.y <= 90.0f)
         {
-            CubeChange.transform.Rotate(0, 1f, 0f, Space.World);
+            CubeChange.transform.Rotate(0, 0.3f, 0f, Space.World);
             yield return null;
         }
         loadingUI.SetActive(true);
