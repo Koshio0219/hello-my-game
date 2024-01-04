@@ -35,7 +35,15 @@ public class TitleSelectUI : MonoBehaviour
     {
         var playerNum = (int)_PlayerType;
         // 該当のゲームパッドが接続されていないと動かない
-        if (Gamepad.all.Count < playerNum + 1) return;
+        if (Gamepad.all.Count < playerNum + 1)
+        {
+            if (_ParList == null) return;
+            foreach (GameObject obj in _ParList)
+            {
+                obj.SetActive(false);
+            }
+            return;
+        }
         // 何も選んでいない時
         if (DecideState == StateEnum.None)
         {

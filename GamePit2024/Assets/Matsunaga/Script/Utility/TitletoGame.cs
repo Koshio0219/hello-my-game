@@ -14,6 +14,7 @@ public class TitletoGame : MonoBehaviour
     [SerializeField] private TitleSelectUI _ThirdSelect;
     [SerializeField] private GameObject loadingUI;
     private AsyncOperation async;
+    private bool isDecide = false;
     private void Awake()
     {
     }
@@ -24,6 +25,7 @@ public class TitletoGame : MonoBehaviour
     }
     void Update()
     {
+        if (isDecide) return;
         switch (Gamepad.all.Count)
         {
             case 0:
@@ -47,18 +49,24 @@ public class TitletoGame : MonoBehaviour
         // どちらかが未選択なら処理しない
         if (_FirstSelect.DecideState == TitleSelectUI.StateEnum.None) return;
 
-        if (_FirstSelect.DecideState == TitleSelectUI.StateEnum.Exit)
+        isDecide = true;
+        switch (_FirstSelect.DecideState)
         {
-            StartCoroutine("ExitGame");
-        }
-        else
-        {
-            // ロード画面を表示する
-            loadingUI.SetActive(true);
-            var sceneIndex = (int)_FirstSelect.DecideState;
-            StartCoroutine(StageLoad());
-            //SceneId nextScene = (SceneId)Enum.ToObject(typeof(SceneId), sceneIndex + 1);
-            //SceneTransferManager.Instance.Load(nextScene);
+            case TitleSelectUI.StateEnum.Start:
+                loadingUI.SetActive(true);
+                StartCoroutine(StageLoad());
+                break;
+            case TitleSelectUI.StateEnum.Setting:
+                //ChangeActive((int)StateEnum.Setting);
+                break;
+            case TitleSelectUI.StateEnum.HomePage:
+                Game.Manager.GameManager.Instance.OpenHomePage();
+                isDecide = false;
+                _FirstSelect.DeSelect();
+                break;
+            case TitleSelectUI.StateEnum.Exit:
+                StartCoroutine("ExitGame");
+                break;
         }
     }
 
@@ -73,23 +81,25 @@ public class TitletoGame : MonoBehaviour
             _SecondSelect.DeSelect();
             return;
         }
-        if (_FirstSelect.DecideState == _SecondSelect.DecideState)
+        isDecide = true;
+        switch (_FirstSelect.DecideState)
         {
-            //SoundManager.Instance.Stop();
-            //SoundManager.Instance.Play(SoundManager.SoundID.Decide02, 0.8f);
-            if (_FirstSelect.DecideState == TitleSelectUI.StateEnum.Exit)
-            {
-                StartCoroutine("ExitGame");
-            }
-            else
-            {
-                // ロード画面を表示する
+            case TitleSelectUI.StateEnum.Start:
                 loadingUI.SetActive(true);
-                var sceneIndex = (int)_FirstSelect.DecideState;
                 StartCoroutine(StageLoad());
-                //SceneId nextScene = (SceneId)Enum.ToObject(typeof(SceneId), sceneIndex + 1);
-                //SceneTransferManager.Instance.Load(nextScene);
-            }
+                break;
+            case TitleSelectUI.StateEnum.Setting:
+                //ChangeActive((int)StateEnum.Setting);
+                break;
+            case TitleSelectUI.StateEnum.HomePage:
+                Game.Manager.GameManager.Instance.OpenHomePage();
+                isDecide = false;
+                _FirstSelect.DeSelect();
+                _SecondSelect.DeSelect();
+                break;
+            case TitleSelectUI.StateEnum.Exit:
+                StartCoroutine("ExitGame");
+                break;
         }
     }
 
@@ -101,20 +111,26 @@ public class TitletoGame : MonoBehaviour
 
         if (_FirstSelect.DecideState == _SecondSelect.DecideState && _SecondSelect.DecideState == _ThirdSelect.DecideState)
         {
-            //SoundManager.Instance.Stop();
-            //SoundManager.Instance.Play(SoundManager.SoundID.Decide02, 0.8f);
-            if (_FirstSelect.DecideState == TitleSelectUI.StateEnum.Exit)
+            isDecide = true;
+            switch (_FirstSelect.DecideState)
             {
-                StartCoroutine("ExitGame");
-            }
-            else
-            {
-                // ロード画面を表示する
-                loadingUI.SetActive(true);
-                var sceneIndex = (int)_FirstSelect.DecideState;
-                StartCoroutine(StageLoad());
-                //SceneId nextScene = (SceneId)Enum.ToObject(typeof(SceneId), sceneIndex + 1);
-                //SceneTransferManager.Instance.Load(nextScene);
+                case TitleSelectUI.StateEnum.Start:
+                    loadingUI.SetActive(true);
+                    StartCoroutine(StageLoad());
+                    break;
+                case TitleSelectUI.StateEnum.Setting:
+                    //ChangeActive((int)StateEnum.Setting);
+                    break;
+                case TitleSelectUI.StateEnum.HomePage:
+                    Game.Manager.GameManager.Instance.OpenHomePage();
+                    isDecide = false;
+                    _FirstSelect.DeSelect();
+                    _SecondSelect.DeSelect();
+                    _ThirdSelect.DeSelect();
+                    break;
+                case TitleSelectUI.StateEnum.Exit:
+                    StartCoroutine("ExitGame");
+                    break;
             }
         } else
         {
@@ -144,7 +160,7 @@ public class TitletoGame : MonoBehaviour
         }
 
         // シーンを非同期でロードする
-        async = SceneManager.LoadSceneAsync("Stage");
+        async = SceneManager.LoadSceneAsync("CharaSelect");
 
         // ロードが完了するまで待機する
         while (!async.isDone)
