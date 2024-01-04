@@ -126,7 +126,7 @@ public class SelecttoGame : MonoBehaviour
     private IEnumerator CubeChanger()
     {
         UICanvas.SetActive(false);
-        while (CubeChange.transform.eulerAngles.y < 90.0f)
+        while (CubeChange.transform.eulerAngles.y <= 90.0f)
         {
             CubeChange.transform.Rotate(0, 0.01f, 0f, Space.World);
             yield return null;
