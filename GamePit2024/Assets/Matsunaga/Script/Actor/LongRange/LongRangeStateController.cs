@@ -7,6 +7,7 @@ using Game.Manager;
 using Game.Base;
 using Cysharp.Threading.Tasks;
 using Game.Framework;
+using UnityEngine.InputSystem;
 
 public class LongRangeStateController : Player
 {
@@ -74,6 +75,7 @@ public class LongRangeStateController : Player
     {
         base.Start();
         _hp = _PlayerParameter.hp_L;
+        GamePadNumber_L = GameData.Instance.PlayerParameter.GamepadNumber_L;
         _player_state_list = new Dictionary<PlayerState, IPlayerState>();
         _player_state_list = new Dictionary<PlayerState, IPlayerState> {
             { PlayerState.IDLE, new LongRangeStateIdle(_animator, GamePadNumber_L) },
@@ -93,6 +95,10 @@ public class LongRangeStateController : Player
     // Update is called once per frame
     void Update()
     {
+        if (Gamepad.all.Count < GamePadNumber_L + 1)
+        {
+            return;
+        }
         if (_state_instance == null) return;
         PlayerState state = _state_instance.stayUpdate();
 

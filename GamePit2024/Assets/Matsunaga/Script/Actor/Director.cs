@@ -69,6 +69,10 @@ namespace Game.Test
         /// </summary>
         private void Update()
         {
+            if (Gamepad.all.Count < _PlayerParameter.GamepadNumber_D + 1)
+            {
+                return;
+            }
             UpdateState();
         }
 

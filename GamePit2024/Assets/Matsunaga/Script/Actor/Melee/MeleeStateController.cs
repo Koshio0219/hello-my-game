@@ -7,6 +7,7 @@ using Game.Manager;
 using Game.Base;
 using Cysharp.Threading.Tasks;
 using Game.Framework;
+using UnityEngine.InputSystem;
 
 public class MeleeStateController : Player
 {
@@ -76,6 +77,7 @@ public class MeleeStateController : Player
          base.Start();
         Debug.Log($"GamepadNumber_M idx: {_PlayerParameter.GamepadNumber_M}");
         _hp = _PlayerParameter.hp_M;
+        GamePadNumber_M = GameData.Instance.PlayerParameter.GamepadNumber_M;
         _player_state_list = new Dictionary<PlayerState, IPlayerState>();
         _player_state_list = new Dictionary<PlayerState, IPlayerState> {
             { PlayerState.IDLE, new MeleeStateIdle(_animator, GamePadNumber_M) },
@@ -93,6 +95,10 @@ public class MeleeStateController : Player
     // Update is called once per frame
     void Update()
     {
+        if (Gamepad.all.Count < GamePadNumber_M+ 1)
+        {
+            return;
+        }
         if (_state_instance == null) return;
         //Debug.Log("PlayerStateLength: " + _player_state_list.Count);
         PlayerState state = _state_instance.stayUpdate();
