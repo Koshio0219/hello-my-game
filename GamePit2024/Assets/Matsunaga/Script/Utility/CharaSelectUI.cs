@@ -1,11 +1,11 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 
-public class TitleSelectUI : MonoBehaviour
+public class CharaSelectUI : MonoBehaviour
 {
     public enum PlayerType
     {
@@ -16,50 +16,49 @@ public class TitleSelectUI : MonoBehaviour
     public enum StateEnum
     {
         None = -1,
-        Start,
-        Setting,
-        HomePage,
-        Exit,
+        Directer,
+        Melee,
+        LongRange,
     }
     [SerializeField] private PlayerType _PlayerType;
     [SerializeField] private List<GameObject> _ParList = new List<GameObject>();
     [SerializeField] private float _scale = 1.0f;
 
-    private StateEnum _State = StateEnum.Start;
+    private StateEnum _State = StateEnum.Directer;
     public StateEnum DecideState = StateEnum.None;
     void Start()
     {
-        ChangeState(StateEnum.Start);
+        ChangeState(StateEnum.Directer);
     }
     void Update()
     {
         var playerNum = (int)_PlayerType;
-        // è©²å½“ã®ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãŒæ¥ç¶šã•ã‚Œã¦ã„ãªã„ã¨å‹•ã‹ãªã„
+        // ŠY“–‚ÌƒQ[ƒ€ƒpƒbƒh‚ªÚ‘±‚³‚ê‚Ä‚¢‚È‚¢‚Æ“®‚©‚È‚¢
         if (Gamepad.all.Count < playerNum + 1) return;
-        // ä½•ã‚‚é¸ã‚“ã§ã„ãªã„æ™‚
+        // ‰½‚à‘I‚ñ‚Å‚¢‚È‚¢
         if (DecideState == StateEnum.None)
         {
-            // ä¸Šã‚’æŠ¼ã™ã¨ã¯ã˜ã‚ã‚‹ã‚’é¸æŠ
+            // ã‚ğ‰Ÿ‚·‚Æ‚Í‚¶‚ß‚é‚ğ‘I‘ğ
             if (Gamepad.all[playerNum].dpad.up.wasPressedThisFrame)
             {
-                ChangeState((StateEnum)Enum.ToObject(typeof(StateEnum), ((int)_State + 3) % 4));
+                ChangeState((StateEnum)Enum.ToObject(typeof(StateEnum), ((int)_State + 2) % 3));
             }
-            // ä¸‹ã‚’æŠ¼ã™ã¨ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã‚’é¸æŠ
+            // ‰º‚ğ‰Ÿ‚·‚Æƒ`ƒ…[ƒgƒŠƒAƒ‹‚ğ‘I‘ğ
             if (Gamepad.all[playerNum].dpad.down.wasPressedThisFrame)
             {
-                ChangeState((StateEnum)Enum.ToObject(typeof(StateEnum), ((int)_State + 1) % 4));
+                ChangeState((StateEnum)Enum.ToObject(typeof(StateEnum), ((int)_State + 1) % 3));
             }
-            /*// ä¸Šã‚’æŠ¼ã™ã¨ã¯ã˜ã‚ã‚‹ã‚’é¸æŠ
+            /*// ã‚ğ‰Ÿ‚·‚Æ‚Í‚¶‚ß‚é‚ğ‘I‘ğ
             if (Gamepad.all[playerNum].dpad.up.wasPressedThisFrame)
             {
                 ChangeState(StateEnum.Start);
             }
-            // ä¸‹ã‚’æŠ¼ã™ã¨ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã‚’é¸æŠ
+            // ‰º‚ğ‰Ÿ‚·‚Æƒ`ƒ…[ƒgƒŠƒAƒ‹‚ğ‘I‘ğ
             if (Gamepad.all[playerNum].dpad.down.wasPressedThisFrame)
             {
                 ChangeState(StateEnum.Tutorial);
             }*/
-            // â—‹ã‚’æŠ¼ã™ã¨é¸æŠæ±ºå®š
+            // ›‚ğ‰Ÿ‚·‚Æ‘I‘ğŒˆ’è
             if (Gamepad.all[playerNum].buttonEast.wasPressedThisFrame)
             {
                 //SoundManager.Instance.Play(SoundManager.SoundID.Decide01, 0.8f);
@@ -71,7 +70,7 @@ public class TitleSelectUI : MonoBehaviour
         }
         else
         {
-            // Ã—ã‚’æŠ¼ã™ã¨é¸æŠè§£é™¤
+            // ~‚ğ‰Ÿ‚·‚Æ‘I‘ğ‰ğœ
             if (Gamepad.all[playerNum].buttonSouth.wasPressedThisFrame)
             {
                 //SoundManager.Instance.Play(SoundManager.SoundID.Cancel, 0.5f);
@@ -90,17 +89,14 @@ public class TitleSelectUI : MonoBehaviour
         // Log.Info(GetType(), "ChangeState {0} -> {1}", prev, next);
         switch (_State)
         {
-            case StateEnum.Start:
-                ChangeActive((int)StateEnum.Start);
+            case StateEnum.Directer:
+                ChangeActive((int)StateEnum.Directer);
                 break;
-            case StateEnum.Setting:
-                ChangeActive((int)StateEnum.Setting);
+            case StateEnum.Melee:
+                ChangeActive((int)StateEnum.Melee);
                 break;
-            case StateEnum.HomePage:
-                ChangeActive((int)StateEnum.HomePage);
-                break;
-            case StateEnum.Exit:
-                ChangeActive((int)StateEnum.Exit);
+            case StateEnum.LongRange:
+                ChangeActive((int)StateEnum.LongRange);
                 break;
         }
     }
@@ -122,5 +118,4 @@ public class TitleSelectUI : MonoBehaviour
         var index = (int)_State;
         _ParList[index].GetComponent<RectTransform>().localScale = new Vector3(_scale, _scale, _scale);
     }
-
 }
