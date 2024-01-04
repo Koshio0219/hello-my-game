@@ -74,6 +74,7 @@ public class MeleeStateController : Player
     protected override void Start()
     {
          base.Start();
+        Debug.Log($"GamepadNumber_M idx: {_PlayerParameter.GamepadNumber_M}");
         _hp = _PlayerParameter.hp_M;
         _player_state_list = new Dictionary<PlayerState, IPlayerState>();
         _player_state_list = new Dictionary<PlayerState, IPlayerState> {

@@ -16,6 +16,7 @@ public class SelecttoGame : MonoBehaviour
     [SerializeField] private GameObject loadingUI;
     [SerializeField] private GameObject UICanvas;
     private AsyncOperation async;
+    private bool isLoading = false;
     private void Awake()
     {
     }
@@ -26,6 +27,8 @@ public class SelecttoGame : MonoBehaviour
     }
     void Update()
     {
+        if (isLoading)
+            return;
         switch (Gamepad.all.Count)
         {
             case 0:
@@ -109,7 +112,6 @@ public class SelecttoGame : MonoBehaviour
 
     private IEnumerator StageLoad()
     {
-
         // シーンを非同期でロードする
         async = SceneManager.LoadSceneAsync("Stage");
 
@@ -125,13 +127,16 @@ public class SelecttoGame : MonoBehaviour
 
     private IEnumerator CubeChanger()
     {
+        if (isLoading)
+            yield break ;
+        isLoading = true;
+
         UICanvas.SetActive(false);
         while (CubeChange.transform.eulerAngles.y <= 90.0f)
         {
-            CubeChange.transform.Rotate(0, 0.01f, 0f, Space.World);
+            CubeChange.transform.Rotate(0, 1f, 0f, Space.World);
             yield return null;
         }
-       
         loadingUI.SetActive(true);
         // シーンを非同期でロードする
         async = SceneManager.LoadSceneAsync("Stage");
@@ -144,5 +149,6 @@ public class SelecttoGame : MonoBehaviour
 
         // ロード画面を非表示にする
         loadingUI.SetActive(false);
+        isLoading = false;
     }
 }

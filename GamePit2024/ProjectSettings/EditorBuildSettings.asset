@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage.unity
     guid: 98bce5cc657936349889225e557f9517
+  - enabled: 1
+    path: Assets/Scenes/CharaSelect.unity
+    guid: db17cd80e1406cc4399232a8dcf405d1
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 4174cf0c4ce339b46b0b3539d8ec6288,
       type: 2}

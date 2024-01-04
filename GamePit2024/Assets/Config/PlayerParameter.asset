@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerParameter
   m_EditorClassIdentifier: 
   GamepadNumber_M: 0
-  attack_M: 5
+  attack_M: 50
   hp_M: 10000
   GamepadNumber_L: 0
   attack_L: 10

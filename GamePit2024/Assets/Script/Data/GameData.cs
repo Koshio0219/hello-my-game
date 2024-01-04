@@ -19,7 +19,7 @@ namespace Game.Data
         public EnemyCreateConfig EnemyCreateConfig { get; private set; }
         public HudConfig HudConfig { get; private set; }
         public LevelConfig LevelConfig { get; private set; }
-        public PlayerParameter PlayerParameter { get; private set; }
+        public PlayerParameter PlayerParameter { get; set; }
 
         public async void Init()
         {
@@ -30,6 +30,12 @@ namespace Game.Data
             LevelConfig = await AssetLoader.Instance.Load<LevelConfig>(AssetType.Config, "Assets/Config/LevelConfig.asset", token);
             PlayerParameter = await AssetLoader.Instance.Load<PlayerParameter>(AssetType.Config, "Assets/Config/PlayerParameter.asset", token);
         }
+
+        //test
+        //public void Test()
+        //{
+            //PlayerParameter.GamepadNumber_M = 2;
+        //}
     }
 }
 
