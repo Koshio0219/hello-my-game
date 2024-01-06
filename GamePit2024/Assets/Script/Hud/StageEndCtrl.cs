@@ -1,4 +1,5 @@
-﻿using Game.Base;
+﻿using Cysharp.Threading.Tasks;
+using Game.Base;
 using Game.Manager;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,8 +9,9 @@ namespace Game.Hud
 {
     public class StageEndCtrl : HudCtrl<StageEndView>
     {
-        private void Start()
+        private async void Start()
         {
+            await UniTask.Delay(100);
             switch (GameManager.stageManager.StageState)
             {
                 case StageStates.BattleClear:

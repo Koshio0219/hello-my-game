@@ -171,6 +171,8 @@ namespace Game.Framework
         }
     }
 
+    public class ReachPointEvent : GameEvent { }
+
     public class StageTimeUpEvent : GameEvent {
     
     }

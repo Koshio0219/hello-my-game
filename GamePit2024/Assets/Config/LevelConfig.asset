@@ -19,3 +19,5 @@ MonoBehaviour:
     showTime: 90
   - goalPoint: 80
     showTime: 120
+  goalPrefab: {fileID: 2097803152738953584, guid: 2e87f20c433254a4c902f708315d64d4,
+    type: 3}

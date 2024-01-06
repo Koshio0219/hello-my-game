@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Manager;
+using Game.Unit;
 //using UnityEngine.Pool;
 
 namespace Game.Action
@@ -30,11 +31,28 @@ namespace Game.Action
         private void Awake()
         {
             EventQueueSystem.AddListener<StageStatesEvent>(StageStatesHandler);
+            EventQueueSystem.AddListener<ReachPointEvent>(ReachPointHandler);
         }
 
         private void OnDestroy()
         {
             EventQueueSystem.RemoveListener<StageStatesEvent>(StageStatesHandler);
+            EventQueueSystem.RemoveListener<ReachPointEvent>(ReachPointHandler);
+        }
+
+        private void ReachPointHandler(ReachPointEvent e)
+        {
+            List<NormalBlock> temp =new();
+            insBlocks.ForEach(one1 =>
+            {
+                if (one1 is not NormalBlock) return;                
+                var _temp = one1 as NormalBlock;
+                temp.Add(_temp);                
+            });
+
+            var one = temp.SelectOne();
+            var prefab = GameData.Instance.LevelConfig.goalPrefab;
+            var ins = Instantiate(prefab, one.createPoint);
         }
 
         private void StageStatesHandler(StageStatesEvent e)

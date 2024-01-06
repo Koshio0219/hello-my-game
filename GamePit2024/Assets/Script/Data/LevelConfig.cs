@@ -18,5 +18,6 @@ namespace Game.Data
     public class LevelConfig : ScriptableObject
     {
         public List<LevelData> levelDatas;
+        public GameObject goalPrefab;
     }
 }

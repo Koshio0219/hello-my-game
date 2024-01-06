@@ -43,7 +43,11 @@ namespace Game.Manager
                 var last = currentPoint;
                 currentPoint = value;
 
-                EventQueueSystem.QueueEvent(new PointChangeEvent(last, currentPoint, ReachGoal));
+                var reach = ReachGoal;
+                EventQueueSystem.QueueEvent(new PointChangeEvent(last, currentPoint, reach));
+
+                if (!reach) return;
+                EventQueueSystem.QueueEvent(new ReachPointEvent());
             }
         }
 
