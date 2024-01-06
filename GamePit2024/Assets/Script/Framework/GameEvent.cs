@@ -6,6 +6,12 @@ using UnityEngine;
 
 namespace Game.Framework
 {
+    interface IEventListenerAction
+    {
+        void AddListeners();
+        void RemoveListeners();
+    }
+
     public class TestGameEvent : GameEvent
     {
         public string test;
@@ -187,14 +193,13 @@ namespace Game.Framework
             color = _color;
         }
     }
-    //public class OnGameStartEvent:GameEvent 
-    //{
-    //    public int playerId;
-    //    public string nick;
-    //    public OnGameStartEvent(int playerId, string nick)
-    //    {
-    //        this.playerId = playerId;
-    //        this.nick = nick;
-    //    }
-    //}
+
+    public class EnterDeadZoneEvent : GameEvent
+    {
+        public int rootGoInsId;
+        public EnterDeadZoneEvent(int rootGoInsId)
+        {
+            this.rootGoInsId = rootGoInsId;
+        }
+    }
 }

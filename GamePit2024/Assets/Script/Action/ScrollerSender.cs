@@ -75,7 +75,7 @@ namespace Game.Action
             targetPosx = new AsyncReactiveProperty<float>(lastPosx);
             targetPosx.ForEachAsync(x =>
             {
-                Debug.Log($"target:{gameObject.name} current posx is changed ,value is :{x}");
+                //Debug.Log($"target:{gameObject.name} current posx is changed ,value is :{x}");
                 if (lastPosx == x) return;
                 PosxChangeHandler(x);
                 lastPosx = x;

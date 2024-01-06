@@ -19,7 +19,7 @@ namespace Game.Base
         //void Hit(int sourceId, float damage);
     }
 
-    public class Player :MonoBehaviour, IPlayerBase
+    public class Player : MonoBehaviour, IPlayerBase, IEventListenerAction
     {
         public int InsId
         {
@@ -34,7 +34,7 @@ namespace Game.Base
 
         private void Awake()
         {
-            EventQueueSystem.AddListener<SendDamageEvent>(DamageEventHandler);
+            AddListeners();
         }
 
         protected virtual void Start()
@@ -58,8 +58,8 @@ namespace Game.Base
 
         public virtual void Dead()
         {
-            GameManager.stageManager.RemoveOnePlayer(InsId, gameObject);
-            EventQueueSystem.RemoveListener<SendDamageEvent>(DamageEventHandler);
+            GameManager.stageManager.RemoveOnePlayer(InsId);
+            //RemoveListeners();
 
             //when one player dead,game over
             EventQueueSystem.QueueEvent(new PlayerDeadEvent());
@@ -88,8 +88,27 @@ namespace Game.Base
 
         private void OnDestroy()
         {
-            EventQueueSystem.RemoveListener<SendDamageEvent>(DamageEventHandler);
+            RemoveListeners();
         }
+
+        public void AddListeners()
+        {
+            EventQueueSystem.AddListener<SendDamageEvent>(DamageEventHandler);
+            EventQueueSystem.AddListener<EnterDeadZoneEvent>(EnterDeadZoneHandler);
+        }
+
+        public void RemoveListeners()
+        {
+            EventQueueSystem.RemoveListener<SendDamageEvent>(DamageEventHandler);
+            EventQueueSystem.RemoveListener<EnterDeadZoneEvent>(EnterDeadZoneHandler);
+        }
+
+        private void EnterDeadZoneHandler(EnterDeadZoneEvent e)
+        {
+            if (e.rootGoInsId != gameObject.GetInstanceID()) return;
+            Dead();
+        }
+
         //debug
         //private void Update()
         //{
