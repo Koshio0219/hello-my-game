@@ -206,10 +206,7 @@ public class SelecttoGame : MonoBehaviour
         async = SceneManager.LoadSceneAsync("Stage");
 
         // ロードが完了するまで待機する
-        while (!async.isDone)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => async.isDone == true);
 
         // ロード画面を非表示にする
         loadingUI.SetActive(false);

@@ -201,11 +201,11 @@ public class TitletoGame : MonoBehaviour
         }*/
         while (RotateSoundImage.transform.eulerAngles.y >= 0.2f)
         {
-            RotateSoundImage.transform.Rotate(0, -1.0f, 0f, Space.World);
+            RotateSoundImage.transform.Rotate(0, -0.5f, 0f, Space.World);
                 yield return null;
         }
         // シーンを非同期でロードする
-        async = SceneManager.LoadSceneAsync("CharaSelect");
+        async = SceneManager.LoadSceneAsync("Setting");
 
         yield return new WaitUntil(() => async.isDone == true);
         // ロードが完了するまで待機する
