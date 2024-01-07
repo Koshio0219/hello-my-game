@@ -13,6 +13,10 @@ public class TitletoGame : MonoBehaviour
     [SerializeField] private TitleSelectUI _SecondSelect;
     [SerializeField] private TitleSelectUI _ThirdSelect;
     [SerializeField] private GameObject loadingUI;
+    [SerializeField] private GameObject UICanvas;
+    [SerializeField] private GameObject RotateSoundImage;
+    [SerializeField] private GameObject RotateImageL;
+    [SerializeField] private GameObject RotateImageR;
     private AsyncOperation async;
     private bool isDecide = false;
     private void Awake()
@@ -21,7 +25,9 @@ public class TitletoGame : MonoBehaviour
 
     private void Start()
     {
-
+        UICanvas.SetActive(true);
+        loadingUI.SetActive(false);
+        isDecide = false;
     }
     void Update()
     {
@@ -54,10 +60,15 @@ public class TitletoGame : MonoBehaviour
         {
             case TitleSelectUI.StateEnum.Start:
                 loadingUI.SetActive(true);
+                UICanvas.SetActive(false);
+                isDecide = true;
                 StartCoroutine(StageLoad());
                 break;
             case TitleSelectUI.StateEnum.Setting:
                 //ChangeActive((int)StateEnum.Setting);
+                StartCoroutine(SettingLoad());
+                UICanvas.SetActive(false);
+                isDecide = true;
                 break;
             case TitleSelectUI.StateEnum.HomePage:
                 Game.Manager.GameManager.Instance.OpenHomePage();
@@ -86,10 +97,14 @@ public class TitletoGame : MonoBehaviour
         {
             case TitleSelectUI.StateEnum.Start:
                 loadingUI.SetActive(true);
+                UICanvas.SetActive(false);
+                isDecide = true;
                 StartCoroutine(StageLoad());
                 break;
             case TitleSelectUI.StateEnum.Setting:
-                //ChangeActive((int)StateEnum.Setting);
+                StartCoroutine(SettingLoad());
+                UICanvas.SetActive(false);
+                isDecide = true;
                 break;
             case TitleSelectUI.StateEnum.HomePage:
                 Game.Manager.GameManager.Instance.OpenHomePage();
@@ -116,10 +131,14 @@ public class TitletoGame : MonoBehaviour
             {
                 case TitleSelectUI.StateEnum.Start:
                     loadingUI.SetActive(true);
+                    UICanvas.SetActive(false);
+                    isDecide = true;
                     StartCoroutine(StageLoad());
                     break;
                 case TitleSelectUI.StateEnum.Setting:
-                    //ChangeActive((int)StateEnum.Setting);
+                    StartCoroutine(SettingLoad());
+                    UICanvas.SetActive(false);
+                    isDecide = true;
                     break;
                 case TitleSelectUI.StateEnum.HomePage:
                     Game.Manager.GameManager.Instance.OpenHomePage();
@@ -154,19 +173,46 @@ public class TitletoGame : MonoBehaviour
 
     private IEnumerator StageLoad()
     {
-        if(async!=null && !async.isDone)
+        /*if(async!=null && !async.isDone)
         {
             yield break;
-        }
+        }*/
 
+        while (RotateImageL.transform.eulerAngles.y <= 90.0f)
+        {
+            RotateImageL.transform.Rotate(0, 0.3f, 0f, Space.World);
+            RotateImageR.transform.Rotate(0, -0.3f, 0f, Space.World);
+            yield return null;
+        }
         // シーンを非同期でロードする
         async = SceneManager.LoadSceneAsync("CharaSelect");
 
+        yield return new WaitUntil(() => async.isDone == true);
+
+        // ロード画面を非表示にする
+        loadingUI.SetActive(false);
+    }
+
+    private IEnumerator SettingLoad()
+    {
+        /*if (async != null && !async.isDone)
+        {
+            yield break;
+        }*/
+        while (RotateSoundImage.transform.eulerAngles.y >= 0.2f)
+        {
+            RotateSoundImage.transform.Rotate(0, -1.0f, 0f, Space.World);
+                yield return null;
+        }
+        // シーンを非同期でロードする
+        async = SceneManager.LoadSceneAsync("CharaSelect");
+
+        yield return new WaitUntil(() => async.isDone == true);
         // ロードが完了するまで待機する
-        while (!async.isDone)
+        /*while (!async.isDone)
         {
             yield return null;
-        }
+        }*/
 
         // ロード画面を非表示にする
         loadingUI.SetActive(false);
