@@ -46,7 +46,7 @@ namespace Game.Manager
                 var reach = ReachGoal;
                 EventQueueSystem.QueueEvent(new PointChangeEvent(last, currentPoint, reach));
 
-                if (!reach) return;
+                if (!reach || last >= GoalPoint) return;
                 EventQueueSystem.QueueEvent(new ReachPointEvent());
             }
         }

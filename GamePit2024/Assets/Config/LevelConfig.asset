@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
   levelDatas:
-  - goalPoint: 50
-    showTime: 60
+  - goalPoint: 10
+    showTime: 600
   - goalPoint: 60
     showTime: 90
   - goalPoint: 80
