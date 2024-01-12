@@ -69,9 +69,12 @@ namespace Game.Base
         {
             if (sourceId == InsId) return;
             if (GameManager.stageManager.IsFriend(sourceId, InsId)) return;
+
+
+            //.... ぼうぎょ処理
+
             Debug.Log($"player id :{InsId},name:{gameObject.name} had receive damage:{damage} from id:{sourceId}");
             //今、Hp は base class　に　い　ない　
-
             EventQueueSystem.QueueEvent(new PopupTextEvent(transform, (int)damage,Color.red));
 
             var lastHp = Hp;
