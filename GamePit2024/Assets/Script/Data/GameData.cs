@@ -24,11 +24,11 @@ namespace Game.Data
         public async void Init()
         {
             var token = Manager.GameManager.Instance.CancelTokenOnGameDestroy;
-            BlockTypeConfig = await AssetLoader.Instance.Load<BlockTypeConfig>(AssetType.Config, "Assets/Config/BlockTypeConfig.asset", token);
-            EnemyCreateConfig = await AssetLoader.Instance.Load<EnemyCreateConfig>(AssetType.Config, "Assets/Config/EnemyCreateConfig.asset", token);
-            HudConfig = await AssetLoader.Instance.Load<HudConfig>(AssetType.Config, "Assets/Config/HudConfig.asset", token);
-            LevelConfig = await AssetLoader.Instance.Load<LevelConfig>(AssetType.Config, "Assets/Config/LevelConfig.asset", token);
-            PlayerParameter = await AssetLoader.Instance.Load<PlayerParameter>(AssetType.Config, "Assets/Config/PlayerParameter.asset", token);
+            BlockTypeConfig ??= await AssetLoader.Instance.Load<BlockTypeConfig>(AssetType.Config, "Assets/Config/BlockTypeConfig.asset", token);
+            EnemyCreateConfig ??= await AssetLoader.Instance.Load<EnemyCreateConfig>(AssetType.Config, "Assets/Config/EnemyCreateConfig.asset", token);
+            HudConfig ??= await AssetLoader.Instance.Load<HudConfig>(AssetType.Config, "Assets/Config/HudConfig.asset", token);
+            LevelConfig ??= await AssetLoader.Instance.Load<LevelConfig>(AssetType.Config, "Assets/Config/LevelConfig.asset", token);
+            PlayerParameter ??= await AssetLoader.Instance.Load<PlayerParameter>(AssetType.Config, "Assets/Config/PlayerParameter.asset", token);
         }
 
         //test
