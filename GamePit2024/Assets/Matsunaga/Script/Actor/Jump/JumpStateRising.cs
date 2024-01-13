@@ -44,6 +44,8 @@ namespace animJump
             if (!_allow_add_force) return;
             _allow_add_force = false;
             DOTweenModulePhysics.DOMoveY(_rigid_body, _jump_data.power, 1.0f);
+
+      　　　//TODO when jumpping,press left or right can move at sky
             //DOTweenModulePhysics.DOJump(_rigid_body, Vector3.up * _jump_data.power, _jump_data.power, 1, 1.0f);
             //_rigid_body.AddForce(Vector3.up * _jump_data.power, ForceMode.Impulse);
         }

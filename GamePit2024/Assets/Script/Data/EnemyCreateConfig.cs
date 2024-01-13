@@ -20,6 +20,7 @@ namespace Game.Data
     {
         public EnemyTypeID typeID;
         public Vector3Int pos;
+        public bool randomOnBlock;
     }
 
     [System.Serializable]

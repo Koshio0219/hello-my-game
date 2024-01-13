@@ -42,17 +42,17 @@ namespace Game.Action
 
         private void ReachPointHandler(ReachPointEvent e)
         {
-            List<NormalBlock> temp =new();
-            insBlocks.ForEach(one1 =>
-            {
-                if (one1 is not NormalBlock) return;                
-                var _temp = one1 as NormalBlock;
-                temp.Add(_temp);                
-            });
+            //List<NormalBlock> temp =new();
+            //insBlocks.ForEach(one1 =>
+            //{
+            //    if (one1 is not NormalBlock) return;                
+            //    var _temp = one1 as NormalBlock;
+            //    temp.Add(_temp);                
+            //});
 
-            var one = temp.SelectOne();
             var prefab = GameData.Instance.LevelConfig.goalPrefab;
-            var ins = Instantiate(prefab, one.createPoint);
+            var ins = Instantiate(prefab);
+            ins.transform.position = GameManager.stageManager.SelecteOneBlockPoint();
         }
 
         private void StageStatesHandler(StageStatesEvent e)
@@ -88,6 +88,13 @@ namespace Game.Action
                     var block = ins.GetComponent<BlockBase>();
                     block.OnInstance(one);
                     insBlocks.Add(block);
+
+                    //add block point list
+                    if(block is NormalBlock)
+                    {
+                        var temp = block as NormalBlock;
+                        GameManager.stageManager.AddBlockPoint(temp.createPoint.position);
+                    }
 
                     if (i == 0 && j == 0)
                     {

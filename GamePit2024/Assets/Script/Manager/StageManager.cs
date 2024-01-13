@@ -41,6 +41,8 @@ namespace Game.Manager
         private Dictionary<int, GameObject> MapPlayerIdToInstance { get; set; } = new();
         private Dictionary<int, Enemy> MapEnemyIdToInstance { get; set; } = new();
 
+        private List<Vector3> blockPoints = new();
+
         private void Awake()
         {
             GameManager.stageManager = this;
@@ -54,6 +56,7 @@ namespace Game.Manager
             GameManager.stageManager = null;
             GameManager.pointManager = null;
             EventQueueSystem.RemoveListener<StageStatesEvent>(StageStatesHandler);
+            blockPoints.Clear();
         }
 
         private void InitMap()
@@ -254,10 +257,13 @@ namespace Game.Manager
 
         public List<GameObject> GetAllPlayer() => MapPlayerIdToInstance.Values.ToList();
    
-        //public void Timer(StageTimerEvent e)
-        //{
-            
-        //}
+        public void AddBlockPoint(Vector3 one)
+        {
+            if (blockPoints.Contains(one)) return;
+            blockPoints.Add(one);
+        }
+
+        public Vector3 SelecteOneBlockPoint() => blockPoints.SelectOne();
     }
 }
 
