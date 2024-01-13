@@ -56,6 +56,7 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!AttackTrigger) return;
         var up = other.transform.GetRootParent();
         if (!up.TryGetComponent<IDamageable>(out _)) return;
         EventQueueSystem.QueueEvent(new SendDamageEvent(sourceId, up.gameObject, damage));

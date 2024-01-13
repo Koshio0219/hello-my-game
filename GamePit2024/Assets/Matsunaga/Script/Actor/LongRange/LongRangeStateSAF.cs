@@ -54,10 +54,10 @@ public class LongRangeStateSAF : MonoBehaviour, IPlayerState
     public void enter()
     {
         _animator.SetTrigger("ReadyAttackTrigger");
-        Vector3 _SetPosition = new Vector3(_player.position.x, -1.0f, _player.position.z);
+        Vector3 _SetPosition = new Vector3(_player.position.x, _player.position.y + 1.0f, _player.position.z);
         Vector3 direction = _player.forward;
         direction.Normalize();
-        _BulletInstance = Instantiate<GameObject>(_Bullet, _SetPosition + direction * 1.2f, Quaternion.identity);
+        _BulletInstance = Instantiate<GameObject>(_Bullet, _SetPosition + direction * 0.8f, Quaternion.identity);
         _BulletInstance.GetComponent<BulletController>().setDirection(direction);
 
     }
