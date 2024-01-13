@@ -76,6 +76,8 @@ public class LongRangeStateController : Player
         base.Start();
         _hp = _PlayerParameter.hp_L;
         GamePadNumber_L = GameData.Instance.PlayerParameter.GamepadNumber_L;
+        _mainCamera = _mainCamera != null ? _mainCamera : Camera.main.transform;
+        transform.forward = -_mainCamera.forward;
         _player_state_list = new Dictionary<PlayerState, IPlayerState>();
         _player_state_list = new Dictionary<PlayerState, IPlayerState> {
             { PlayerState.IDLE, new LongRangeStateIdle(_animator, GamePadNumber_L) },

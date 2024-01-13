@@ -8,7 +8,8 @@ namespace Game.Data
 {
     public enum BlockUseType
     {
-        Normal
+        Normal,
+        PlayerCreate
     }
     [System.Serializable]
     public struct BlockTypeUnit

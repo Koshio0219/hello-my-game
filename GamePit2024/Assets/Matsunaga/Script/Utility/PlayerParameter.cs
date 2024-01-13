@@ -12,11 +12,13 @@ namespace Game.Test
         public int GamepadNumber_M;
         public float attack_M;
         public float hp_M;
+        public GameObject prefab_M;
 
         [Header("LongRange Actor(Basic)")]
         public int GamepadNumber_L;
         public float attack_L;
         public float hp_L;
+        public GameObject prefab_L;
 
         [Header("Director(Basic)")]
         public int GamepadNumber_D;

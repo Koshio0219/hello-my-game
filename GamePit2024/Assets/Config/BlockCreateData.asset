@@ -30,7 +30,7 @@ MonoBehaviour:
       offseY: 0
   - blockUnits:
     - baseType: 1
-      useType: 0
+      useType: 1
       offseY: 0
     - baseType: 2
       useType: 0

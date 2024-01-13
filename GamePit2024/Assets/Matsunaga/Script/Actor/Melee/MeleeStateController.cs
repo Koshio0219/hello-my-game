@@ -78,6 +78,8 @@ public class MeleeStateController : Player
         Debug.Log($"GamepadNumber_M idx: {_PlayerParameter.GamepadNumber_M}");
         _hp = _PlayerParameter.hp_M;
         GamePadNumber_M = GameData.Instance.PlayerParameter.GamepadNumber_M;
+        _mainCamera = _mainCamera != null ? _mainCamera : Camera.main.transform;
+        transform.forward = -_mainCamera.forward;
         _player_state_list = new Dictionary<PlayerState, IPlayerState>();
         _player_state_list = new Dictionary<PlayerState, IPlayerState> {
             { PlayerState.IDLE, new MeleeStateIdle(_animator, GamePadNumber_M) },
