@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
@@ -33,7 +33,7 @@ public class CharaSelectUI : MonoBehaviour
     void Update()
     {
         var playerNum = (int)_PlayerType;
-        // ŠY“–‚ÌƒQ[ƒ€ƒpƒbƒh‚ªÚ‘±‚³‚ê‚Ä‚¢‚È‚¢‚Æ“®‚©‚È‚¢
+        // å¥©æ‘‰åºåƒä¹•å„‰åƒ·åƒ¢åƒªå‘æ„™æ‡•åå‚Ÿå°å„å´å„å²æ‘¦åå´å„
         if (Gamepad.all.Count < playerNum + 1)
         {
             if (_ParList == null) return;
@@ -43,30 +43,30 @@ public class CharaSelectUI : MonoBehaviour
             }
             return;
         }
-        // ‰½‚à‘I‚ñ‚Å‚¢‚È‚¢
+        // å£—å‚•æ…–å‚«å±å„å´å„å¸ª
         if (DecideState == StateEnum.None)
         {
-            // ã‚ğ‰Ÿ‚·‚Æ‚Í‚¶‚ß‚é‚ğ‘I‘ğ
+            // å¿‹å‚ªå¢´å¡å²å¼å å‚”å‚å‚ªæ…–æˆ°
             if (Gamepad.all[playerNum].dpad.up.wasPressedThisFrame)
             {
                 ChangeState((StateEnum)Enum.ToObject(typeof(StateEnum), ((int)_State + 2) % 3));
             }
-            // ‰º‚ğ‰Ÿ‚·‚Æƒ`ƒ…[ƒgƒŠƒAƒ‹‚ğ‘I‘ğ
+            // å£“å‚ªå¢´å¡å²åƒ å„ä¹•åƒ©å„•å‚¾å„–å‚ªæ…–æˆ°
             if (Gamepad.all[playerNum].dpad.down.wasPressedThisFrame)
             {
                 ChangeState((StateEnum)Enum.ToObject(typeof(StateEnum), ((int)_State + 1) % 3));
             }
-            /*// ã‚ğ‰Ÿ‚·‚Æ‚Í‚¶‚ß‚é‚ğ‘I‘ğ
+            /*// å¿‹å‚ªå¢´å¡å²å¼å å‚”å‚å‚ªæ…–æˆ°
             if (Gamepad.all[playerNum].dpad.up.wasPressedThisFrame)
             {
                 ChangeState(StateEnum.Start);
             }
-            // ‰º‚ğ‰Ÿ‚·‚Æƒ`ƒ…[ƒgƒŠƒAƒ‹‚ğ‘I‘ğ
+            // å£“å‚ªå¢´å¡å²åƒ å„ä¹•åƒ©å„•å‚¾å„–å‚ªæ…–æˆ°
             if (Gamepad.all[playerNum].dpad.down.wasPressedThisFrame)
             {
                 ChangeState(StateEnum.Tutorial);
             }*/
-            // ›‚ğ‰Ÿ‚·‚Æ‘I‘ğŒˆ’è
+            // ä»œå‚ªå¢´å¡å²æ…–æˆ°å¯›æ•
             if (Gamepad.all[playerNum].buttonEast.wasPressedThisFrame)
             {
                 //SoundManager.Instance.Play(SoundManager.SoundID.Decide01, 0.8f);
@@ -78,7 +78,7 @@ public class CharaSelectUI : MonoBehaviour
         }
         else
         {
-            // ~‚ğ‰Ÿ‚·‚Æ‘I‘ğ‰ğœ
+            // äºŠå‚ªå¢´å¡å²æ…–æˆ°å¤å½
             if (Gamepad.all[playerNum].buttonSouth.wasPressedThisFrame)
             {
                 //SoundManager.Instance.Play(SoundManager.SoundID.Cancel, 0.5f);

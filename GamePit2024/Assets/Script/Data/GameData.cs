@@ -13,6 +13,13 @@ using UnityEngine;
 
 namespace Game.Data
 {
+    public enum CharacterType
+    {
+        Directer,
+        Melee,
+        LongRange,
+    }
+
     public class GameData : Singleton<GameData>, IInit
     {
         public BlockTypeConfig BlockTypeConfig { get; private set; }
@@ -20,6 +27,8 @@ namespace Game.Data
         public HudConfig HudConfig { get; private set; }
         public LevelConfig LevelConfig { get; private set; }
         public PlayerParameter PlayerParameter { get; set; }
+
+        public List<CharacterType> SelectedCharacters { get; private set; } = new();
 
         public async void Init()
         {
@@ -31,10 +40,18 @@ namespace Game.Data
             PlayerParameter ??= await AssetLoader.Instance.Load<PlayerParameter>(AssetType.Config, "Assets/Config/PlayerParameter.asset", token);
         }
 
+        public void AddSelectCharacter(CharacterType type)
+        {
+            if (SelectedCharacters.Contains(type)) return;
+            SelectedCharacters.Add(type);
+        }
+
+        public void ClearSelectCharacter() => SelectedCharacters.Clear();
+
         //test
         //public void Test()
         //{
-            //PlayerParameter.GamepadNumber_M = 2;
+        //PlayerParameter.GamepadNumber_M = 2;
         //}
     }
 }

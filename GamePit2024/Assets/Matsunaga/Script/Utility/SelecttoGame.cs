@@ -26,6 +26,7 @@ public class SelecttoGame : MonoBehaviour
     {
         UICanvas.SetActive(true);
         loadingUI.SetActive(false);
+        GameData.Instance.ClearSelectCharacter();
     }
     void Update()
     {
@@ -54,18 +55,19 @@ public class SelecttoGame : MonoBehaviour
         // どちらかが未選択なら処理しない
         if (_FirstSelect.DecideState == CharaSelectUI.StateEnum.None) return;
 
-        switch (_FirstSelect.DecideState)
-        {
-            case CharaSelectUI.StateEnum.Directer:
-                GameData.Instance.PlayerParameter.GamepadNumber_D = (int)TitleSelectUI.PlayerType.First;
-                break;
-            case CharaSelectUI.StateEnum.Melee:
-                GameData.Instance.PlayerParameter.GamepadNumber_M = (int)TitleSelectUI.PlayerType.First;
-                break;
-            case CharaSelectUI.StateEnum.LongRange:
-                GameData.Instance.PlayerParameter.GamepadNumber_L = (int)TitleSelectUI.PlayerType.First;
-                break;
-        }
+        PlayerSelect(_FirstSelect);
+        //switch (_FirstSelect.DecideState)
+        //{
+        //    case CharaSelectUI.StateEnum.Directer:
+        //        GameData.Instance.PlayerParameter.GamepadNumber_D = (int)TitleSelectUI.PlayerType.First;
+        //        break;
+        //    case CharaSelectUI.StateEnum.Melee:
+        //        GameData.Instance.PlayerParameter.GamepadNumber_M = (int)TitleSelectUI.PlayerType.First;
+        //        break;
+        //    case CharaSelectUI.StateEnum.LongRange:
+        //        GameData.Instance.PlayerParameter.GamepadNumber_L = (int)TitleSelectUI.PlayerType.First;
+        //        break;
+        //}
         StartCoroutine(CubeChanger());
     }
 
@@ -77,30 +79,32 @@ public class SelecttoGame : MonoBehaviour
         if (_FirstSelect.DecideState != _SecondSelect.DecideState)
         {
             // ロード画面を表示する
-            switch (_FirstSelect.DecideState)
-            {
-                case CharaSelectUI.StateEnum.Directer:
-                    GameData.Instance.PlayerParameter.GamepadNumber_D = (int)TitleSelectUI.PlayerType.First;
-                    break;
-                case CharaSelectUI.StateEnum.Melee:
-                    GameData.Instance.PlayerParameter.GamepadNumber_M = (int)TitleSelectUI.PlayerType.First;
-                    break;
-                case CharaSelectUI.StateEnum.LongRange:
-                    GameData.Instance.PlayerParameter.GamepadNumber_L = (int)TitleSelectUI.PlayerType.First;
-                    break;
-            }
-            switch (_SecondSelect.DecideState)
-            {
-                case CharaSelectUI.StateEnum.Directer:
-                    GameData.Instance.PlayerParameter.GamepadNumber_D = (int)TitleSelectUI.PlayerType.Second;
-                    break;
-                case CharaSelectUI.StateEnum.Melee:
-                    GameData.Instance.PlayerParameter.GamepadNumber_M = (int)TitleSelectUI.PlayerType.Second;
-                    break;
-                case CharaSelectUI.StateEnum.LongRange:
-                    GameData.Instance.PlayerParameter.GamepadNumber_L = (int)TitleSelectUI.PlayerType.Second;
-                    break;
-            }
+            PlayerSelect(_FirstSelect);
+            PlayerSelect(_SecondSelect);
+            //switch (_FirstSelect.DecideState)
+            //{
+            //    case CharaSelectUI.StateEnum.Directer:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_D = (int)TitleSelectUI.PlayerType.First;
+            //        break;
+            //    case CharaSelectUI.StateEnum.Melee:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_M = (int)TitleSelectUI.PlayerType.First;
+            //        break;
+            //    case CharaSelectUI.StateEnum.LongRange:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_L = (int)TitleSelectUI.PlayerType.First;
+            //        break;
+            //}
+            //switch (_SecondSelect.DecideState)
+            //{
+            //    case CharaSelectUI.StateEnum.Directer:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_D = (int)TitleSelectUI.PlayerType.Second;
+            //        break;
+            //    case CharaSelectUI.StateEnum.Melee:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_M = (int)TitleSelectUI.PlayerType.Second;
+            //        break;
+            //    case CharaSelectUI.StateEnum.LongRange:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_L = (int)TitleSelectUI.PlayerType.Second;
+            //        break;
+            //}
             StartCoroutine(CubeChanger());
             //SceneId nextScene = (SceneId)Enum.ToObject(typeof(SceneId), sceneIndex + 1);
             //SceneTransferManager.Instance.Load(nextScene);
@@ -124,42 +128,45 @@ public class SelecttoGame : MonoBehaviour
 
         if (_FirstSelect.DecideState != _SecondSelect.DecideState && _SecondSelect.DecideState != _ThirdSelect.DecideState)
         {
-            switch (_FirstSelect.DecideState)
-            {
-                case CharaSelectUI.StateEnum.Directer:
-                    GameData.Instance.PlayerParameter.GamepadNumber_D = (int)TitleSelectUI.PlayerType.First;
-                    break;
-                case CharaSelectUI.StateEnum.Melee:
-                    GameData.Instance.PlayerParameter.GamepadNumber_M = (int)TitleSelectUI.PlayerType.First;
-                    break;
-                case CharaSelectUI.StateEnum.LongRange:
-                    GameData.Instance.PlayerParameter.GamepadNumber_L = (int)TitleSelectUI.PlayerType.First;
-                    break;
-            }
-            switch (_SecondSelect.DecideState)
-            {
-                case CharaSelectUI.StateEnum.Directer:
-                    GameData.Instance.PlayerParameter.GamepadNumber_D = (int)TitleSelectUI.PlayerType.Second;
-                    break;
-                case CharaSelectUI.StateEnum.Melee:
-                    GameData.Instance.PlayerParameter.GamepadNumber_M = (int)TitleSelectUI.PlayerType.Second;
-                    break;
-                case CharaSelectUI.StateEnum.LongRange:
-                    GameData.Instance.PlayerParameter.GamepadNumber_L = (int)TitleSelectUI.PlayerType.Second;
-                    break;
-            }
-            switch (_ThirdSelect.DecideState)
-            {
-                case CharaSelectUI.StateEnum.Directer:
-                    GameData.Instance.PlayerParameter.GamepadNumber_D = (int)TitleSelectUI.PlayerType.Third;
-                    break;
-                case CharaSelectUI.StateEnum.Melee:
-                    GameData.Instance.PlayerParameter.GamepadNumber_M = (int)TitleSelectUI.PlayerType.Third;
-                    break;
-                case CharaSelectUI.StateEnum.LongRange:
-                    GameData.Instance.PlayerParameter.GamepadNumber_L = (int)TitleSelectUI.PlayerType.Third;
-                    break;
-            }
+            PlayerSelect(_FirstSelect);
+            PlayerSelect(_SecondSelect);
+            PlayerSelect(_ThirdSelect);
+            //switch (_FirstSelect.DecideState)
+            //{
+            //    case CharaSelectUI.StateEnum.Directer:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_D = (int)TitleSelectUI.PlayerType.First;
+            //        break;
+            //    case CharaSelectUI.StateEnum.Melee:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_M = (int)TitleSelectUI.PlayerType.First;
+            //        break;
+            //    case CharaSelectUI.StateEnum.LongRange:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_L = (int)TitleSelectUI.PlayerType.First;
+            //        break;
+            //}
+            //switch (_SecondSelect.DecideState)
+            //{
+            //    case CharaSelectUI.StateEnum.Directer:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_D = (int)TitleSelectUI.PlayerType.Second;
+            //        break;
+            //    case CharaSelectUI.StateEnum.Melee:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_M = (int)TitleSelectUI.PlayerType.Second;
+            //        break;
+            //    case CharaSelectUI.StateEnum.LongRange:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_L = (int)TitleSelectUI.PlayerType.Second;
+            //        break;
+            //}
+            //switch (_ThirdSelect.DecideState)
+            //{
+            //    case CharaSelectUI.StateEnum.Directer:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_D = (int)TitleSelectUI.PlayerType.Third;
+            //        break;
+            //    case CharaSelectUI.StateEnum.Melee:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_M = (int)TitleSelectUI.PlayerType.Third;
+            //        break;
+            //    case CharaSelectUI.StateEnum.LongRange:
+            //        GameData.Instance.PlayerParameter.GamepadNumber_L = (int)TitleSelectUI.PlayerType.Third;
+            //        break;
+            //}
             StartCoroutine(CubeChanger());
             //SceneId nextScene = (SceneId)Enum.ToObject(typeof(SceneId), sceneIndex + 1);
             //SceneTransferManager.Instance.Load(nextScene);
@@ -174,20 +181,45 @@ public class SelecttoGame : MonoBehaviour
         }
     }
 
-    private IEnumerator StageLoad()
+    void PlayerSelect(CharaSelectUI charaSelectUI)
     {
-        // シーンを非同期でロードする
-        async = SceneManager.LoadSceneAsync("Stage");
+        var playerType = TitleSelectUI.PlayerType.First;
+        if (charaSelectUI == _SecondSelect)
+            playerType = TitleSelectUI.PlayerType.Second;
+        else if (charaSelectUI == _ThirdSelect)
+            playerType = TitleSelectUI.PlayerType.Third;
 
-        // ロードが完了するまで待機する
-        while (!async.isDone)
+        switch (charaSelectUI.DecideState)
         {
-            yield return null;
+            case CharaSelectUI.StateEnum.Directer:
+                GameData.Instance.PlayerParameter.GamepadNumber_D = (int)playerType;
+                GameData.Instance.AddSelectCharacter(CharacterType.Directer);
+                break;
+            case CharaSelectUI.StateEnum.Melee:
+                GameData.Instance.PlayerParameter.GamepadNumber_M = (int)playerType;
+                GameData.Instance.AddSelectCharacter(CharacterType.Melee);
+                break;
+            case CharaSelectUI.StateEnum.LongRange:
+                GameData.Instance.PlayerParameter.GamepadNumber_L = (int)playerType;
+                GameData.Instance.AddSelectCharacter(CharacterType.LongRange);
+                break;
         }
-
-        // ロード画面を非表示にする
-        loadingUI.SetActive(false);
     }
+
+    //private IEnumerator StageLoad()
+    //{
+    //    // シーンを非同期でロードする
+    //    async = SceneManager.LoadSceneAsync("Stage");
+
+    //    // ロードが完了するまで待機する
+    //    while (!async.isDone)
+    //    {
+    //        yield return null;
+    //    }
+
+    //    // ロード画面を非表示にする
+    //    loadingUI.SetActive(false);
+    //}
 
     private IEnumerator CubeChanger()
     {
