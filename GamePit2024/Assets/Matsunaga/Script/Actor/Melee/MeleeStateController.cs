@@ -131,4 +131,11 @@ public class MeleeStateController : Player
         if (_state_instance == null) return;
         _state_instance.stayFixedUpdate();
     }
+
+    /*void OnDrawGizmos()
+    {
+        //　Cubeのレイを疑似的に視覚化
+        Gizmos.color = Color.green;
+        Gizmos.DrawCube(new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z) + transform.forward * 1.2f, Vector3.one * 0.8f);
+    }*/
 }

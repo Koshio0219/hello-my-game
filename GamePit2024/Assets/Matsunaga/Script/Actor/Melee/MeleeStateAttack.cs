@@ -1,6 +1,7 @@
 ﻿using Game.Base;
 using Game.Framework;
 using Game.Test;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,8 +59,18 @@ public class MeleeStateAttack : IPlayerState
         }*/
         Debug.Log("IsAnimationAttack: " + _animator.GetCurrentAnimatorStateInfo(0).IsName(_anim_name));
         //eg (attack range is 2)
-        var pos = _player.position.FixHeight(_player.position.y+ 0.5f);
-        GameHelper.ShootRay(pos, _player.forward, 2f, "", (info) =>
+        var pos = _player.position.FixHeight(_player.position.y+ 1.0f);
+        /*GameHelper.ShootRay(pos, _player.forward, 2f, "", (info) =>
+        {
+            var up = info.transform.GetRootParent();
+            if (up.TryGetComponent<IEnemyBaseAction>(out var enemy))
+            {
+                var id = enemy.EnemyUnitData.InsId;
+                Attack(id, _atk);
+            }
+        });*/
+
+        ShootBoxRay(pos, Vector3.one * 0.8f, _player.forward, 1.2f, "", (info) =>
         {
             var up = info.transform.GetRootParent();
             if (up.TryGetComponent<IEnemyBaseAction>(out var enemy))
@@ -78,5 +89,20 @@ public class MeleeStateAttack : IPlayerState
         //...
         Debug.Log($"Player Attack !! target Id: {targetID}");
         EventQueueSystem.QueueEvent(new SendDamageEvent(_instanceID, targetID, damage));
+    }
+
+    public static bool ShootBoxRay(Vector3 orgin, Vector3 boxSize, Vector3 dir, float dis, string tag, Action<RaycastHit> callback)
+    {
+
+        //Debug.DrawLine(orgin, orgin + dir * dis, UnityEngine.Color.red);
+        if (Physics.BoxCast(orgin, boxSize, dir, out RaycastHit info, Quaternion.identity, dis))
+        {
+            if (tag == "" || info.collider.CompareTag(tag))
+            {
+                callback?.Invoke(info);
+                return true;
+            }
+        }
+        return false;
     }
 }
