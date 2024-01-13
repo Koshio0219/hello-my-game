@@ -87,6 +87,7 @@ public class MeleeStateController : Player
             { PlayerState.ATTACK, new MeleeStateAttack(_animator, GamePadNumber_M, _rigidBody, _mainCamera, transform, InsId, 1.0f,_PlayerParameter.attack_M) },
             { PlayerState.JUMP, new MeleeStateJump(_animator, GamePadNumber_M, transform, _rigidBody, _jump_power_up, _jump_power_max, distance_list_limit, ground_distance_limit, raycastSearchDistance) },
             { PlayerState.DAMAGE, new MeleeStateDamage(_animator, GamePadNumber_M) },
+            { PlayerState.DEFENSE, new MeleeStateDefense(_animator, GamePadNumber_M) },
             { PlayerState.DEAD, new MeleeStateDead(_animator, GamePadNumber_M) },
         };
 
@@ -104,14 +105,20 @@ public class MeleeStateController : Player
         if (_state_instance == null) return;
         //Debug.Log("PlayerStateLength: " + _player_state_list.Count);
         PlayerState state = _state_instance.stayUpdate();
-        //Debug.Log(state.ToString());
+        ChangeState(state);
+
+    }
+
+    public void FixedUpdate()
+    {
+        if (_state_instance == null) return;
+        _state_instance.stayFixedUpdate();
+    }
+
+    void ChangeState(PlayerState state)
+    {
         if (state == _state_old)
         {
-            /*foreach (var keyValuePair in _player_state_list)
-            {
-                PlayerState key = keyValuePair.Key;
-                Debug.Log($"key:{key}");
-            }*/
             return;
         }
         Debug.Log(state.ToString());
@@ -123,19 +130,11 @@ public class MeleeStateController : Player
             _state_instance.enter();
             _state_old = state;
         }
-
     }
-
-    public void FixedUpdate()
-    {
-        if (_state_instance == null) return;
-        _state_instance.stayFixedUpdate();
-    }
-
-    /*void OnDrawGizmos()
+    void OnDrawGizmos()
     {
         //　Cubeのレイを疑似的に視覚化
         Gizmos.color = Color.green;
-        Gizmos.DrawCube(new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z) + transform.forward * 1.2f, Vector3.one * 0.8f);
-    }*/
+        Gizmos.DrawCube(new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z) + transform.forward * 1.2f, Vector3.one * 0.8f);
+    }
 }

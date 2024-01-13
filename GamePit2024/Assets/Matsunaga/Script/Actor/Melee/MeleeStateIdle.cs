@@ -32,6 +32,11 @@ public class MeleeStateIdle : IPlayerState
             return PlayerState.JUMP;
         }
 
+        if (_animator.isName(_anim_name) && Gamepad.all[_GamePadNumber].leftTrigger.isPressed)
+        {
+            return PlayerState.DEFENSE;
+        }
+
         return PlayerState.IDLE;
     }
 

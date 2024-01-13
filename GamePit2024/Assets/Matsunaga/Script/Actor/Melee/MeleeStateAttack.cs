@@ -59,7 +59,7 @@ public class MeleeStateAttack : IPlayerState
         }*/
         Debug.Log("IsAnimationAttack: " + _animator.GetCurrentAnimatorStateInfo(0).IsName(_anim_name));
         //eg (attack range is 2)
-        var pos = _player.position.FixHeight(_player.position.y+ 1.0f);
+        var pos = _player.position.FixHeight(_player.position.y+ 0.75f);
         /*GameHelper.ShootRay(pos, _player.forward, 2f, "", (info) =>
         {
             var up = info.transform.GetRootParent();
