@@ -7,7 +7,7 @@ public class LongRangeStateDamage : IPlayerState
     private Animator _animator;
     private bool isState;
     private int _GamePadNumber;
-    private string _anim_name = "Damage";
+    //private string _anim_name = "Damage";
 
     public LongRangeStateDamage(Animator animator, int GampePadNumber)
     {
@@ -17,21 +17,20 @@ public class LongRangeStateDamage : IPlayerState
 
     public PlayerState stayUpdate()
     {
-        if (_animator.animationEnd(_anim_name)) return PlayerState.IDLE;
+        if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Witch_Damage")
+        {
+            return PlayerState.IDLE;
+        }
         return PlayerState.DAMAGE;
     }
 
     public void enter()
     {
-        _animator.animationStart(_anim_name);
-        isState = false;
+        _animator.SetTrigger("DamageTrigger");
     }
 
     public void stayFixedUpdate() { }
     public void exit() { }
-    private void DamageEnd()
-    {
-        isState = true;
-    }
+    public void enterDamage() { }
 }
 

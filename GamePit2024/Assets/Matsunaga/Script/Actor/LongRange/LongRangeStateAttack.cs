@@ -20,9 +20,8 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
     private float _attackPower;
     private bool isState;
     private string _anim_name = "Attack";
-    private float _atk;
 
-    public LongRangeStateAttack(GameObject Bullet, Animator animator, int GamePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, int InstanceID, float AttackPower,float atk)
+    public LongRangeStateAttack(GameObject Bullet, Animator animator, int GamePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, int InstanceID, float AttackPower)
     {
         _Bullet = Bullet;
         _GamePadNumber = GamePadNumber;
@@ -33,13 +32,12 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
         isState = false;
         _instanceID = InstanceID;
         _attackPower = AttackPower;
-        _atk = atk;
     }
 
     public PlayerState stayUpdate()
     {
         _animator.SetTrigger("AttackTrigger");
-        _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID, _atk);
+        _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID, _attackPower);
         isState = true;
 
         if (isState)
@@ -63,7 +61,9 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
 
     public void stayFixedUpdate() { }
     public void exit() { }
-
+    public void enterDamage() {
+        _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID, _attackPower);
+    }
     private void Attack(int targetID, float damage)
     {
         //...

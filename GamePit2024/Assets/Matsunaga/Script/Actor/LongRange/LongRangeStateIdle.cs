@@ -52,4 +52,5 @@ public class LongRangeStateIdle : IPlayerState
 
     public void stayFixedUpdate() { }
     public void exit() { }
+    public void enterDamage() { }
 }

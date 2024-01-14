@@ -32,6 +32,7 @@ public class LongRangeStateDead : IPlayerState
 
     public void stayFixedUpdate() { }
     public void exit() { }
+    public void enterDamage() { }
     private void DeadEnd()
     {
         isState = true;

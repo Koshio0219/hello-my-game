@@ -58,6 +58,10 @@ public class LongRangeStateMove : IPlayerState
 
     public void stayFixedUpdate() { }
     public void exit() { }
+    public void enterDamage()
+    {
+        _animator.SetFloat("Speed", 0f);
+    }
     private void Move()
     {
         Vector3 _cameraForward = Vector3.Scale(_mainCamera.forward, new Vector3(1, 0, 1)).normalized;

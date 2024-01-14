@@ -64,7 +64,10 @@ public class LongRangeStateSAF : MonoBehaviour, IPlayerState
 
     public void stayFixedUpdate() { }
     public void exit() { }
-
+    public void enterDamage()
+    {
+        _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID, _atk);
+    }
     private void Attack(int targetID, float damage)
     {
         //...

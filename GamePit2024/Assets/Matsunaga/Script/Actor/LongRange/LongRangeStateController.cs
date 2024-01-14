@@ -8,6 +8,7 @@ using Game.Base;
 using Cysharp.Threading.Tasks;
 using Game.Framework;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class LongRangeStateController : Player
 {
@@ -45,9 +46,21 @@ public class LongRangeStateController : Player
     private int GamePadNumber_L = 0;
     private PlayerState _state_old = PlayerState.IDLE;
     private IPlayerState _state_instance;
+    private bool isUnBeaten;
 
     private float _hp;
-    public override float Hp { get => _hp; set => _hp = value; }
+    public override float Hp
+    {
+        get => _hp;
+        set
+        {
+            _hp = value;
+            _state_instance.enterDamage();
+            ChangeState(PlayerState.DAMAGE);
+            isUnBeaten = true;
+            UnBeatenCounter().Forget();
+        }
+    }
     public override PlayerType PlayerType => PlayerType.Witch;
     // private PlayerParameter _PlayerParameter;
 
@@ -82,7 +95,7 @@ public class LongRangeStateController : Player
         _player_state_list = new Dictionary<PlayerState, IPlayerState> {
             { PlayerState.IDLE, new LongRangeStateIdle(_animator, GamePadNumber_L) },
             { PlayerState.MOVE, new LongRangeStateMove(_animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, 0.65f) },
-            { PlayerState.ATTACK, new LongRangeStateAttack(_Bullet, _animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, InsId, 1.0f,_PlayerParameter.attack_L) },
+            { PlayerState.ATTACK, new LongRangeStateAttack(_Bullet, _animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, InsId, _PlayerParameter.attack_L) },
             { PlayerState.SKILLATTACKFIRST, new LongRangeStateSAF(_Bullet, _animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, InsId, 1.0f,_PlayerParameter.attack_L) },
             { PlayerState.SKILLATTACKSECOND, new LongRangeStateSAS(_Beam, _animator, GamePadNumber_L, _rigidBody, _mainCamera, transform, InsId, 1.0f,_PlayerParameter.attack_L) },
             { PlayerState.JUMP, new LongRangeStateJump(_animator, GamePadNumber_L, transform, _rigidBody, _jump_power_up, _jump_power_max, distance_list_limit, ground_distance_limit, raycastSearchDistance) },
@@ -103,7 +116,38 @@ public class LongRangeStateController : Player
         }
         if (_state_instance == null) return;
         PlayerState state = _state_instance.stayUpdate();
+        ChangeState(state);
 
+    }
+
+    public void FixedUpdate()
+    {
+        if (_state_instance == null) return;
+        _state_instance.stayFixedUpdate();
+    }
+
+    public override void Hit(int sourceId, float damage)
+    {
+        if (sourceId == InsId) return;
+        if (GameManager.stageManager.IsFriend(sourceId, InsId)) return;
+
+
+        //.... ぼうぎょ処理
+        if (_player_state_list.FirstOrDefault(kvp => kvp.Value == _state_instance).Key == PlayerState.DEFENSE) return;
+        if (isUnBeaten) return;
+        Debug.Log($"player id :{InsId},name:{gameObject.name} had receive damage:{damage} from id:{sourceId}, MeleeClass");
+        //今、Hp は base class　に　い　ない　
+        EventQueueSystem.QueueEvent(new PopupTextEvent(transform, (int)damage, Color.red));
+
+        var lastHp = Hp;
+        Hp -= damage;
+        EventQueueSystem.QueueEvent(new PlayerHpChangeEvent(PlayerType, lastHp, Hp));
+
+        if (Hp <= 0) Dead();
+    }
+
+    void ChangeState(PlayerState state)
+    {
         if (state == _state_old)
         {
             return;
@@ -117,12 +161,10 @@ public class LongRangeStateController : Player
             _state_instance.enter();
             _state_old = state;
         }
-
     }
-
-    public void FixedUpdate()
+    private async UniTask UnBeatenCounter()
     {
-        if (_state_instance == null) return;
-        _state_instance.stayFixedUpdate();
+        await UniTask.Delay(2000);
+        isUnBeaten = false;
     }
 }

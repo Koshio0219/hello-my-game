@@ -92,7 +92,13 @@ public class LongRangeStateSAS : MonoBehaviour, IPlayerState
 
     public void stayFixedUpdate() { }
     public void exit() { }
-
+    public void enterDamage()
+    {
+        for (int i = 0; i < _BeamInstance.Count; i++)
+        {
+            _BeamInstance[i].GetComponent<BeamController>().setAttackTrigger(_instanceID, _atk);
+        }
+    }
     private void Attack(int targetID, float damage)
     {
         //...

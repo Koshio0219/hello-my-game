@@ -89,4 +89,17 @@ public class LongRangeStateJump : IPlayerState
         _state_instance.stay_fixed_update();
     }
     public void exit() { }
+    public void enterDamage()
+    {
+        _state_old = JumpState.IDLE;
+        _jump_state_list = new Dictionary<JumpState, IJumpState> {
+            { JumpState.IDLE, new JumpStateIdle(_animator) },
+            { JumpState.WAITING, new JumpStateWaiting(_animator, _jump_data) },
+            { JumpState.RISING, new JumpStateRising(_animator, _jump_data, _jump_distance, _rigidBody) },
+            { JumpState.FALLING, new JumpStateFalling(_animator, _jump_distance) },
+            { JumpState.LANDING, new JumpStateLanding(_animator) },
+        };
+
+        _state_instance = _jump_state_list[JumpState.IDLE];
+    }
 }
