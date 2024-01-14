@@ -137,7 +137,7 @@ namespace Game.Manager
             Debug.Log($"current stage state is :{state}");
         }
 
-        private bool IsLastStage()
+        public bool IsLastStage()
         {
             return GameManager.Instance.LevelIdx >= GameData.Instance.LevelConfig.levelDatas.Count - 1;
         }
