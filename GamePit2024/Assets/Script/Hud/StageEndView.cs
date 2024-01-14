@@ -29,7 +29,7 @@ namespace Game.Hud
 
         private void ShowBattleClearText()
         {
-            string text1 = $"ステージ {GameManager.Instance.LevelIdx} 結果発表 ：\n";
+            string text1 = $"ステージ {GameManager.Instance.LevelIdx+1} 結果発表 ：\n";
             var text2 = "";
             var pointList = GameManager.pointManager.mapItemToPoint;
             foreach (var one in pointList)

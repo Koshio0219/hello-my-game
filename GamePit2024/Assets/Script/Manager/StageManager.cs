@@ -75,11 +75,11 @@ namespace Game.Manager
             //lose
             //...something else...
             Debug.Log($"Game Over!");
-            GameManager.Instance.LevelIdx = 0;
             ClearAllEnemies();
             ClearAllPlayers();
 
             await UniTask.Delay(1000);
+            GameManager.Instance.LevelIdx = 0;
             this.WaitInput(Gamepad.current.circleButton, () => SceneLoader.Instance.BackToMenu());
         }
 
@@ -145,19 +145,19 @@ namespace Game.Manager
 
         private async void NextStage()
         {
+            //...wait ui show...
+            await UniTask.Delay(1000);
             GameManager.Instance.LevelIdx++;
             Debug.Log($"next stage! current level idx is {GameManager.Instance.LevelIdx}");
-            //...something else...
-            await UniTask.Delay(1000);
             this.WaitInput(Gamepad.current.circleButton, () => SceneLoader.Instance.GoToStage());
         }
 
         private async void Win()
         {
-            //...something else...
             Debug.Log($"game win !");
-            GameManager.Instance.LevelIdx = 0;
+            // wait ui show
             await UniTask.Delay(1000);
+            GameManager.Instance.LevelIdx = 0;
             this.WaitInput(Gamepad.current.circleButton, () => SceneLoader.Instance.BackToMenu());
         }
 
