@@ -47,4 +47,8 @@ public class MeleeStateIdle : IPlayerState
 
     public void stayFixedUpdate() { }
     public void exit() { }
+    public void enterDamage()
+    {
+
+    }
 }

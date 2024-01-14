@@ -18,20 +18,20 @@ public class MeleeStateDamage : IPlayerState
 
     public PlayerState stayUpdate()
     {
-        if (_animator.animationEnd(_anim_name)) return PlayerState.IDLE;
+        if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "GetHit01_SwordAndShiled")
+        {
+            return PlayerState.IDLE;
+        }
         return PlayerState.DAMAGE;
     }
 
     public void enter()
     {
-        _animator.animationStart(_anim_name);
-        isState = false;
+        _animator.SetTrigger("DamageTrigger");
+        //_animator.animationStart(_anim_name);
     }
 
     public void stayFixedUpdate() { }
     public void exit() { }
-    private void DamageEnd()
-    {
-        isState = true;
-    }
+    public void enterDamage() { }
 }

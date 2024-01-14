@@ -21,11 +21,11 @@ public class MeleeStateMove : IPlayerState
         _mainCamera = mainCamera;
         _player = Player;
         _speed = speed;
-
     }
 
     public PlayerState stayUpdate()
     {
+
         if (_animator.isName(_anim_name) && Gamepad.all[_GamePadNumber].buttonEast.wasPressedThisFrame)
         {
             _animator.SetFloat("Speed", 0f);
@@ -57,6 +57,10 @@ public class MeleeStateMove : IPlayerState
 
     public void stayFixedUpdate() { }
     public void exit() { }
+    public void enterDamage()
+    {
+        _animator.SetFloat("Speed", 0f);
+    }
     private void Move()
     {
         Vector3 _cameraForward = Vector3.Scale(_mainCamera.forward, new Vector3(1, 0, 1)).normalized;

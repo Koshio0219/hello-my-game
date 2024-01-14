@@ -36,5 +36,5 @@ public class MeleeStateDefense : IPlayerState
 
     public void stayFixedUpdate() { }
     public void exit() { }
-
+    public void enterDamage(){}
 }

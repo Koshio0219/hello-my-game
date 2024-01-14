@@ -17,9 +17,8 @@ public class MeleeStateAttack : IPlayerState
     private int _GamePadNumber;
     private float _attackPower;
     private string _anim_name = "Attack";
-    private float _atk;
 
-    public MeleeStateAttack(Animator animator, int GampePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, int InstanceID, float AttackPower,float atk)
+    public MeleeStateAttack(Animator animator, int GampePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, int InstanceID, float AttackPower)
     {
         _GamePadNumber = GampePadNumber;
         _animator = animator;
@@ -28,7 +27,6 @@ public class MeleeStateAttack : IPlayerState
         _player = Player;
         _instanceID = InstanceID;
         _attackPower = AttackPower;
-        _atk = atk;
     }
 
     public PlayerState stayUpdate()
@@ -39,6 +37,7 @@ public class MeleeStateAttack : IPlayerState
         {
             return PlayerState.IDLE;
         }
+
         return PlayerState.ATTACK;
     }
 
@@ -76,13 +75,18 @@ public class MeleeStateAttack : IPlayerState
             if (up.TryGetComponent<IEnemyBaseAction>(out var enemy))
             {
                 var id = enemy.EnemyUnitData.InsId;
-                Attack(id, _atk);
+                Attack(id, _attackPower);
             }
         });
     }
 
     public void stayFixedUpdate() { }
     public void exit() { }
+
+    public void enterDamage()
+    {
+
+    }
 
     private void Attack(int targetID, float damage)
     {
