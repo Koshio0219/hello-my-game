@@ -13,7 +13,7 @@ namespace Game.Hud
 {
     public class StageShowCtrl : HudCtrl<StageShowView>
     {
-        private int curTime;
+        //private int curTime;
         private CancellationTokenSource tokenSource;
 
         private void Awake()
@@ -80,18 +80,18 @@ namespace Game.Hud
 
         private void InitTimerBar()
         {
-            curTime = GameData.Instance.LevelConfig.levelDatas[GameManager.Instance.LevelIdx].showTime;
-            View.InitTimerBar(curTime);
+            GameManager.Instance.CurLevelTime = GameData.Instance.LevelConfig.levelDatas[GameManager.Instance.LevelIdx].showTime;
+            View.InitTimerBar(GameManager.Instance.CurLevelTime);
 
             UniTask.Void(async (_) =>
             {
                 while (this && isActiveAndEnabled && !_.IsCancellationRequested)
                 {
                     await UniTask.Delay(1000, cancellationToken: tokenSource.Token);
-                    curTime--;
-                    View.UpdateTimerBar(curTime);
+                    GameManager.Instance.CurLevelTime--;
+                    View.UpdateTimerBar(GameManager.Instance.CurLevelTime);
 
-                    if(curTime <= 0)
+                    if(GameManager.Instance.CurLevelTime <= 0)
                     {
                         View.FadeOut();
                         EventQueueSystem.QueueEvent(new StageTimeUpEvent());

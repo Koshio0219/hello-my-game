@@ -6,6 +6,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Game.Data;
 
 namespace Game.Manager
 {
@@ -37,6 +38,19 @@ namespace Game.Manager
             set
             {
                 levelIdx = value;
+            }
+        }
+
+        private int curLevelTime;
+        public int CurLevelTime
+        {
+            get
+            {
+                return curLevelTime;
+            }
+            set
+            {
+                curLevelTime = value;
             }
         }
 

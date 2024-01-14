@@ -87,6 +87,8 @@ namespace Game.Manager
         {
             Debug.Log($"battle clear !");
             ClearAllEnemies();
+            GameManager.pointManager.AddPoint(GetPointItem.ReachGoal, GameManager.Instance.CurLevelTime);
+
             if (IsLastStage())
             {
                 Win();
