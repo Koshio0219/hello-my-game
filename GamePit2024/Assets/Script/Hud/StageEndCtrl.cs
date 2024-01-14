@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using Game.Base;
+using Game.Framework;
 using Game.Manager;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace Game.Hud
     {
         private async void Start()
         {
+            View.battleClearPage.Hide();
+            View.gameOverPage.Hide();
             await UniTask.Delay(100);
             switch (GameManager.stageManager.StageState)
             {

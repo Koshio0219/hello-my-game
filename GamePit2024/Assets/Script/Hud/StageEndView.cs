@@ -29,7 +29,7 @@ namespace Game.Hud
 
         private void ShowBattleClearText()
         {
-            string text1 = $"ステージ {GameManager.Instance.LevelIdx+1} 結果発表 ：\n";
+            string text1 = $"ステージ {GameManager.Instance.LevelIdx} 結果発表 ：\n";
             var text2 = "";
             var pointList = GameManager.pointManager.mapItemToPoint;
             foreach (var one in pointList)
@@ -57,7 +57,7 @@ namespace Game.Hud
                 }
             }
 
-            var text3 = GameManager.stageManager.IsLastStage() ? "ゲームクリアおめでとうございます！\n 丸ボダンを押してメインメニューに戻ってください" : "バトルクリアおめでとうございます！\n 丸ボダンを押して次のステージに進んでください";
+            var text3 = GameManager.stageManager.IsLastStage() ? "ゲームクリアおめでとうございます！\n丸ボダンを押してメインメニューに戻ってください" : "バトルクリアおめでとうございます！\n丸ボダンを押して次のステージに進んでください";
 
             text_battleClear.text = text1 + text2 + text3;
         }

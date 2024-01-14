@@ -55,6 +55,7 @@ namespace Game.Hud
             switch (e.to)
             {
                 case StageStates.GameOver:
+                case StageStates.BattleClear:
                     Destroy(gameObject);
                     break;
             }

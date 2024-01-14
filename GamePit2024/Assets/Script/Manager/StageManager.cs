@@ -86,6 +86,7 @@ namespace Game.Manager
         private void BattleClearEndHandler()
         {
             Debug.Log($"battle clear !");
+            ClearAllEnemies();
             if (IsLastStage())
             {
                 Win();
