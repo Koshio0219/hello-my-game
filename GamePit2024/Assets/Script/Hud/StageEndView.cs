@@ -57,9 +57,10 @@ namespace Game.Hud
                 }
             }
 
-            var text3 = GameManager.stageManager.IsLastStage() ? "ゲームクリアおめでとうございます！\n丸ボダンを押してメインメニューに戻ってください" : "バトルクリアおめでとうございます！\n丸ボダンを押して次のステージに進んでください";
+            var text3 = $"最終ポイント：{GameManager.pointManager.CurrentPoint} p\n";
+            var text4 = GameManager.stageManager.IsLastStage() ? "ゲームクリアおめでとうございます！\n丸ボダンを押してメインメニューに戻ってください" : "バトルクリアおめでとうございます！\n丸ボダンを押して次のステージに進んでください";
 
-            text_battleClear.text = text1 + text2 + text3;
+            text_battleClear.text = text1 + text2 + text3 + text4;
         }
     }
 }

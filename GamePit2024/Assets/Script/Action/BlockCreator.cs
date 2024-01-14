@@ -90,10 +90,17 @@ namespace Game.Action
                     insBlocks.Add(block);
 
                     //add block point list
-                    if(block is NormalBlock)
+                    if(block.BlockUnitData.useType == BlockUseType.Normal)
                     {
                         var temp = block as NormalBlock;
                         GameManager.stageManager.AddBlockPoint(temp.createPoint.position);
+                    }
+                    else if(block.BlockUnitData.useType == BlockUseType.GemCreate)
+                    {
+                        var temp = block as NormalBlock;
+                        var gem = GameData.Instance.LevelConfig.gemPrefab;
+                        var gem_ins = Instantiate(gem);
+                        gem_ins.transform.position = temp.createPoint.position + Vector3.up * .5f;
                     }
 
                     if (i == 0 && j == 0)

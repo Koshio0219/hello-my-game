@@ -9,7 +9,8 @@ namespace Game.Data
     public enum BlockUseType
     {
         Normal,
-        PlayerCreate
+        PlayerCreate,
+        GemCreate
     }
     [System.Serializable]
     public struct BlockTypeUnit

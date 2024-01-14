@@ -21,3 +21,5 @@ MonoBehaviour:
     showTime: 120
   goalPrefab: {fileID: 2097803152738953584, guid: 2e87f20c433254a4c902f708315d64d4,
     type: 3}
+  gemPrefab: {fileID: 1460388193313385982, guid: b9536ea5bc9f5264fa3a08d212ce78cb,
+    type: 3}

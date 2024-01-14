@@ -19,5 +19,6 @@ namespace Game.Data
     {
         public List<LevelData> levelDatas;
         public GameObject goalPrefab;
+        public GameObject gemPrefab;
     }
 }

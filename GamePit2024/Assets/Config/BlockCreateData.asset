@@ -63,11 +63,11 @@ MonoBehaviour:
       offseY: 0
   - blockUnits:
     - baseType: 2
-      useType: 0
+      useType: 2
       offseY: 0
   - blockUnits:
     - baseType: 1
-      useType: 0
+      useType: 2
       offseY: 0
   - blockUnits:
     - baseType: 1
