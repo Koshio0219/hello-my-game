@@ -110,7 +110,7 @@ public class GamePadCursor : MonoBehaviour
         cursorSpeed = cursorSpeedDefault;
         if (Gamepad.all[_PlayerParameter.GamepadNumber_D].leftTrigger.isPressed)
         {
-            cursorSpeed = cursorSpeedDefault * 0.1f;
+            cursorSpeed = cursorSpeedDefault * 0.15f;
             Vector2 currentPosition = virtualMouse.position.ReadValue();
             Ray ray = Camera.main.ScreenPointToRay(currentPosition);
             RaycastHit hit_info = new RaycastHit();
@@ -122,13 +122,14 @@ public class GamePadCursor : MonoBehaviour
             {
                 
                 if (LayerMask.LayerToName(hit_info.collider.gameObject.layer) != "Ground") return;
-                Rigidbody rb = hit_info.rigidbody;
-                if (rb == null) return;
-                Game.Test.testBlock _testBlock = hit_info.collider.gameObject.GetComponent<Game.Test.testBlock>();
-                if (_testBlock == null) return;
-                Debug.Log("Selected BlockBaseType: " + _testBlock.GetBlockBaseType());
-                if (_testBlock.GetBlockBaseType() == Game.Base.BlockBaseType.Null) return;
-                Vector3 collision = _testBlock.getNoApproachField();
+                Game.Base.BlockBase blockBase = hit_info.collider.gameObject.GetComponent<Game.Base.BlockBase>();
+                Transform blockPosition = hit_info.collider.gameObject.transform;
+                //Game.Test.testBlock _testBlock = hit_info.collider.gameObject.GetComponent<Game.Test.testBlock>();
+                //if (_testBlock == null) return;
+                if (blockBase == null) return;
+                Debug.Log("Selected BlockBaseType: " + blockBase.BlockUnitData.baseType);
+                if (blockBase.BlockUnitData.baseType == Game.Base.BlockBaseType.Null) return;
+                Vector3 collision = Vector3.zero;
 
                 screenPoint = Camera.main.WorldToScreenPoint(hit_info.transform.position);
 
@@ -136,18 +137,20 @@ public class GamePadCursor : MonoBehaviour
                 float screenY = currentPosition.y;
                 float screenZ = screenPoint.z;
 
-                Vector3 currentScreenPoint = properMatch(_testBlock.GetBlockBaseType(), screenPoint, currentPosition);
+                Vector3 currentScreenPoint = properMatch(blockBase.BlockUnitData.baseType, screenPoint, currentPosition);
                 //Vector3 currentScreenPoint = new Vector3(screenX, screenY, screenZ);
                 Vector3 currentHitsPosition = Camera.main.ScreenToWorldPoint(currentScreenPoint);
-
+                Debug.Log("NextPosition: " + currentHitsPosition);
                 if (collision.magnitude == 0)
                 {
-                    rb.MovePosition(currentHitsPosition);
+                    blockPosition.position = currentHitsPosition;
+                    Debug.Log("Move! to " + transform.position);
                 } else if ((hit_info.transform.position - collision).magnitude < (currentHitsPosition - collision).magnitude)
                 {
                     Debug.Log("Collision: " + collision);
+                    blockPosition.position = currentHitsPosition;
                     //rb.position = currentHitsPosition;
-                    rb.MovePosition(currentHitsPosition);
+                    //rb.MovePosition(currentHitsPosition);
                 }
                 //hit_info.transform.position = currentHitsPosition;
             }
