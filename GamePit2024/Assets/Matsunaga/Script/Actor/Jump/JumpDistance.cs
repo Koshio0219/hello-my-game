@@ -103,5 +103,10 @@ namespace animJump
             }
         }
 
+        public Transform GetSelfTransform()
+        {
+            return _transform;
+        }
+
     }
 }
