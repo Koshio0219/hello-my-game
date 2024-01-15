@@ -1,4 +1,5 @@
-﻿using Game.Data;
+﻿using Game.Base;
+using Game.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +32,9 @@ public class GamePadCursor : MonoBehaviour
     private float cursorSpeedDefault = 1000f;
 
     private Game.Test.PlayerParameter _PlayerParameter;
+
+    //private bool isBlockSelected = false;
+    private BlockBase currentSelected = null;
 
     private void Awake()
     {
@@ -110,6 +114,12 @@ public class GamePadCursor : MonoBehaviour
         cursorSpeed = cursorSpeedDefault;
         if (Gamepad.all[_PlayerParameter.GamepadNumber_D].leftTrigger.isPressed)
         {
+            if (currentSelected != null) 
+            {
+                SelectedAction();
+                return;
+            }
+
             cursorSpeed = cursorSpeedDefault * 0.15f;
             Vector2 currentPosition = virtualMouse.position.ReadValue();
             Ray ray = Camera.main.ScreenPointToRay(currentPosition);
@@ -129,32 +139,47 @@ public class GamePadCursor : MonoBehaviour
                 if (blockBase == null) return;
                 Debug.Log("Selected BlockBaseType: " + blockBase.BlockUnitData.baseType);
                 if (blockBase.BlockUnitData.baseType == Game.Base.BlockBaseType.Null) return;
-                Vector3 collision = Vector3.zero;
 
-                screenPoint = Camera.main.WorldToScreenPoint(hit_info.transform.position);
-
-                float screenX = currentPosition.x;
-                float screenY = currentPosition.y;
-                float screenZ = screenPoint.z;
-
-                Vector3 currentScreenPoint = properMatch(blockBase.BlockUnitData.baseType, screenPoint, currentPosition);
-                //Vector3 currentScreenPoint = new Vector3(screenX, screenY, screenZ);
-                Vector3 currentHitsPosition = Camera.main.ScreenToWorldPoint(currentScreenPoint);
-                Debug.Log("NextPosition: " + currentHitsPosition);
-                if (collision.magnitude == 0)
-                {
-                    blockPosition.position = currentHitsPosition;
-                    Debug.Log("Move! to " + transform.position);
-                } else if ((hit_info.transform.position - collision).magnitude < (currentHitsPosition - collision).magnitude)
-                {
-                    Debug.Log("Collision: " + collision);
-                    blockPosition.position = currentHitsPosition;
-                    //rb.position = currentHitsPosition;
-                    //rb.MovePosition(currentHitsPosition);
-                }
-                //hit_info.transform.position = currentHitsPosition;
+                //一つのBlockの選択を限定
+                currentSelected = blockBase;
+                SelectedAction();
             }
         }
+        else
+        {
+            if (currentSelected!=null) currentSelected = null;
+        }
+    }
+
+    private void SelectedAction()
+    {
+        Vector2 currentPosition = virtualMouse.position.ReadValue();
+        Vector3 collision = Vector3.zero;
+
+        //screenPoint = Camera.main.WorldToScreenPoint(hit_info.transform.position);
+        screenPoint = Camera.main.WorldToScreenPoint(currentSelected.transform.position);
+
+        //float screenX = currentPosition.x;
+        //float screenY = currentPosition.y;
+        //float screenZ = screenPoint.z;
+
+        Vector3 currentScreenPoint = properMatch(currentSelected.BlockUnitData.baseType, screenPoint, currentPosition);
+        //Vector3 currentScreenPoint = new Vector3(screenX, screenY, screenZ);
+        Vector3 currentHitsPosition = Camera.main.ScreenToWorldPoint(currentScreenPoint);
+        Debug.Log("NextPosition: " + currentHitsPosition);
+        if (collision.magnitude == 0)
+        {
+            currentSelected.transform.position = currentHitsPosition;
+            Debug.Log("Move! to " + transform.position);
+        }
+        else if ((currentSelected.transform.position - collision).magnitude < (currentHitsPosition - collision).magnitude)
+        {
+            Debug.Log("Collision: " + collision);
+            currentSelected.transform.position = currentHitsPosition;
+            //rb.position = currentHitsPosition;
+            //rb.MovePosition(currentHitsPosition);
+        }
+        //hit_info.transform.position = currentHitsPosition;
     }
 
     private Vector3 properMatch(Game.Base.BlockBaseType blockBase, Vector3 origin, Vector2 change)
