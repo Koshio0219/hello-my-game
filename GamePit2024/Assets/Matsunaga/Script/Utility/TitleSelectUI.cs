@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
+using KanKikuchi.AudioManager;
 
 public class TitleSelectUI : MonoBehaviour
 {
@@ -70,7 +70,7 @@ public class TitleSelectUI : MonoBehaviour
             // ○を押すと選択決定
             if (Gamepad.all[playerNum].buttonEast.wasPressedThisFrame)
             {
-                //SoundManager.Instance.Play(SoundManager.SoundID.Decide01, 0.8f);
+                SEManager.Instance.Play(SEPath.DECIDE01);
                 DecideState = _State;
                 var index = (int)_State;
                 _ParList[index].GetComponent<RectTransform>().localScale = new Vector3(2 * _scale, 2 * _scale, 2 * _scale);
@@ -82,7 +82,7 @@ public class TitleSelectUI : MonoBehaviour
             // ×を押すと選択解除
             if (Gamepad.all[playerNum].buttonSouth.wasPressedThisFrame)
             {
-                //SoundManager.Instance.Play(SoundManager.SoundID.Cancel, 0.5f);
+                SEManager.Instance.Play(SEPath.CANCEL);
                 DecideState = StateEnum.None;
                 var index = (int)_State;
                 _ParList[index].GetComponent<RectTransform>().localScale = new Vector3(_scale, _scale, _scale);

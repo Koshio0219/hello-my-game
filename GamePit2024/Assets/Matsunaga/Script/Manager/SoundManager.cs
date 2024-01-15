@@ -14,7 +14,7 @@ public class SoundManager : MonoSingleton<SoundManager>
         MeleeAttack,
         MeleeDefense,
         LongRangeShot,
-        LighterRangeShotCharge,
+        LongRangeShotCharge,
         ToPlayerDamage,
         Dead,
         EnemyAttack,
@@ -48,6 +48,7 @@ public class SoundManager : MonoSingleton<SoundManager>
     public void Play(SoundID id, float volume)
     {
         if (id == SoundID.None) return;
+        Debug.Log("_SoundList.Count= " + _SoundList.Count);
         var index = (int)id;
         var clip = _SoundList[index];
         if (index < 0 || _SoundList.Count <= index) return;

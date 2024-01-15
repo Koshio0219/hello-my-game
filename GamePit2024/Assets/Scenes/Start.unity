@@ -10566,6 +10566,8 @@ MonoBehaviour:
   - {fileID: 1766499590}
   _scale: 0.1
   DecideState: -1
+  soundManager: {fileID: 6477562889898910690, guid: e5634ee3cbda62241918e8ce5ed07215,
+    type: 3}
 --- !u!4 &791016611
 Transform:
   m_ObjectHideFlags: 0
@@ -26314,6 +26316,8 @@ MonoBehaviour:
   - {fileID: 1016186767}
   _scale: 0.1
   DecideState: -1
+  soundManager: {fileID: 6477562889898910690, guid: e5634ee3cbda62241918e8ce5ed07215,
+    type: 3}
 --- !u!4 &1261108739
 Transform:
   m_ObjectHideFlags: 0
@@ -26616,6 +26620,8 @@ MonoBehaviour:
   - {fileID: 751975537}
   _scale: 0.1
   DecideState: -1
+  soundManager: {fileID: 6477562889898910690, guid: e5634ee3cbda62241918e8ce5ed07215,
+    type: 3}
 --- !u!4 &1513174579
 Transform:
   m_ObjectHideFlags: 0
