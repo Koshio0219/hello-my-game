@@ -30,6 +30,7 @@ namespace Game.Base
         protected BlockState BlockState { get => state; set => state = value; }
 
         public BlockState State => BlockState;
+        public Rigidbody Rigidbody { get; private set; }
 
         public virtual void OnDeselected()
         {
@@ -57,6 +58,7 @@ namespace Game.Base
                     rigidbody.constraints = ~RigidbodyConstraints.FreezePositionX;
                     break;
             }
+            Rigidbody = rigidbody;
         }
 
         public virtual void OnRemove()
@@ -72,11 +74,13 @@ namespace Game.Base
         public virtual void OnMovingStart()
         {
             BlockState = BlockState.Moving;
+            Rigidbody.mass = 1;
         }
 
         public virtual void OnMovingEnd()
         {
             BlockState = BlockState.Selected;
+            Rigidbody.mass = 10000;
         }
     }
 }

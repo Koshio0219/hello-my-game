@@ -38,25 +38,8 @@ public class GamePadCursor : MonoBehaviour
 
     private Game.Test.PlayerParameter _PlayerParameter;
 
+    private BlockBase lastSelected = null;
     private BlockBase currentSelected = null;
-    private BlockBase CurrentSelected
-    {
-        get => currentSelected;
-        set
-        {
-            if(value == null)
-            {
-                var rb = currentSelected.GetComponent<Rigidbody>();
-                rb.mass = 10000;
-            }
-            else
-            {
-                var rb = value.GetComponent<Rigidbody>();
-                rb.mass = 1;
-            }
-            currentSelected = value;
-        }
-    }
 
     //private Vector2 lastPos;
     //private Vector2 dragDir;
@@ -140,7 +123,7 @@ public class GamePadCursor : MonoBehaviour
         cursorSpeed = cursorSpeedDefault;
         if (Gamepad.all[_PlayerParameter.GamepadNumber_D].leftTrigger.isPressed)
         {
-            if (CurrentSelected != null) 
+            if (currentSelected != null) 
             {
                 SelectedAction();
                 return;
@@ -167,14 +150,19 @@ public class GamePadCursor : MonoBehaviour
                 if (blockBase.BlockUnitData.baseType == Game.Base.BlockBaseType.Null) return;
 
                 //一つのBlockの選択を限定
-                CurrentSelected = blockBase;
+                currentSelected = blockBase;
+                if (lastSelected != null) lastSelected.OnMovingEnd();
+                currentSelected.OnMovingStart();
                 SelectedAction();
             }
         }
         else
         {
-            if (CurrentSelected != null)
-                CurrentSelected = null;            
+            if (currentSelected != null)
+            {
+                lastSelected = currentSelected;
+                currentSelected = null;
+            }     
         }
     }
 
@@ -185,15 +173,15 @@ public class GamePadCursor : MonoBehaviour
         //lastPos = currentPosition;
         Vector3 collision = Vector3.zero;
 
-        var rb = CurrentSelected.GetComponent<Rigidbody>();
+        var rb = currentSelected.Rigidbody;
         //screenPoint = Camera.main.WorldToScreenPoint(hit_info.transform.position);
-        screenPoint = Camera.main.WorldToScreenPoint(CurrentSelected.transform.position);
+        screenPoint = Camera.main.WorldToScreenPoint(currentSelected.transform.position);
 
         //float screenX = currentPosition.x;
         //float screenY = currentPosition.y;
         //float screenZ = screenPoint.z;
 
-        Vector3 currentScreenPoint = properMatch(CurrentSelected.BlockUnitData.baseType, screenPoint, currentPosition);
+        Vector3 currentScreenPoint = properMatch(currentSelected.BlockUnitData.baseType, screenPoint, currentPosition);
         //Vector3 currentScreenPoint = new Vector3(screenX, screenY, screenZ);
         Vector3 currentHitsPosition = Camera.main.ScreenToWorldPoint(currentScreenPoint);
         Debug.Log("NextPosition: " + currentHitsPosition);
@@ -203,7 +191,7 @@ public class GamePadCursor : MonoBehaviour
             rb.MovePosition(currentHitsPosition);
             Debug.Log("Move! to " + transform.position);
         }
-        else if ((CurrentSelected.transform.position - collision).sqrMagnitude < (currentHitsPosition - collision).sqrMagnitude)
+        else if ((currentSelected.transform.position - collision).sqrMagnitude < (currentHitsPosition - collision).sqrMagnitude)
         {
             Debug.Log("Collision: " + collision);
             //currentSelected.transform.position = currentHitsPosition;
