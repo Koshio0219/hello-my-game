@@ -1,4 +1,4 @@
-using Game.Data;
+﻿using Game.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,6 +40,23 @@ namespace Game.Base
         {
             BlockState = BlockState.Normal;
             this.blockUnitData = blockUnitData;
+            if (!TryGetComponent<Rigidbody>(out var rigidbody)) return;
+            switch (blockUnitData.baseType)
+            {
+                case BlockBaseType.Static:
+                    rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                    break;
+                case BlockBaseType.AutoMoving:
+                    rigidbody.constraints = RigidbodyConstraints.FreezePositionZ;
+                    rigidbody.freezeRotation = true;
+                    break;
+                case BlockBaseType.UpDownAble:
+                    rigidbody.constraints = ~RigidbodyConstraints.FreezePositionY;
+                    break;
+                case BlockBaseType.LeftRightAble:
+                    rigidbody.constraints = ~RigidbodyConstraints.FreezePositionX;
+                    break;
+            }
         }
 
         public virtual void OnRemove()

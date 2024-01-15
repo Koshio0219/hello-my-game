@@ -1,7 +1,12 @@
-﻿using Game.Base;
+﻿using Cysharp.Threading.Tasks;
+using Game.Base;
 using Game.Data;
+using Game.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+
+//using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
@@ -33,8 +38,28 @@ public class GamePadCursor : MonoBehaviour
 
     private Game.Test.PlayerParameter _PlayerParameter;
 
-    //private bool isBlockSelected = false;
     private BlockBase currentSelected = null;
+    private BlockBase CurrentSelected
+    {
+        get => currentSelected;
+        set
+        {
+            if(value == null)
+            {
+                var rb = currentSelected.GetComponent<Rigidbody>();
+                rb.mass = 10000;
+            }
+            else
+            {
+                var rb = value.GetComponent<Rigidbody>();
+                rb.mass = 1;
+            }
+            currentSelected = value;
+        }
+    }
+
+    //private Vector2 lastPos;
+    //private Vector2 dragDir;
 
     private void Awake()
     {
@@ -69,6 +94,7 @@ public class GamePadCursor : MonoBehaviour
 
         InputSystem.onAfterUpdate += UpdateMotion;
         //playerInput.onControlsChanged += OnControlsChanged;
+        //lastPos = virtualMouse.position.ReadValue();
     }
 
     private void OnDisable()
@@ -114,7 +140,7 @@ public class GamePadCursor : MonoBehaviour
         cursorSpeed = cursorSpeedDefault;
         if (Gamepad.all[_PlayerParameter.GamepadNumber_D].leftTrigger.isPressed)
         {
-            if (currentSelected != null) 
+            if (CurrentSelected != null) 
             {
                 SelectedAction();
                 return;
@@ -141,43 +167,48 @@ public class GamePadCursor : MonoBehaviour
                 if (blockBase.BlockUnitData.baseType == Game.Base.BlockBaseType.Null) return;
 
                 //一つのBlockの選択を限定
-                currentSelected = blockBase;
+                CurrentSelected = blockBase;
                 SelectedAction();
             }
         }
         else
         {
-            if (currentSelected!=null) currentSelected = null;
+            if (CurrentSelected != null)
+                CurrentSelected = null;            
         }
     }
 
     private void SelectedAction()
     {
         Vector2 currentPosition = virtualMouse.position.ReadValue();
+        //dragDir = currentPosition - lastPos;
+        //lastPos = currentPosition;
         Vector3 collision = Vector3.zero;
 
+        var rb = CurrentSelected.GetComponent<Rigidbody>();
         //screenPoint = Camera.main.WorldToScreenPoint(hit_info.transform.position);
-        screenPoint = Camera.main.WorldToScreenPoint(currentSelected.transform.position);
+        screenPoint = Camera.main.WorldToScreenPoint(CurrentSelected.transform.position);
 
         //float screenX = currentPosition.x;
         //float screenY = currentPosition.y;
         //float screenZ = screenPoint.z;
 
-        Vector3 currentScreenPoint = properMatch(currentSelected.BlockUnitData.baseType, screenPoint, currentPosition);
+        Vector3 currentScreenPoint = properMatch(CurrentSelected.BlockUnitData.baseType, screenPoint, currentPosition);
         //Vector3 currentScreenPoint = new Vector3(screenX, screenY, screenZ);
         Vector3 currentHitsPosition = Camera.main.ScreenToWorldPoint(currentScreenPoint);
         Debug.Log("NextPosition: " + currentHitsPosition);
         if (collision.magnitude == 0)
         {
-            currentSelected.transform.position = currentHitsPosition;
+            //currentSelected.transform.position = currentHitsPosition;
+            rb.MovePosition(currentHitsPosition);
             Debug.Log("Move! to " + transform.position);
         }
-        else if ((currentSelected.transform.position - collision).magnitude < (currentHitsPosition - collision).magnitude)
+        else if ((CurrentSelected.transform.position - collision).sqrMagnitude < (currentHitsPosition - collision).sqrMagnitude)
         {
             Debug.Log("Collision: " + collision);
-            currentSelected.transform.position = currentHitsPosition;
+            //currentSelected.transform.position = currentHitsPosition;
             //rb.position = currentHitsPosition;
-            //rb.MovePosition(currentHitsPosition);
+            rb.MovePosition(currentHitsPosition);
         }
         //hit_info.transform.position = currentHitsPosition;
     }

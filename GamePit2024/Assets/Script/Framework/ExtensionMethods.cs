@@ -378,11 +378,20 @@ namespace Game.Framework
                     await UniTask.DelayFrame(1, cancellationToken: mono.GetCancellationTokenOnDestroy());
                     if (buttonControl.wasPressedThisFrame)
                     {
-                        callback.Invoke();
+                        callback?.Invoke();
                         break;
                     }
                 }
             }, mono.GetCancellationTokenOnDestroy());
+        }
+
+        public static void Delay(this float time,UnityAction callback,CancellationToken cancellationToken)
+        {
+            UniTask.Void(async (_) =>
+            {
+                await UniTask.Delay((int)(time * 1000),cancellationToken:cancellationToken);
+                callback?.Invoke();
+            },cancellationToken);
         }
 
         #endregion
