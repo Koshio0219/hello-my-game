@@ -173,6 +173,7 @@ public class MeleeStateController : Player
     {
         //　Cubeのレイを疑似的に視覚化
         Gizmos.color = Color.green;
-        Gizmos.DrawCube(new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z) + transform.forward * 1.2f, Vector3.one * 0.8f);
+        Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z) + transform.forward * 1.2f, Vector3.one * 0.65f * 2f);
+        Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z), transform.forward * 1.2f);
     }
 }

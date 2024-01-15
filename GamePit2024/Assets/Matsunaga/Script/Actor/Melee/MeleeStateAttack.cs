@@ -68,8 +68,8 @@ public class MeleeStateAttack : IPlayerState
                 Attack(id, _atk);
             }
         });*/
-
-        ShootBoxRay(pos, Vector3.one * 0.8f, _player.forward, 1.2f, "", (info) =>
+        //https://tsubakit1.hateblo.jp/entry/2016/02/25/025922
+        ShootBoxRay(pos - _player.forward * 0.65f, Vector3.one * 0.65f, _player.forward, 1.2f, "", (info) =>
         {
             var up = info.transform.GetRootParent();
             if (up.TryGetComponent<IEnemyBaseAction>(out var enemy))
