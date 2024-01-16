@@ -2,6 +2,7 @@
 using Game.Framework;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -27,7 +28,9 @@ namespace Game.Navigation
 
         private NavMeshData mNavMesh;
         private NavMeshDataInstance mInstance;
-        private List<NavMeshBuildSource> mSources = new List<NavMeshBuildSource>();
+        private List<NavMeshBuildSource> mSources = new();
+
+        private CancellationTokenSource dragTokenSource = new();
 
         public async UniTask Build()
         {
@@ -56,6 +59,28 @@ namespace Game.Navigation
         {
             EventQueueSystem.AddListener<StageStatesEvent>(StageStatesHandler);
             EventQueueSystem.AddListener<UpdateNavMeshEvent>(UpdateNavMeshHandler);
+            EventQueueSystem.AddListener<BlockDragStartEvent>(BlockDragStartHandler);
+            EventQueueSystem.AddListener<BlockDragEndEvent>(BlockDragEndHandler);
+        }
+
+        private async void BlockDragEndHandler(BlockDragEndEvent e)
+        {
+            await UniTask.Delay(500);
+            dragTokenSource.Cancel();
+        }
+
+        private void BlockDragStartHandler(BlockDragStartEvent e)
+        {
+            dragTokenSource = new CancellationTokenSource();
+            UniTask.Void(async (_) =>
+            {
+                while (!_.IsCancellationRequested)
+                {
+                    await UniTask.DelayFrame(1, cancellationToken: dragTokenSource.Token);
+                    await Build();
+                    Debug.Log("Update NavMesh");
+                }
+            },dragTokenSource.Token);
         }
 
         private void UpdateNavMeshHandler(UpdateNavMeshEvent e)
@@ -76,6 +101,8 @@ namespace Game.Navigation
             mInstance.Remove();
             EventQueueSystem.RemoveListener<StageStatesEvent>(StageStatesHandler);
             EventQueueSystem.RemoveListener<UpdateNavMeshEvent>(UpdateNavMeshHandler);
+            EventQueueSystem.RemoveListener<BlockDragStartEvent>(BlockDragStartHandler);
+            EventQueueSystem.RemoveListener<BlockDragEndEvent>(BlockDragEndHandler);
         }
 
         protected virtual async UniTask UpdateNavMesh()

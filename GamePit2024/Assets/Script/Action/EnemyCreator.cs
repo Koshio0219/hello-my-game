@@ -71,7 +71,18 @@ namespace Game.Action
                     var createData = enemyCreateConfig.MapEnemyTypeIDToData[one.typeID];
                     var ins = await AssetLoader.Instance.Load<Enemy>
                     (createData.assetReference, this.GetCancellationTokenOnDestroy(), false);
-                    ins.transform.position = one.randomOnBlock ? GameManager.stageManager.SelecteOneBlockPoint() : one.pos;
+                    ins.transform.position = one.randomOnBlock ? 
+                    GameManager.stageManager.SelecteOneBlockPoint().position : one.pos;
+                    //if (one.randomOnBlock)
+                    //{
+                    //    var createPoint = GameManager.stageManager.SelecteOneBlockPoint();            
+                    //    ins.SetBlockPoint(createPoint.parent);
+                    //    ins.transform.position = createPoint.position;
+                    //}
+                    //else
+                    //{
+                    //    ins.transform.position = one.pos;
+                    //}
                     //face to left
                     ins.transform.forward = Vector3.left;
                     ins.Born(createData.unitData);

@@ -151,17 +151,20 @@ public class GamePadCursor : MonoBehaviour
 
                 //一つのBlockの選択を限定
                 currentSelected = blockBase;
-                if (lastSelected != null) lastSelected.OnMovingEnd();
+                if (lastSelected != null) lastSelected.OnMovingReset();
                 currentSelected.OnMovingStart();
                 SelectedAction();
+                EventQueueSystem.QueueEvent(new BlockDragStartEvent(currentSelected.transform));
             }
         }
         else
         {
             if (currentSelected != null)
             {
+                currentSelected.OnMovingEnd();
                 lastSelected = currentSelected;
                 currentSelected = null;
+                EventQueueSystem.QueueEvent(new BlockDragEndEvent());
             }     
         }
     }

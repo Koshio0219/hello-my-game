@@ -41,7 +41,7 @@ namespace Game.Manager
         private Dictionary<int, GameObject> MapPlayerIdToInstance { get; set; } = new();
         private Dictionary<int, Enemy> MapEnemyIdToInstance { get; set; } = new();
 
-        private List<Vector3> blockPoints = new();
+        private List<Transform> blockPoints = new();
 
         private void Awake()
         {
@@ -260,13 +260,13 @@ namespace Game.Manager
 
         public List<GameObject> GetAllPlayer() => MapPlayerIdToInstance.Values.ToList();
    
-        public void AddBlockPoint(Vector3 one)
+        public void AddBlockPoint(Transform one)
         {
             if (blockPoints.Contains(one)) return;
             blockPoints.Add(one);
         }
 
-        public Vector3 SelecteOneBlockPoint() => blockPoints.SelectOne();
+        public Transform SelecteOneBlockPoint() => blockPoints.SelectOne();
     }
 }
 

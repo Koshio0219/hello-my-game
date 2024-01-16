@@ -13,6 +13,7 @@ using System;
 using UnityEngine.AI;
 using BehaviorDesigner.Runtime;
 using UnityEngine.Networking.Types;
+using System.Threading.Tasks;
 
 namespace Game.Unit
 {
@@ -84,6 +85,8 @@ namespace Game.Unit
         [SerializeField] protected Animator animator;
         [SerializeField] protected BehaviorTree behaviorTree;
 
+        //private Transform blockTran = null;
+
         public virtual void Attack(int targetId, float damage)
         {
             ChangeState(EnemyState.Attack);
@@ -102,12 +105,16 @@ namespace Game.Unit
 
             EventQueueSystem.QueueEvent(new InitEnemyHpEvent(data.InsId, MaxHp));
             EventQueueSystem.AddListener<SendDamageEvent>(DamageEventHandler);
+            EventQueueSystem.AddListener<BlockDragStartEvent>(BlockDragStartHandler);
+            EventQueueSystem.AddListener<BlockDragEndEvent>(BlockDragEndHandlerAsync);
         }
 
         public virtual async void Dead()
         {
             CalDeadPoint();
             EventQueueSystem.RemoveListener<SendDamageEvent>(DamageEventHandler);
+            EventQueueSystem.RemoveListener<BlockDragStartEvent>(BlockDragStartHandler);
+            EventQueueSystem.RemoveListener<BlockDragEndEvent>(BlockDragEndHandlerAsync);
             ChangeState(EnemyState.Dead);
             //dead animation time delay
             await UniTask.Delay(1000);
@@ -224,6 +231,29 @@ namespace Game.Unit
         private void OnDestroy()
         {
             EventQueueSystem.RemoveListener<SendDamageEvent>(DamageEventHandler);
+            EventQueueSystem.RemoveListener<BlockDragStartEvent>(BlockDragStartHandler);
+            EventQueueSystem.RemoveListener<BlockDragEndEvent>(BlockDragEndHandlerAsync);
         }
+
+        private async void BlockDragEndHandlerAsync(BlockDragEndEvent e)
+        {
+            await UniTask.Delay(600);
+            behaviorTree.EnableBehavior();
+            //if (transform.parent == null) return;
+            //transform.SetParent(null);
+        }
+
+        private void BlockDragStartHandler(BlockDragStartEvent e)
+        {
+            behaviorTree.DisableBehavior(true);
+            //if (blockTran == null) return;
+            //if (blockTran != e.targetBlock) return;
+            //transform.SetParent(blockTran);
+        }
+
+        //public virtual void SetBlockPoint(Transform transform)
+        //{
+        //    blockTran = transform;
+        //}
     }
 }

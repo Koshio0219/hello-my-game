@@ -52,7 +52,7 @@ namespace Game.Action
 
             var prefab = GameData.Instance.LevelConfig.goalPrefab;
             var ins = Instantiate(prefab);
-            ins.transform.position = GameManager.stageManager.SelecteOneBlockPoint();
+            ins.transform.position = GameManager.stageManager.SelecteOneBlockPoint().position;
         }
 
         private void StageStatesHandler(StageStatesEvent e)
@@ -93,13 +93,14 @@ namespace Game.Action
                     if(block.BlockUnitData.useType == BlockUseType.Normal)
                     {
                         var temp = block as NormalBlock;
-                        GameManager.stageManager.AddBlockPoint(temp.createPoint.position);
+                        GameManager.stageManager.AddBlockPoint(temp.createPoint);
                     }
                     else if(block.BlockUnitData.useType == BlockUseType.GemCreate)
                     {
                         var temp = block as NormalBlock;
                         var gem = GameData.Instance.LevelConfig.gemPrefab;
                         var gem_ins = Instantiate(gem);
+                        gem_ins.transform.SetParent(temp.createPoint);
                         gem_ins.transform.position = temp.createPoint.position + Vector3.up * .5f;
                     }
 

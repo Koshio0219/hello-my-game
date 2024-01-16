@@ -74,13 +74,22 @@ namespace Game.Base
         public virtual void OnMovingStart()
         {
             BlockState = BlockState.Moving;
-            Rigidbody.mass = 1;
+            Rigidbody.isKinematic = false;
         }
 
         public virtual void OnMovingEnd()
         {
             BlockState = BlockState.Selected;
-            Rigidbody.mass = 10000;
+        }
+
+        public virtual void OnMovingReset()
+        {
+            Rigidbody.isKinematic = true;
+        }
+
+        protected virtual void OnDestroy()
+        {
+            OnRemove();
         }
     }
 }

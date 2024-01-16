@@ -204,4 +204,15 @@ namespace Game.Framework
             this.rootGoInsId = rootGoInsId;
         }
     }
+
+    public class BlockDragStartEvent : GameEvent 
+    {
+        public Transform targetBlock;
+        public BlockDragStartEvent(Transform transform)
+        {
+            targetBlock = transform;
+        }
+    }
+
+    public class BlockDragEndEvent : GameEvent { }
 }
