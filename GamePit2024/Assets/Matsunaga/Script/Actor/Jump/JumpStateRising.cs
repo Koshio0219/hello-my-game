@@ -68,13 +68,13 @@ namespace animJump
             Vector3 _vertical = _cameraForward * Gamepad.all[GamepadNumber].leftStick.ReadValue().y;
             Vector3 _horizontal = _mainCamera.gameObject.transform.right * Gamepad.all[GamepadNumber].leftStick.ReadValue().x;
             Vector3 _moveForward = _vertical + _horizontal;
-            float _moveSpeed = Mathf.LerpUnclamped(0f, 5f, 0.5f);
+            float _moveSpeed = Mathf.LerpUnclamped(0f, 5f, 0.85f);
             Vector3 _velocity = _moveForward.normalized * _moveSpeed;
             if (_velocity.magnitude > 0.085f)
             {
 
                 _jump_distance.GetSelfTransform().LookAt(_jump_distance.GetSelfTransform().position + _velocity);
-                _rigid_body.MovePosition(_rigid_body.position + _velocity * 0.5f* Time.deltaTime);
+                _rigid_body.MovePosition(_rigid_body.position + _velocity * 0.85f* Time.deltaTime);
             }
         }
     }

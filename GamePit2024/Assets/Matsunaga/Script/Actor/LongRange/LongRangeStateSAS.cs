@@ -68,7 +68,7 @@ public class LongRangeStateSAS : MonoBehaviour, IPlayerState
     public void enter()
     {
         _animator.SetTrigger("ReadyAttackTrigger");
-        Vector3 _SetPosition = new Vector3(_player.position.x, 0f, _player.position.z);
+        Vector3 _SetPosition = new Vector3(_player.position.x, _player.position.y + 2.0f, _player.position.z);
         Vector3 direction = _player.forward;
         direction.Normalize();
 
