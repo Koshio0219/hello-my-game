@@ -21,6 +21,8 @@ namespace Game.Base
 
     public class Player : MonoBehaviour, IPlayerBase, IEventListenerAction
     {
+        [SerializeField]protected Rigidbody _rigidBody;
+        private RigidbodyConstraints rigidbodyConstraints;
         public int InsId
         {
             get => gameObject.GetInstanceID();
@@ -98,12 +100,28 @@ namespace Game.Base
         {
             EventQueueSystem.AddListener<SendDamageEvent>(DamageEventHandler);
             EventQueueSystem.AddListener<EnterDeadZoneEvent>(EnterDeadZoneHandler);
+            EventQueueSystem.AddListener<BlockDragStartEvent>(BlockDragStartHandler);
+            EventQueueSystem.AddListener<BlockDragEndEvent>(BlockDragEndHandlerAsync);
         }
 
         public void RemoveListeners()
         {
             EventQueueSystem.RemoveListener<SendDamageEvent>(DamageEventHandler);
             EventQueueSystem.RemoveListener<EnterDeadZoneEvent>(EnterDeadZoneHandler);
+            EventQueueSystem.RemoveListener<BlockDragStartEvent>(BlockDragStartHandler);
+            EventQueueSystem.RemoveListener<BlockDragEndEvent>(BlockDragEndHandlerAsync);
+        }
+
+        private async void BlockDragEndHandlerAsync(BlockDragEndEvent e)
+        {
+            await UniTask.Delay(500);
+            _rigidBody.constraints = rigidbodyConstraints;
+        }
+
+        private void BlockDragStartHandler(BlockDragStartEvent e)
+        {
+            rigidbodyConstraints = _rigidBody.constraints;
+            _rigidBody.constraints = RigidbodyConstraints.FreezeAll;
         }
 
         private void EnterDeadZoneHandler(EnterDeadZoneEvent e)

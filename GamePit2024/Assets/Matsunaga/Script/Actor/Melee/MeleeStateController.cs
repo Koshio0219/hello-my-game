@@ -12,7 +12,7 @@ using System.Linq;
 
 public class MeleeStateController : Player
 {
-    [SerializeField] Rigidbody _rigidBody;
+    //[SerializeField] Rigidbody _rigidBody;
     [SerializeField] Animator _animator;
     [SerializeField] Transform _mainCamera;
     ///<summary>
