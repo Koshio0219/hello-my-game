@@ -1221,7 +1221,7 @@ MonoBehaviour:
   _rigidBody: {fileID: 7903193102312446003}
   _animator: {fileID: 7903193100836086349}
   _mainCamera: {fileID: 0}
-  _Bullet: {fileID: 4055588981343756517, guid: b058df7b5dfd1664ea26b00fb6e7e727, type: 3}
+  _Bullet: {fileID: 100004, guid: 96536afb634b32043bb988d4576053d3, type: 3}
   _Beam: {fileID: 100002, guid: fd0c19efb1b17e946b8a0ba6ea13f372, type: 3}
   _jump_power_up: 0.085
   _jump_power_max: 8

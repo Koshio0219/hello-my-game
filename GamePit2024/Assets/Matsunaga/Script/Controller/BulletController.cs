@@ -31,9 +31,9 @@ public class BulletController : MonoBehaviour
         }
         else
         {
-            if (this.transform.localScale.x < 5.0f)
+            if (this.transform.localScale.x < 1.5f)
             {
-                this.transform.localScale += new Vector3(0.2f, 0.2f, 0.2f) * Time.deltaTime;
+                this.transform.localScale += new Vector3(0.05f, 0.05f, 0.05f) * Time.deltaTime;
             }
         }
 

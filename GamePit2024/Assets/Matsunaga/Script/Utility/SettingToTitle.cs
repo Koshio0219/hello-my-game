@@ -6,15 +6,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using KanKikuchi.AudioManager;
 
 public class SettingToTitle : MonoBehaviour
 {
-    [SerializeField] private TitleSelectUI _FirstSelect;
-    [SerializeField] private TitleSelectUI _SecondSelect;
-    [SerializeField] private TitleSelectUI _ThirdSelect;
+    public enum PlayerType
+    {
+        First = 0,
+        Second = 1,
+        Third = 2,
+    }
+    [SerializeField] private SettingSelectUI _FirstSelect;
+    [SerializeField] private Slider BGMSlider;
+    [SerializeField] private Slider SESlider;
     [SerializeField] private GameObject loadingUI;
     [SerializeField] private GameObject UICanvas;
     [SerializeField] private GameObject RotateSoundImage;
+    [SerializeField] private PlayerType _PlayerType;
     private AsyncOperation async;
     private bool isDecide = false;
     private void Awake()
@@ -29,51 +38,56 @@ public class SettingToTitle : MonoBehaviour
     }
     void Update()
     {
+
         if (isDecide) return;
         ChoiceOne();
     }
 
     void ChoiceOne()
     {
+        var playerNum = (int)_PlayerType;
         // どちらかが未選択なら処理しない
-        if (_FirstSelect.DecideState == TitleSelectUI.StateEnum.None) return;
+        if (_FirstSelect.DecideState == SettingSelectUI.StateEnum.None) return;
 
         isDecide = true;
         switch (_FirstSelect.DecideState)
         {
-            case TitleSelectUI.StateEnum.Start:
-                loadingUI.SetActive(true);
-                UICanvas.SetActive(false);
-                isDecide = true;
-                //StartCoroutine(StageLoad());
-                break;
-            case TitleSelectUI.StateEnum.Setting:
-                //ChangeActive((int)StateEnum.Setting);
-                //StartCoroutine(SettingLoad());
-                UICanvas.SetActive(false);
-                isDecide = true;
-                break;
-            case TitleSelectUI.StateEnum.HomePage:
-                Game.Manager.GameManager.Instance.OpenHomePage();
+            case SettingSelectUI.StateEnum.BGM:
+                // 上を押すとはじめるを選択
+                if (Gamepad.all[playerNum].dpad.right.wasPressedThisFrame)
+                {
+                    BGMSlider.value = (BGMSlider.value + 1 > BGMSlider.maxValue) ? BGMSlider.maxValue : BGMSlider.value + 1;
+                    BGMManager.Instance.ChangeBaseVolume((BGMSlider.value * 1.0f) / ((BGMSlider.maxValue + BGMSlider.minValue) * 0.5f));
+                }
+                // 下を押すとチュートリアルを選択
+                if (Gamepad.all[playerNum].dpad.left.wasPressedThisFrame)
+                {
+                    BGMSlider.value = (BGMSlider.value - 1 < BGMSlider.minValue) ? BGMSlider.minValue : BGMSlider.value - 1;
+                    BGMManager.Instance.ChangeBaseVolume((BGMSlider.value * 1.0f) / ((BGMSlider.maxValue + BGMSlider.minValue) * 0.5f));
+                }
                 isDecide = false;
-                _FirstSelect.DeSelect();
                 break;
-            case TitleSelectUI.StateEnum.Exit:
+            case SettingSelectUI.StateEnum.SE:
+                // 上を押すとはじめるを選択
+                if (Gamepad.all[playerNum].dpad.right.wasPressedThisFrame)
+                {
+                    SESlider.value = (SESlider.value + 1 > SESlider.maxValue) ? SESlider.maxValue : SESlider.value + 1;
+                    SEManager.Instance.ChangeBaseVolume((SESlider.value * 1.0f) / ((SESlider.maxValue + SESlider.minValue) * 0.5f));
+                }
+                // 下を押すとチュートリアルを選択
+                if (Gamepad.all[playerNum].dpad.left.wasPressedThisFrame)
+                {
+                    SESlider.value = (SESlider.value - 1 < SESlider.minValue) ? SESlider.minValue : SESlider.value - 1;
+                    SEManager.Instance.ChangeBaseVolume((SESlider.value * 1.0f) / ((SESlider.maxValue + SESlider.minValue) * 0.5f));
+                }
+                isDecide = false;
+                break;
+            case SettingSelectUI.StateEnum.Exit:
                 UICanvas.SetActive(false);
                 isDecide = true;
                 StartCoroutine(StartLoad());
                 break;
         }
-    }
-
-    IEnumerator ExitGame()
-    {
-        yield return new WaitForSeconds(1.0f);
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
-#else
-                Application.Quit();//ゲームプレイ終了
-#endif
     }
 
     private IEnumerator StartLoad()
