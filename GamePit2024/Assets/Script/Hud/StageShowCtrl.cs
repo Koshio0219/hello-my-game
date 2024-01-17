@@ -15,6 +15,7 @@ namespace Game.Hud
     {
         //private int curTime;
         private CancellationTokenSource tokenSource;
+        public GameObject directorObj;
 
         private void Awake()
         {
@@ -59,6 +60,13 @@ namespace Game.Hud
             InitPlayersHpbar();
             View.InitPointBar(GameManager.pointManager.GoalPoint);
             InitTimerBar();
+            CheckDirector();
+        }
+
+        private void CheckDirector()
+        {
+            if (directorObj == null) return;
+            directorObj.SetActive(GameData.Instance.SelectedCharacters.Contains(CharacterType.Directer));
         }
 
         private void InitPlayersHpbar()
