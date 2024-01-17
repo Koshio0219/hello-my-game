@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using KanKikuchi.AudioManager;
 
 public class TitletoGame : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class TitletoGame : MonoBehaviour
 
     private void Start()
     {
+        BGMManager.Instance.Play(BGMPath.START);
         UICanvas.SetActive(true);
         loadingUI.SetActive(false);
         isDecide = false;

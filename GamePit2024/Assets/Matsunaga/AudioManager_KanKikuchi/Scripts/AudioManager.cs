@@ -88,6 +88,15 @@ public abstract class AudioManager<T> : SingletonMonoBehaviour<T> where T : Mono
 			.ForEach(player => player.ChangeVolume(_baseVolume));
 	}
 	
+	/// <summary>
+	/// ボリュームの基準を取得する
+	/// </summary>
+    /// 
+    public float GetBaseVolume() {
+            return _baseVolume;
+	}
+
+
 	//=================================================================================
 	//取得、判定
 	//=================================================================================

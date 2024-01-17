@@ -32,6 +32,8 @@ public class SettingToTitle : MonoBehaviour
 
     private void Start()
     {
+        BGMSlider.value = BGMManager.Instance.GetBaseVolume() * (BGMSlider.minValue + BGMSlider.maxValue) * 0.5f;
+        SESlider.value = SEManager.Instance.GetBaseVolume() * (SESlider.minValue + SESlider.maxValue) * 0.5f;
         UICanvas.SetActive(true);
         loadingUI.SetActive(false);
         isDecide = false;
@@ -73,12 +75,14 @@ public class SettingToTitle : MonoBehaviour
                 {
                     SESlider.value = (SESlider.value + 1 > SESlider.maxValue) ? SESlider.maxValue : SESlider.value + 1;
                     SEManager.Instance.ChangeBaseVolume((SESlider.value * 1.0f) / ((SESlider.maxValue + SESlider.minValue) * 0.5f));
+                    SEManager.Instance.Play(SEPath.DECIDE01);
                 }
                 // 下を押すとチュートリアルを選択
                 if (Gamepad.all[playerNum].dpad.left.wasPressedThisFrame)
                 {
                     SESlider.value = (SESlider.value - 1 < SESlider.minValue) ? SESlider.minValue : SESlider.value - 1;
                     SEManager.Instance.ChangeBaseVolume((SESlider.value * 1.0f) / ((SESlider.maxValue + SESlider.minValue) * 0.5f));
+                    SEManager.Instance.Play(SEPath.DECIDE01);
                 }
                 isDecide = false;
                 break;
