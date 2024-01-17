@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popupTextPrefab: {fileID: 9036107827998520552, guid: e206b285987f2c9488bfb6bbb0ff1a60,
     type: 3}
+  lrMark: {fileID: 21300000, guid: a67400b365bde614e857e31c0216ace7, type: 3}
+  udMark: {fileID: 21300000, guid: 9ed5cdacb43f439478cacec3d0fe91ac, type: 3}
+  allMoveMark: {fileID: 21300000, guid: 3682c2b3dbad2a64f8b1af8acec73724, type: 3}
+  blockMoveable: {r: 0.3703453, g: 0.8056563, b: 0.9716981, a: 0}
+  blockStatic: {r: 1, g: 1, b: 1, a: 0}

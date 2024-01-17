@@ -8,14 +8,17 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Game.Unit
 {
     public class NormalBlock : BlockBase
     {
         public Transform createPoint;
+        public MeshRenderer meshRenderer;
+        public Image mark;
 
-        public List<Transform> curTriggerEnter = new();
+        private readonly List<Transform> curTriggerEnter = new();
         private static bool isDraging = false;
 
         private void OnTriggerEnter(Collider other)
@@ -77,6 +80,47 @@ namespace Game.Unit
             });
             await UniTask.Delay(100);
             isDraging = false;
+        }
+
+        public override void OnInstance(BlockUnitData blockUnitData)
+        {
+            base.OnInstance(blockUnitData);
+            SetMark();
+            SetColor();
+        }
+
+        private void SetMark()
+        {
+            if (mark == null) return;
+            mark.gameObject.Show();
+            switch (BlockUnitData.baseType)
+            {
+                case BlockBaseType.Static:
+                    mark.gameObject.Hide();
+                    break;
+                case BlockBaseType.AutoMoving:
+                    mark.sprite = GameData.Instance.HudConfig.allMoveMark;
+                    break;
+                case BlockBaseType.UpDownAble:
+                    mark.sprite = GameData.Instance.HudConfig.udMark;
+                    break;
+                case BlockBaseType.LeftRightAble:
+                    mark.sprite = GameData.Instance.HudConfig.lrMark;
+                    break;
+            }
+        }
+
+        private void SetColor()
+        {
+            if (meshRenderer == null) return;
+            if(BlockUnitData.baseType == BlockBaseType.Static)
+            {
+                meshRenderer.material.SetColor("_BaseColor", GameData.Instance.HudConfig.blockStatic);
+            }
+            else
+            {
+                meshRenderer.material.SetColor("_BaseColor", GameData.Instance.HudConfig.blockMoveable);
+            }
         }
     }
 }
