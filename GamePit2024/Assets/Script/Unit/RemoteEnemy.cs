@@ -36,6 +36,13 @@ namespace Game.Unit
             base.Attack(targetId, damage);
         }
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            normal_fire.ForEach(one => one.FireShut());
+            skill_fire.ForEach(one => one.FireShut());
+        }
+
         //test skill_fire
         public bool test_skill_fire = false;
         private void Start()

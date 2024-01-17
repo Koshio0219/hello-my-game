@@ -228,7 +228,7 @@ namespace Game.Unit
             }
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             EventQueueSystem.RemoveListener<SendDamageEvent>(DamageEventHandler);
             EventQueueSystem.RemoveListener<BlockDragStartEvent>(BlockDragStartHandler);

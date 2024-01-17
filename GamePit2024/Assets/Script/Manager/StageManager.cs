@@ -104,8 +104,9 @@ namespace Game.Manager
             SendStateEvent(StageStates.BattleStarted);
         }
 
-        private void CurtainInputEndHandler()
+        private async void CurtainInputEndHandler()
         {
+            await UniTask.Delay(100);
             SendStateEvent(StageStates.EnemyBuildStart);
         }
 
