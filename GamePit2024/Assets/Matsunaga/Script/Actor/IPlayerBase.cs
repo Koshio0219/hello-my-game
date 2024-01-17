@@ -102,6 +102,7 @@ namespace Game.Base
             EventQueueSystem.AddListener<EnterDeadZoneEvent>(EnterDeadZoneHandler);
             EventQueueSystem.AddListener<BlockDragStartEvent>(BlockDragStartHandler);
             EventQueueSystem.AddListener<BlockDragEndEvent>(BlockDragEndHandlerAsync);
+            EventQueueSystem.AddListener<StageStatesEvent>(StageStatesHandler);
         }
 
         public void RemoveListeners()
@@ -110,6 +111,13 @@ namespace Game.Base
             EventQueueSystem.RemoveListener<EnterDeadZoneEvent>(EnterDeadZoneHandler);
             EventQueueSystem.RemoveListener<BlockDragStartEvent>(BlockDragStartHandler);
             EventQueueSystem.RemoveListener<BlockDragEndEvent>(BlockDragEndHandlerAsync);
+            EventQueueSystem.RemoveListener<StageStatesEvent>(StageStatesHandler);
+        }
+
+        private void StageStatesHandler(StageStatesEvent e)
+        {
+            if (e.to != StageStates.BattleClear) return;
+            BlockDragStartHandler(null);
         }
 
         private async void BlockDragEndHandlerAsync(BlockDragEndEvent e)
