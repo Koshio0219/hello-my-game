@@ -123,6 +123,7 @@ namespace Game.Manager
         {
             if (mapStateToEvent.Count == 0) return;
             if (!mapStateToEvent.ContainsKey(e.to)) return;
+            if (StageState == e.to) return;
             mapStateToEvent[e.to].Invoke();
             StageState = e.to;
         }
