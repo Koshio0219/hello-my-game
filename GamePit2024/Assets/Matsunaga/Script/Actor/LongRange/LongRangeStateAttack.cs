@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Data;
+using Game.Manager;
 
 public class LongRangeStateAttack : MonoBehaviour, IPlayerState
 {
@@ -52,8 +53,9 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
     {
         _animator.SetTrigger("ReadyAttackTrigger");
         Vector3 _SetPosition = new Vector3(_player.position.x, _player.position.y + 0.5f, _player.position.z);
-        Vector3 direction = _player.forward;
+        Vector3 direction = GameManager.stageManager.FindCloseEnemy(_SetPosition).gameObject.transform.position;
         direction.Normalize();
+        _player.LookAt(_SetPosition + direction);
         _BulletInstance = Instantiate<GameObject>(_Bullet, _SetPosition + direction * 0.4f, Quaternion.identity);
         _BulletInstance.GetComponent<BulletController>().setDirection(direction);
 
