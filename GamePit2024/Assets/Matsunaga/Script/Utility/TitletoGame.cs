@@ -26,7 +26,7 @@ public class TitletoGame : MonoBehaviour
 
     private void Start()
     {
-        BGMManager.Instance.Play(BGMPath.START);
+        if(!BGMManager.Instance.IsPlaying())BGMManager.Instance.Play(BGMPath.START);
         UICanvas.SetActive(true);
         loadingUI.SetActive(false);
         isDecide = false;
@@ -179,6 +179,7 @@ public class TitletoGame : MonoBehaviour
         {
             yield break;
         }*/
+        BGMSwitcher.FadeOutAndFadeIn(BGMPath.CHARA_SELECT);
 
         while (RotateImageL.transform.eulerAngles.y <= 90.0f)
         {
@@ -201,6 +202,7 @@ public class TitletoGame : MonoBehaviour
         {
             yield break;
         }*/
+        BGMSwitcher.FadeOutAndFadeIn(BGMPath.SETTING);
         while (RotateSoundImage.transform.eulerAngles.y >= 0.2f)
         {
             RotateSoundImage.transform.Rotate(0, -0.5f, 0f, Space.World);

@@ -96,7 +96,7 @@ public class SettingToTitle : MonoBehaviour
 
     private IEnumerator StartLoad()
     {
-
+        BGMSwitcher.FadeOutAndFadeIn(BGMPath.START);
         while (RotateSoundImage.transform.eulerAngles.y <= 90.0f)
         {
             RotateSoundImage.transform.Rotate(0, 0.5f, 0f, Space.World);

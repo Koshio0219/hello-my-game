@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using KanKikuchi.AudioManager;
 
 public class SelecttoGame : MonoBehaviour
 {
@@ -226,13 +227,14 @@ public class SelecttoGame : MonoBehaviour
         if (isLoading)
             yield break ;
         isLoading = true;
-
+        BGMSwitcher.FadeOutAndFadeIn(BGMPath.WAIT_STAGE);
         UICanvas.SetActive(false);
         while (CubeChange.transform.eulerAngles.y <= 90.0f)
         {
             CubeChange.transform.Rotate(0, 0.3f, 0f, Space.World);
             yield return null;
         }
+        
         loadingUI.SetActive(true);
         // シーンを非同期でロードする
         async = SceneManager.LoadSceneAsync("Stage");
