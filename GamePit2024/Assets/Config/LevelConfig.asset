@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
   levelDatas:
-  - goalPoint: 10
-    showTime: 600
+  - goalPoint: 20
+    showTime: 180
   - goalPoint: 60
-    showTime: 90
+    showTime: 120
   - goalPoint: 80
     showTime: 120
   goalPrefab: {fileID: 2097803152738953584, guid: 2e87f20c433254a4c902f708315d64d4,

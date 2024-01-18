@@ -1670,7 +1670,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e591af98f12cd374da6c5cf890ae7795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockCreateData: {fileID: 11400000, guid: f1172ceb591cdc046aa24781c8843759, type: 2}
+  blockCreateData:
+  - {fileID: 11400000, guid: f1172ceb591cdc046aa24781c8843759, type: 2}
+  - {fileID: 11400000, guid: f1172ceb591cdc046aa24781c8843759, type: 2}
+  - {fileID: 11400000, guid: f1172ceb591cdc046aa24781c8843759, type: 2}
 --- !u!1001 &1203729489
 PrefabInstance:
   m_ObjectHideFlags: 0

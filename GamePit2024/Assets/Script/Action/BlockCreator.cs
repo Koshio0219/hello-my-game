@@ -15,7 +15,7 @@ namespace Game.Action
 {
     public class BlockCreator : MonoBehaviour
     {
-        public BlockCreateData blockCreateData;
+        public List<BlockCreateData> blockCreateData;
 
         private List<BlockBase> insBlocks = new();
 
@@ -58,14 +58,14 @@ namespace Game.Action
         private void StageStatesHandler(StageStatesEvent e)
         {
             if (e.to != StageStates.MapBlockCreateStart) return;
-            if (blockCreateData == null)
+            if (blockCreateData.Count == 0)
             {
                 Debug.LogError("blockCreateData is null,please check");
                 EventQueueSystem.QueueEvent(new StageStatesEvent(StageStates.MapBlockCreateEnd));
                 return;
             }
 
-            StartCoroutine(Creat(blockCreateData));
+            StartCoroutine(Creat(blockCreateData[GameManager.Instance.LevelIdx]));
         }
 
         public IEnumerator Creat(BlockCreateData blockCreateData) => UniTask.ToCoroutine(async () =>
