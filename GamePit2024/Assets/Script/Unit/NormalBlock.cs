@@ -20,6 +20,7 @@ namespace Game.Unit
 
         private readonly List<Transform> curTriggerEnter = new();
         private static bool isDraging = false;
+        private bool isCheckingStay = false;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -51,9 +52,18 @@ namespace Game.Unit
             }
         }
 
-        public override void OnMovingStart()
+        private void OnTriggerStay(Collider other)
+        {
+            if (!isCheckingStay) return;
+            OnTriggerEnter(other);
+            isCheckingStay = false;
+        }
+
+        public override async void OnMovingStart()
         {
             base.OnMovingStart();
+            isCheckingStay = true;
+            await UniTask.DelayFrame(2);
             isDraging = true;
             if (curTriggerEnter.Count == 0) return;
             curTriggerEnter.ForEach(one => 
@@ -80,6 +90,7 @@ namespace Game.Unit
             });
             await UniTask.Delay(100);
             isDraging = false;
+            curTriggerEnter.Clear();
         }
 
         public override void OnInstance(BlockUnitData blockUnitData)
