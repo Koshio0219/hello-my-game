@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using KanKikuchi.AudioManager;
 
 public class LongRangeStateSAF : MonoBehaviour, IPlayerState
 {
@@ -40,6 +41,8 @@ public class LongRangeStateSAF : MonoBehaviour, IPlayerState
         if (!Gamepad.all[_GamePadNumber].buttonNorth.isPressed)
         {
             _animator.SetTrigger("AttackTrigger");
+            SEManager.Instance.Stop(SEPath.LONG_RANGE_SHOT_CHARGE);
+            SEManager.Instance.Play(SEPath.LONG_RANGE_SHOT);
             _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID,_atk);
             isState = true;
         }
@@ -54,12 +57,18 @@ public class LongRangeStateSAF : MonoBehaviour, IPlayerState
 
     public void enter()
     {
-        _animator.SetTrigger("ReadyAttackTrigger");
         Vector3 _SetPosition = new Vector3(_player.position.x, _player.position.y + 1.0f, _player.position.z);
         Vector3 direction = GameManager.stageManager.FindCloseEnemy(_SetPosition).gameObject.transform.position;
+        if (direction == null)
+        {
+            direction = _player.forward;
+        }
+        _animator.SetTrigger("ReadyAttackTrigger");
+        SEManager.Instance.Play(SEPath.LONG_RANGE_SHOT_CHARGE, isLoop: true);
+
         //direction.Normalize();
         var offse = (direction - _SetPosition).normalized;
-        //_player.LookAt(_SetPosition + direction);
+        _player.LookAt(new Vector3(direction.x, _player.position.y, direction.z));
         _BulletInstance = Instantiate<GameObject>(_Bullet, _SetPosition + offse * 0.8f, Quaternion.identity);
         _BulletInstance.GetComponent<BulletController>().setDirection(offse);
 
@@ -69,6 +78,8 @@ public class LongRangeStateSAF : MonoBehaviour, IPlayerState
     public void exit() { }
     public void enterDamage()
     {
+        SEManager.Instance.Stop(SEPath.LONG_RANGE_SHOT_CHARGE);
+        SEManager.Instance.Stop(SEPath.LONG_RANGE_SHOT);
         _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID, _atk);
     }
     private void Attack(int targetID, float damage)

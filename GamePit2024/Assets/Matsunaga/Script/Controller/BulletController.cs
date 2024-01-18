@@ -11,9 +11,11 @@ public class BulletController : MonoBehaviour
     private bool AttackTrigger;
     private int sourceId;
     private float damage;
+    private float originScale;
     // Start is called before the first frame update
     void Start()
     {
+        originScale = this.transform.localScale.x;
         AttackTrigger = false;
     }
 
@@ -26,6 +28,7 @@ public class BulletController : MonoBehaviour
             lifeSpan -= Time.deltaTime;
             if (lifeSpan <= 0f)
             {
+                Debug.Log("LifeOVer");
                 Destroy(gameObject);
             }
         }
@@ -58,8 +61,23 @@ public class BulletController : MonoBehaviour
     {
         if (!AttackTrigger) return;
         var up = other.transform.GetRootParent();
+        float rate = this.transform.localScale.x / originScale;
         if (!up.TryGetComponent<IDamageable>(out _)) return;
-        EventQueueSystem.QueueEvent(new SendDamageEvent(sourceId, up.gameObject, damage));
+        if (up.TryGetComponent<Player>(out _)) return;
+        EventQueueSystem.QueueEvent(new SendDamageEvent(sourceId, up.gameObject, Mathf.Floor(damage + rate * rate)));
+        Debug.Log("Attack to " + up.gameObject);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!AttackTrigger) return;
+        var up = other.transform.GetRootParent();
+        float rate = this.transform.localScale.x / originScale;
+        if (!up.TryGetComponent<IDamageable>(out _)) return;
+        if (up.TryGetComponent<Player>(out _)) return;
+        EventQueueSystem.QueueEvent(new SendDamageEvent(sourceId, up.gameObject, Mathf.Floor(damage + rate * rate)));
+        Debug.Log("Attack to " + up.gameObject);
         Destroy(gameObject);
     }
 }

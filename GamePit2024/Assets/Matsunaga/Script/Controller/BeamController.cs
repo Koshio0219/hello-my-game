@@ -103,6 +103,17 @@ public class BeamController : MonoBehaviour
         if (!AttackTrigger) return;
         var up = other.transform.GetRootParent();
         if (!up.TryGetComponent<IDamageable>(out _)) return;
+        if (up.TryGetComponent<Player>(out _)) return;
+        EventQueueSystem.QueueEvent(new SendDamageEvent(sourceId, up.gameObject, damage));
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!AttackTrigger) return;
+        var up = other.transform.GetRootParent();
+        if (!up.TryGetComponent<IDamageable>(out _)) return;
+        if (up.TryGetComponent<Player>(out _)) return;
         EventQueueSystem.QueueEvent(new SendDamageEvent(sourceId, up.gameObject, damage));
         Destroy(gameObject);
     }

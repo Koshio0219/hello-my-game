@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Data;
 using Game.Manager;
+using KanKikuchi.AudioManager;
 
 public class LongRangeStateAttack : MonoBehaviour, IPlayerState
 {
@@ -38,6 +39,8 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
     public PlayerState stayUpdate()
     {
         _animator.SetTrigger("AttackTrigger");
+        SEManager.Instance.Stop(SEPath.LONG_RANGE_SHOT_CHARGE);
+        SEManager.Instance.Play(SEPath.LONG_RANGE_SHOT);
         _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID, _attackPower);
         isState = true;
 
@@ -52,12 +55,17 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
     public void enter()
     {
         _animator.SetTrigger("ReadyAttackTrigger");
+        SEManager.Instance.Play(SEPath.LONG_RANGE_SHOT_CHARGE, isLoop: true);
         Vector3 playerPos = new Vector3(_player.position.x, _player.position.y + 0.5f, _player.position.z);
         Vector3 enemyPos = GameManager.stageManager.FindCloseEnemy(playerPos).gameObject.transform.position;
+        if (enemyPos == null)
+        {
+            enemyPos = _player.forward;
+        }
         //enemyPos.Normalize();
         var offse = (enemyPos - playerPos).normalized;
-        //_player.LookAt(_SetPosition + direction);
-        _BulletInstance = Instantiate<GameObject>(_Bullet, playerPos + offse * 0.4f, Quaternion.identity);
+        _player.LookAt(new Vector3(enemyPos.x, _player.position.y, enemyPos.z));
+        _BulletInstance = Instantiate<GameObject>(_Bullet, playerPos + offse * 0.8f, Quaternion.identity);
         _BulletInstance.GetComponent<BulletController>().setDirection(offse);
 
     }
@@ -65,6 +73,8 @@ public class LongRangeStateAttack : MonoBehaviour, IPlayerState
     public void stayFixedUpdate() { }
     public void exit() { }
     public void enterDamage() {
+        SEManager.Instance.Stop(SEPath.LONG_RANGE_SHOT_CHARGE);
+        SEManager.Instance.Stop(SEPath.LONG_RANGE_SHOT);
         _BulletInstance.GetComponent<BulletController>().setAttackTrigger(_instanceID, _attackPower);
     }
     private void Attack(int targetID, float damage)
