@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Manager;
+using KanKikuchi.AudioManager;
 
 public class LongRangeStateSAS : MonoBehaviour, IPlayerState
 {
@@ -44,7 +45,9 @@ public class LongRangeStateSAS : MonoBehaviour, IPlayerState
         if (!Gamepad.all[_GamePadNumber].buttonWest.isPressed)
         {
             _animator.SetTrigger("AttackTrigger");
-            for(int i = 0; i < _BeamInstance.Count; i++)
+            SEManager.Instance.Stop(SEPath.LONG_RANGE_SHOT_CHARGE);
+            SEManager.Instance.Play(SEPath.LONG_RANGE_SHOT);
+            for (int i = 0; i < _BeamInstance.Count; i++)
             {
                 _BeamInstance[i].GetComponent<BeamController>().setAttackTrigger(_instanceID,_atk);
             }
@@ -68,6 +71,7 @@ public class LongRangeStateSAS : MonoBehaviour, IPlayerState
     public void enter()
     {
         _animator.SetTrigger("ReadyAttackTrigger");
+        SEManager.Instance.Play(SEPath.LONG_RANGE_SHOT_CHARGE, isLoop: true);
         Vector3 _SetPosition = new Vector3(_player.position.x, _player.position.y + 2.0f, _player.position.z);
         Vector3 direction = _player.forward;
         direction.Normalize();
@@ -94,6 +98,8 @@ public class LongRangeStateSAS : MonoBehaviour, IPlayerState
     public void exit() { }
     public void enterDamage()
     {
+        SEManager.Instance.Stop(SEPath.LONG_RANGE_SHOT_CHARGE);
+        SEManager.Instance.Stop(SEPath.LONG_RANGE_SHOT);
         for (int i = 0; i < _BeamInstance.Count; i++)
         {
             _BeamInstance[i].GetComponent<BeamController>().setAttackTrigger(_instanceID, _atk);
