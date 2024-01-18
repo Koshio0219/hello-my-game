@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GamepadNumber_M: 0
   attack_M: 50
-  hp_M: 10000
+  hp_M: 5000
   prefab_M: {fileID: 2918051125740685601, guid: 180d51568037eaf4bbde3afd3268baac,
     type: 3}
   GamepadNumber_L: 0
   attack_L: 10
-  hp_L: 5000
+  hp_L: 3000
   prefab_L: {fileID: 7903193100828604339, guid: 7db716ac8be0d0643887a74e4fdf4b4e,
     type: 3}
   GamepadNumber_D: 0
