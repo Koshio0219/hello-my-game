@@ -135,12 +135,12 @@ public class GamePadCursor : MonoBehaviour
             RaycastHit hit_info = new RaycastHit();
             float max_distance = 100f;
 
-            bool is_hit = Physics.Raycast(ray, out hit_info, max_distance);
+            bool is_hit = Physics.Raycast(ray, out hit_info, max_distance, LayerMask.GetMask("Ground"));
 
             if (is_hit)
             {
                 
-                if (LayerMask.LayerToName(hit_info.collider.gameObject.layer) != "Ground") return;
+                //if (LayerMask.LayerToName(hit_info.collider.gameObject.layer) != "Ground") return;
                 Game.Base.BlockBase blockBase = hit_info.collider.gameObject.GetComponent<Game.Base.BlockBase>();
                 Transform blockPosition = hit_info.collider.gameObject.transform;
                 //Game.Test.testBlock _testBlock = hit_info.collider.gameObject.GetComponent<Game.Test.testBlock>();

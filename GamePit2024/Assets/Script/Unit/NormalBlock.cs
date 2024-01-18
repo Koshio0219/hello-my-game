@@ -70,7 +70,15 @@ namespace Game.Unit
             {
                 var colliders = one.GetComponentsInChildren<Collider>().ToList();
                 colliders.ForEach(c => c.enabled = false);
-                if (one.TryGetComponent<NavMeshAgent>(out var agent)) agent.isStopped = true;
+                if (one.TryGetComponent<NavMeshAgent>(out var agent)) 
+                {
+                    agent.destination = agent.transform.position;
+                    agent.autoTraverseOffMeshLink = false;
+                    agent.autoRepath = false;
+                    agent.isStopped = true;
+                    agent.enabled = false;
+                }
+                //if (one.TryGetComponent<NavMeshAgent>(out var agent)) agent.enabled = false;
                 one.SetParent(createPoint);
             });
         }
@@ -86,7 +94,14 @@ namespace Game.Unit
                 one.transform.position = lastPos;
                 var colliders = one.GetComponentsInChildren<Collider>().ToList();
                 colliders.ForEach(c => c.enabled = true);
-                if (one.TryGetComponent<NavMeshAgent>(out var agent)) agent.isStopped = false;
+                if (one.TryGetComponent<NavMeshAgent>(out var agent)) 
+                {
+                    agent.enabled = true;
+                    agent.isStopped = false;
+                    agent.autoRepath = true;
+                    agent.autoTraverseOffMeshLink = true;
+                }
+                //if (one.TryGetComponent<NavMeshAgent>(out var agent)) agent.enabled = true;
             });
             await UniTask.Delay(100);
             isDraging = false;
