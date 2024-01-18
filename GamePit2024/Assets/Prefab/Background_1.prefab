@@ -764,6 +764,7 @@ GameObject:
   - component: {fileID: 4669057116837431218}
   - component: {fileID: 4669057116837431216}
   - component: {fileID: 6422501257338569876}
+  - component: {fileID: 6331827683251008134}
   m_Layer: 6
   m_Name: Hills Layer 01B
   m_TagString: Untagged
@@ -779,7 +780,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4669057116837431219}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.7200003, y: 0, z: 0}
+  m_LocalPosition: {x: 6.751, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -828,7 +829,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6d066f9faa20fad44aed43b22ad9c89e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.43137255}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -853,6 +854,19 @@ MonoBehaviour:
   speed: 0.1
   leftLine: -4.94
   rightLine: 7.55
+--- !u!114 &6331827683251008134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4669057116837431219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe7195fe9027a945bf78db85f03bc87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 4669057116837431216}
 --- !u!1 &4669057116962667455
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,6 +978,7 @@ GameObject:
   - component: {fileID: 4669057116975402200}
   - component: {fileID: 4669057116975402198}
   - component: {fileID: 9032454405439227667}
+  - component: {fileID: 2133269203433824327}
   m_Layer: 6
   m_Name: Hills Layer 01B (1)
   m_TagString: Untagged
@@ -979,7 +994,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4669057116975402201}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.6200001, y: 0, z: 0}
+  m_LocalPosition: {x: -1.65, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1053,6 +1068,19 @@ MonoBehaviour:
   speed: 0.1
   leftLine: -4.94
   rightLine: 7.55
+--- !u!114 &2133269203433824327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4669057116975402201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe7195fe9027a945bf78db85f03bc87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 4669057116975402198}
 --- !u!1 &4669057117048995741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1192,7 @@ GameObject:
   - component: {fileID: 4669057117181747952}
   - component: {fileID: 4669057117181747950}
   - component: {fileID: 3286195802566493800}
+  - component: {fileID: 1646151531488342855}
   m_Layer: 6
   m_Name: Hills Layer 01B (2)
   m_TagString: Untagged
@@ -1228,7 +1257,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6d066f9faa20fad44aed43b22ad9c89e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.43137255}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1253,6 +1282,19 @@ MonoBehaviour:
   speed: 0.1
   leftLine: -4.94
   rightLine: 7.55
+--- !u!114 &1646151531488342855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4669057117181747953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe7195fe9027a945bf78db85f03bc87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 4669057117181747950}
 --- !u!1 &4669057117446717149
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ namespace Game.Data
     {
         public int goalPoint;
         public int showTime;
+        public Color backgroundColor;
     }
 
     [CreateAssetMenu(fileName = "LevelConfig", menuName = "GamePit2024/LevelConfig")]

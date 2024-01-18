@@ -58,10 +58,10 @@ namespace Game.Action
             }
         }
 
-        public override async void FireBegin(int creatorId = 0, AttackState attackState = AttackState.Normal)
+        public override  void FireBegin(int creatorId = 0, AttackState attackState = AttackState.Normal)
         {
             //test
-            await CreatBullet(creatorId);
+            CreatBullet(creatorId).Forget();
         }
 
         public override void FireShut()
