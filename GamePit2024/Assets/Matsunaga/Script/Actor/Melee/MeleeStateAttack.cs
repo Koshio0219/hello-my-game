@@ -18,8 +18,9 @@ public class MeleeStateAttack : IPlayerState
     private int _GamePadNumber;
     private float _attackPower;
     private string _anim_name = "Attack";
+    private GameObject _enchant;
 
-    public MeleeStateAttack(Animator animator, int GampePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, int InstanceID, float AttackPower)
+    public MeleeStateAttack(Animator animator, int GampePadNumber, Rigidbody rigidbody, Transform mainCamera, Transform Player, int InstanceID, float AttackPower, GameObject enchant)
     {
         _GamePadNumber = GampePadNumber;
         _animator = animator;
@@ -28,6 +29,7 @@ public class MeleeStateAttack : IPlayerState
         _player = Player;
         _instanceID = InstanceID;
         _attackPower = AttackPower;
+        _enchant = enchant;
     }
 
     public PlayerState stayUpdate()
@@ -36,6 +38,7 @@ public class MeleeStateAttack : IPlayerState
         //Debug.Log(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
         if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Attack01_SwordAndShiled")
         {
+            _enchant.SetActive(false);
             return PlayerState.IDLE;
         }
 
@@ -47,6 +50,7 @@ public class MeleeStateAttack : IPlayerState
 
         _animator.animationStart(_anim_name);
         _animator.SetTrigger("AttackTrigger");
+        _enchant.SetActive(true);
         SEManager.Instance.Play(SEPath.MELEE_ATTACK);
         /*RuntimeAnimatorController ac = _animator.runtimeAnimatorController;
         UnityEditor.Animations.AnimatorController acc = ac as UnityEditor.Animations.AnimatorController;
@@ -88,7 +92,7 @@ public class MeleeStateAttack : IPlayerState
 
     public void enterDamage()
     {
-
+        _enchant.SetActive(false);
     }
 
     private void Attack(int targetID, float damage)

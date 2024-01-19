@@ -44,6 +44,7 @@ public class LongRangeStateController : Player
     ///</summary>
     [SerializeField] float raycastSearchDistance;
     private Dictionary<PlayerState, IPlayerState> _player_state_list;
+    private GameObject Heal;
     private int GamePadNumber_L = 0;
     private PlayerState _state_old = PlayerState.IDLE;
     private IPlayerState _state_instance;
@@ -59,6 +60,7 @@ public class LongRangeStateController : Player
             _state_instance.enterDamage();
             ChangeState(PlayerState.DAMAGE);
             isUnBeaten = true;
+            Heal.SetActive(true);
             UnBeatenCounter().Forget();
         }
     }
@@ -89,6 +91,7 @@ public class LongRangeStateController : Player
     {
         base.Start();
         _hp = _PlayerParameter.hp_L;
+        Heal = transform.Find("Healing").gameObject;
         GamePadNumber_L = GameData.Instance.PlayerParameter.GamepadNumber_L;
         _mainCamera = _mainCamera != null ? _mainCamera : Camera.main.transform;
         transform.forward = -_mainCamera.forward;
@@ -173,5 +176,6 @@ public class LongRangeStateController : Player
     {
         await UniTask.Delay(2000);
         isUnBeaten = false;
+        Heal.SetActive(false);
     }
 }

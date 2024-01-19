@@ -41,6 +41,8 @@ public class MeleeStateController : Player
     ///    最高高度より高い値でないと、ジャンプ頂点での下降モーションへの切り替わりが出来ません
     ///</summary>
     [SerializeField] float raycastSearchDistance;
+    private GameObject Enchant;
+    private GameObject Heal;
     private Dictionary<PlayerState, IPlayerState> _player_state_list;
     private int GamePadNumber_M = 0;
     private PlayerState _state_old = PlayerState.IDLE;
@@ -55,6 +57,7 @@ public class MeleeStateController : Player
             _state_instance.enterDamage();
             ChangeState(PlayerState.DAMAGE);
             isUnBeaten = true;
+            Heal.SetActive(true);
             UnBeatenCounter().Forget();
          }
      }
@@ -87,6 +90,8 @@ public class MeleeStateController : Player
     protected override void Start()
     {
          base.Start();
+        Enchant = transform.Find("root/pelvis/spine_01/spine_02/spine_03/clavicle_r/upperarm_r/lowerarm_r/hand_r/weapon_r/OHS03/DarkEnchant").gameObject;
+        Heal = transform.Find("Healing").gameObject;
         Debug.Log($"GamepadNumber_M idx: {_PlayerParameter.GamepadNumber_M}");
         _hp = _PlayerParameter.hp_M;
         GamePadNumber_M = GameData.Instance.PlayerParameter.GamepadNumber_M;
@@ -96,7 +101,7 @@ public class MeleeStateController : Player
         _player_state_list = new Dictionary<PlayerState, IPlayerState> {
             { PlayerState.IDLE, new MeleeStateIdle(_animator, GamePadNumber_M) },
             { PlayerState.MOVE, new MeleeStateMove(_animator, GamePadNumber_M, _rigidBody, _mainCamera, transform, 0.65f) },
-            { PlayerState.ATTACK, new MeleeStateAttack(_animator, GamePadNumber_M, _rigidBody, _mainCamera, transform, InsId, _PlayerParameter.attack_M) },
+            { PlayerState.ATTACK, new MeleeStateAttack(_animator, GamePadNumber_M, _rigidBody, _mainCamera, transform, InsId, _PlayerParameter.attack_M, Enchant) },
             { PlayerState.JUMP, new MeleeStateJump(_animator, GamePadNumber_M, transform, _rigidBody, _jump_power_up, _jump_power_max, distance_list_limit, ground_distance_limit, raycastSearchDistance) },
             { PlayerState.DAMAGE, new MeleeStateDamage(_animator, GamePadNumber_M) },
             { PlayerState.DEFENSE, new MeleeStateDefense(_animator, GamePadNumber_M) },
@@ -178,6 +183,7 @@ public class MeleeStateController : Player
     {
         await UniTask.Delay(2000);
         isUnBeaten = false;
+        Heal.SetActive(false);
     }
 
     void OnDrawGizmos()
