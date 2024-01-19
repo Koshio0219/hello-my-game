@@ -92,6 +92,26 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1ed9869a74487b84093fef44b7e6f011
+    m_Address: Assets/Prefab/Slime2_Follow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e36ee15b0f3f604d81cb0e6675889da
+    m_Address: Assets/Prefab/Slime4_Follow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5d3285ad905432647afa296e9362ecaf
+    m_Address: Assets/Prefab/Slime3_Follow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be85ed1b1c8712a4fa2c683fd3826176
+    m_Address: Assets/Prefab/Slime5_Follow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a9a884110fcbf2747af0afa5e24971a5, type: 2}
   m_SchemaSet:

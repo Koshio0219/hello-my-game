@@ -8,7 +8,7 @@ namespace Game.Data
 {
     public enum EnemyTypeID
     {
-        _101,_102,_103,_104,_105
+        _101,_102,_103,_104,_105,_106,_107,_108,_109,_1010
     }
 
     public enum EnemyRaceType

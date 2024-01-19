@@ -74,12 +74,68 @@ MonoBehaviour:
       raceType: 2
       attackType: 2
       prop:
-        maxHp: 1000
+        maxHp: 900
         attack: 60
         killPoint: 50
       skillIds: 
     assetReference:
       m_AssetGUID: 62436167bb6c48541bc627e4eaaf70df
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - typeID: 5
+    unitData:
+      raceType: 0
+      attackType: 0
+      prop:
+        maxHp: 200
+        attack: 20
+        killPoint: 30
+      skillIds: 
+    assetReference:
+      m_AssetGUID: 1ed9869a74487b84093fef44b7e6f011
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - typeID: 6
+    unitData:
+      raceType: 0
+      attackType: 0
+      prop:
+        maxHp: 200
+        attack: 30
+        killPoint: 50
+      skillIds: 
+    assetReference:
+      m_AssetGUID: 5d3285ad905432647afa296e9362ecaf
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - typeID: 7
+    unitData:
+      raceType: 0
+      attackType: 2
+      prop:
+        maxHp: 300
+        attack: 30
+        killPoint: 55
+      skillIds: 
+    assetReference:
+      m_AssetGUID: 2e36ee15b0f3f604d81cb0e6675889da
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - typeID: 8
+    unitData:
+      raceType: 0
+      attackType: 2
+      prop:
+        maxHp: 500
+        attack: 50
+        killPoint: 60
+      skillIds: 
+    assetReference:
+      m_AssetGUID: be85ed1b1c8712a4fa2c683fd3826176
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -97,6 +153,9 @@ MonoBehaviour:
     - typeID: 0
       pos: {x: 3, y: 1, z: -15}
       randomOnBlock: 1
+    - typeID: 5
+      pos: {x: 3, y: 1, z: -15}
+      randomOnBlock: 1
   - enemies:
     - typeID: 2
       pos: {x: -1, y: -2, z: -15}
@@ -107,10 +166,25 @@ MonoBehaviour:
     - typeID: 3
       pos: {x: 1, y: -2, z: -15}
       randomOnBlock: 1
+    - typeID: 6
+      pos: {x: 1, y: -2, z: -15}
+      randomOnBlock: 1
+    - typeID: 6
+      pos: {x: 3, y: -2, z: -15}
+      randomOnBlock: 0
   - enemies:
     - typeID: 4
       pos: {x: 0, y: -2, z: -15}
       randomOnBlock: 0
     - typeID: 3
       pos: {x: 0, y: -2, z: -15}
+      randomOnBlock: 0
+    - typeID: 7
+      pos: {x: 0, y: -2, z: -15}
+      randomOnBlock: 0
+    - typeID: 8
+      pos: {x: 2, y: -2, z: -15}
+      randomOnBlock: 0
+    - typeID: 6
+      pos: {x: 2, y: -2, z: -15}
       randomOnBlock: 1
