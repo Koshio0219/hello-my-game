@@ -92,6 +92,7 @@ public class LongRangeStateController : Player
         base.Start();
         _hp = _PlayerParameter.hp_L;
         Heal = transform.Find("Healing").gameObject;
+        Heal.SetActive(false);
         GamePadNumber_L = GameData.Instance.PlayerParameter.GamepadNumber_L;
         _mainCamera = _mainCamera != null ? _mainCamera : Camera.main.transform;
         transform.forward = -_mainCamera.forward;

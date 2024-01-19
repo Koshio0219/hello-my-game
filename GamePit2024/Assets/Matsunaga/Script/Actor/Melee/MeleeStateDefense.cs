@@ -13,17 +13,20 @@ public class MeleeStateDefense : IPlayerState
     private bool isState;
     private int _GamePadNumber;
     private string _anim_name = "Defense";
+    private GameObject field;
 
-    public MeleeStateDefense(Animator animator, int GampePadNumber)
+    public MeleeStateDefense(Animator animator, int GampePadNumber, GameObject deField)
     {
         _GamePadNumber = GampePadNumber;
         _animator = animator;
+        field = deField;
     }
 
     public PlayerState stayUpdate()
     {
         if (Gamepad.all[_GamePadNumber].leftTrigger.isPressed) return PlayerState.DEFENSE;
         _animator.SetTrigger("ExitDefenseTrigger");
+        field.SetActive(false);
         return PlayerState.IDLE;
         
     }
@@ -31,6 +34,7 @@ public class MeleeStateDefense : IPlayerState
     public void enter()
     {
         _animator.SetTrigger("DefenseTrigger");
+        field.SetActive(true);
         //_animator.animationStart(_anim_name);
     }
 

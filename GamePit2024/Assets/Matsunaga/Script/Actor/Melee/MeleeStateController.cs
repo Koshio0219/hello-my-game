@@ -43,6 +43,7 @@ public class MeleeStateController : Player
     [SerializeField] float raycastSearchDistance;
     private GameObject Enchant;
     private GameObject Heal;
+    private GameObject DefenseField;
     private Dictionary<PlayerState, IPlayerState> _player_state_list;
     private int GamePadNumber_M = 0;
     private PlayerState _state_old = PlayerState.IDLE;
@@ -92,6 +93,9 @@ public class MeleeStateController : Player
          base.Start();
         Enchant = transform.Find("root/pelvis/spine_01/spine_02/spine_03/clavicle_r/upperarm_r/lowerarm_r/hand_r/weapon_r/OHS03/DarkEnchant").gameObject;
         Heal = transform.Find("Healing").gameObject;
+        Heal.SetActive(false);
+        DefenseField = transform.Find("ForceField").gameObject;
+        DefenseField.SetActive(false);
         Debug.Log($"GamepadNumber_M idx: {_PlayerParameter.GamepadNumber_M}");
         _hp = _PlayerParameter.hp_M;
         GamePadNumber_M = GameData.Instance.PlayerParameter.GamepadNumber_M;
@@ -104,7 +108,7 @@ public class MeleeStateController : Player
             { PlayerState.ATTACK, new MeleeStateAttack(_animator, GamePadNumber_M, _rigidBody, _mainCamera, transform, InsId, _PlayerParameter.attack_M, Enchant) },
             { PlayerState.JUMP, new MeleeStateJump(_animator, GamePadNumber_M, transform, _rigidBody, _jump_power_up, _jump_power_max, distance_list_limit, ground_distance_limit, raycastSearchDistance) },
             { PlayerState.DAMAGE, new MeleeStateDamage(_animator, GamePadNumber_M) },
-            { PlayerState.DEFENSE, new MeleeStateDefense(_animator, GamePadNumber_M) },
+            { PlayerState.DEFENSE, new MeleeStateDefense(_animator, GamePadNumber_M, DefenseField) },
             { PlayerState.DEAD, new MeleeStateDead(_animator, GamePadNumber_M) },
         };
 
