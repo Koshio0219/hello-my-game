@@ -62,7 +62,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dcdea0efd09eeba4bb915e5d6ed19f6e
+  - m_GUID: eb9c806d4fd3d3347a4e9b8e8f1ace08
     m_Address: Assets/Prefab/StagePrePanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
