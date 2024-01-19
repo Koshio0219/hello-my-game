@@ -949,7 +949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseProp:
     bulletPrefab:
-      m_AssetGUID: 930bd558f901e8546a0e022ad5129c50
+      m_AssetGUID: 598fd26f6aa2d35408623687a72fc134
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -1269,7 +1269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseProp:
     bulletPrefab:
-      m_AssetGUID: 930bd558f901e8546a0e022ad5129c50
+      m_AssetGUID: 8eab8965021ce16438d0f8b592cb78ab
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

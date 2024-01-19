@@ -37,7 +37,7 @@ namespace Game.Unit
             var player = GameManager.stageManager.GetPlayer(sourceId);
             if (player != null && up.gameObject.GetInstanceID() == player.gameObject.GetInstanceID())
                 return;
-            bullet.Recycle();
+            //bullet.Recycle();
 
             //damage
             if (!up.TryGetComponent<IDamageable>(out var damageable)) return;

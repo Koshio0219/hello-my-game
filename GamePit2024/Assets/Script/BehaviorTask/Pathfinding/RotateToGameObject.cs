@@ -4,6 +4,7 @@ using BehaviorDesigner.Runtime.Tasks;
 using Unity.Services.Analytics.Internal;
 using BehaviorDesigner.Runtime;
 using UnityEngine.AI;
+using Game.Framework;
 
 namespace Game.BehaviorTask
 {
@@ -20,7 +21,7 @@ namespace Game.BehaviorTask
         {
             if (target.Value == null) return TaskStatus.Failure;
 
-            var dir = target.Value.transform.position - transform.position;
+            var dir = (target.Value.transform.position - transform.position).FixHeight().normalized;
             if (Vector3.Angle(dir, transform.forward) <= angleDifference.Value)
             {
                 return TaskStatus.Success;

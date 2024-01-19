@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
+using Game.Framework;
 
 namespace Game.BehaviorTask
 {
@@ -33,19 +34,19 @@ namespace Game.BehaviorTask
                 if (_sqrDis > sqrRadius)
                     continue;
 
-                float angle = Vector3.Angle(transform.forward, offse.normalized);
+                float angle = Vector3.Angle(transform.forward, offse.FixHeight().normalized);
                 if (angle > this.angle.Value * .5f)
                     continue;
 
-                Ray ray = new(transform.position, offse);
-                if (Physics.Raycast(ray, out RaycastHit info, radius.Value))
-                {
-                    if (info.collider.gameObject == target.gameObject)
-                    {
+                //Ray ray = new(transform.position, offse);
+                //if (Physics.Raycast(ray, out RaycastHit info, radius.Value))
+                //{
+                //    if (info.collider.gameObject == target.gameObject)
+                //    {
                         results.Value.Add(target);
                         sqrDis.Add(target, _sqrDis);
-                    }
-                }
+                //    }
+                //}
             }
 
             if (results.Value.Count > 0)
