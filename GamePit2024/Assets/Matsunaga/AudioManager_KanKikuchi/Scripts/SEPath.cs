@@ -15,6 +15,7 @@ public static class SEPath{
 	public const string ENEMY_ATTACK           = "SE/EnemyAttack";
 	public const string ENEMY_BULLET_ATTACK    = "SE/EnemyBulletAttack";
 	public const string ENEMY_DEAD             = "SE/EnemyDead";
+	public const string ENEMY_GHOST_ATTACK     = "SE/EnemyGhostAttack";
 	public const string JINGLE10               = "SE/Jingle/jingle10";
 	public const string LONG_RANGE_SHOT        = "SE/LongRangeShot";
 	public const string LONG_RANGE_SHOT_CHARGE = "SE/LongRangeShotCharge";

@@ -14,6 +14,7 @@ using UnityEngine.AI;
 using BehaviorDesigner.Runtime;
 using UnityEngine.Networking.Types;
 using System.Threading.Tasks;
+using KanKikuchi.AudioManager;
 
 namespace Game.Unit
 {
@@ -118,7 +119,12 @@ namespace Game.Unit
             ChangeState(EnemyState.Dead);
             //dead animation time delay
             await UniTask.Delay(1000);
+            
+            EffectManager.Instance.Play(EffectManager.EffectID.EnemyDead, this.transform.position);
+            if (GameManager.stageManager.StageState == StageStates.BattleClear) return;
+            SEManager.Instance.Play(SEPath.ENEMY_DEAD);
             GameManager.stageManager.RemoveOneEnemy(enemyUnitData.InsId);
+
         }
 
         protected virtual void DamageEventHandler(SendDamageEvent e)

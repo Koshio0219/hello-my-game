@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
+using KanKikuchi.AudioManager;
 
 namespace Game.Unit
 {
@@ -20,6 +21,7 @@ namespace Game.Unit
             normal_fire.ForEach(one =>
             {
                 Fire(one, targetId, damage);
+                SEManager.Instance.Play(SEPath.ENEMY_BULLET_ATTACK, volumeRate: 0.4f);
             });
         }
 

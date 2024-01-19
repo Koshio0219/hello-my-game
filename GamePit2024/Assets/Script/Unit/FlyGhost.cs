@@ -3,6 +3,7 @@ using Game.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KanKikuchi.AudioManager;
 
 namespace Game.Unit
 {
@@ -23,6 +24,7 @@ namespace Game.Unit
         protected override void OnChangeAttack()
         {
             Play("attack");
+            SEManager.Instance.Play(SEPath.ENEMY_GHOST_ATTACK, volumeRate: 0.7f);
         }
 
         protected override void OnChangeDead()
