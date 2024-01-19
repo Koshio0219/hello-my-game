@@ -17,6 +17,7 @@ namespace Game.Unit
             base.Born(data);
             ghost_normal.Show();
             ghost_parts.Hide();
+            transform.rotation = Quaternion.identity;
         }
 
         protected override void OnChangeAttack()

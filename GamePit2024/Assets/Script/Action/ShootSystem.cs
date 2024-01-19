@@ -80,7 +80,8 @@ namespace Game.Action
                 var dir = CalBulletDirection(angle);
                 var pos = baseProp.firePos.position + dir * advanceProp.offseDistance;
                 CreatOne(creatorId,pos,dir).Forget();
-                var delay = advanceProp.timeInterval == 0 ? Time.deltaTime : advanceProp.timeInterval;
+                var delay = advanceProp.timeInterval;
+                if (delay == 0) continue;
                 await UniTask.Delay((int)(delay * 1000), cancellationToken: TokenSource.Token);
             }
         }
