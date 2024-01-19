@@ -23,6 +23,7 @@ namespace Game.Unit
             WaitRecycle().Forget();
             Move();
             Fade();
+            ChangeSize();
         }
 
         private void Move()
@@ -43,6 +44,12 @@ namespace Game.Unit
             var cg= par.gameObject.GetOrAddComponent<CanvasGroup>();
             cg.alpha = 0f;
             cg.DOFade(1f, lifeTime);
+        }
+
+        private void ChangeSize()
+        {
+            transform.localScale = Vector3.one * .05f;
+            transform.DOScale(.01f, 0.5f).SetEase(Ease.InOutExpo);
         }
     }
 }
