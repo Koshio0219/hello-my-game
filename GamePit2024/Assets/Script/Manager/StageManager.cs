@@ -12,6 +12,7 @@ using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using KanKikuchi.AudioManager;
 
 namespace Game.Manager
 {
@@ -73,6 +74,7 @@ namespace Game.Manager
         private async void GameOverHandler()
         {
             //lose
+            BGMSwitcher.FadeOutAndFadeIn(BGMPath.BGMGAME_OVER);
             //...something else...
             Debug.Log($"Game Over!");
             ClearAllEnemies();
@@ -80,7 +82,7 @@ namespace Game.Manager
 
             await UniTask.Delay(1000);
             GameManager.Instance.LevelIdx = 0;
-            this.WaitInput(Gamepad.current.circleButton, () => SceneLoader.Instance.BackToMenu());
+            this.WaitInput(Gamepad.current.circleButton, () => { SceneLoader.Instance.BackToMenu(); SEManager.Instance.Stop(); BGMSwitcher.FadeOutAndFadeIn(BGMPath.START); });
         }
 
         private void BattleClearEndHandler()
@@ -108,6 +110,22 @@ namespace Game.Manager
         {
             await UniTask.Delay(100);
             SendStateEvent(StageStates.EnemyBuildStart);
+            SEManager.Instance.Play(SEPath.START_BUZZER);
+            switch (GameManager.Instance.LevelIdx)
+            {
+                case 0:
+                    BGMSwitcher.FadeOutAndFadeIn(BGMPath.STAGE01);
+                    break;
+                case 1:
+                    BGMSwitcher.FadeOutAndFadeIn(BGMPath.STAGE02);
+                    break;
+                case 2:
+                    BGMSwitcher.FadeOutAndFadeIn(BGMPath.STAGE03);
+                    break;
+                default:
+                    BGMSwitcher.FadeOutAndFadeIn(BGMPath.STAGE01);
+                    break;
+            }
         }
 
         private void NavMeshBuildEndHandler()
@@ -150,19 +168,23 @@ namespace Game.Manager
         private async void NextStage()
         {
             //...wait ui show...
+            BGMSwitcher.FadeOutAndFadeIn(BGMPath.BGMNEXT_STAGE);
+            SEManager.Instance.Play(SEPath.SENEXT_STAGE);
             await UniTask.Delay(1000);
             GameManager.Instance.LevelIdx++;
             Debug.Log($"next stage! current level idx is {GameManager.Instance.LevelIdx}");
-            this.WaitInput(Gamepad.current.circleButton, () => SceneLoader.Instance.GoToStage());
+            this.WaitInput(Gamepad.current.circleButton, () => { SceneLoader.Instance.GoToStage(); SEManager.Instance.Stop(); BGMSwitcher.FadeOutAndFadeIn(BGMPath.WAIT_STAGE);});
         }
 
         private async void Win()
         {
             Debug.Log($"game win !");
+            BGMSwitcher.FadeOutAndFadeIn(BGMPath.BGMWIN);
+            SEManager.Instance.Play(SEPath.SEWIN);
             // wait ui show
             await UniTask.Delay(1000);
             GameManager.Instance.LevelIdx = 0;
-            this.WaitInput(Gamepad.current.circleButton, () => SceneLoader.Instance.BackToMenu());
+            this.WaitInput(Gamepad.current.circleButton, () => { SceneLoader.Instance.BackToMenu(); SEManager.Instance.Stop(); BGMSwitcher.FadeOutAndFadeIn(BGMPath.START); });
         }
 
         public void AddOnePlayer(int playerId,GameObject playerIns)

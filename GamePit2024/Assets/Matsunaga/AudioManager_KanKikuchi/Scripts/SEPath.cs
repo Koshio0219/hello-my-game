@@ -22,6 +22,8 @@ public static class SEPath{
 	public const string MELEE_ATTACK_HIT       = "SE/MeleeAttackHit";
 	public const string MELEE_DEFENSE          = "SE/MeleeDefense";
 	public const string PLAYER_DEAD            = "SE/PlayerDead";
+	public const string SENEXT_STAGE           = "SE/SENextStage";
+	public const string SEWIN                  = "SE/SEWin";
 	public const string STAGE_CLEAR            = "SE/StageClear";
 	public const string START_BUZZER           = "SE/StartBuzzer";
 	public const string SYSTEM20               = "SE/system20";
