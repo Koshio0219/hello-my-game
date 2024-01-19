@@ -19,6 +19,7 @@ public static class SEPath{
 	public const string LONG_RANGE_SHOT        = "SE/LongRangeShot";
 	public const string LONG_RANGE_SHOT_CHARGE = "SE/LongRangeShotCharge";
 	public const string MELEE_ATTACK           = "SE/MeleeAttack";
+	public const string MELEE_ATTACK_HIT       = "SE/MeleeAttackHit";
 	public const string MELEE_DEFENSE          = "SE/MeleeDefense";
 	public const string PLAYER_DEAD            = "SE/PlayerDead";
 	public const string STAGE_CLEAR            = "SE/StageClear";

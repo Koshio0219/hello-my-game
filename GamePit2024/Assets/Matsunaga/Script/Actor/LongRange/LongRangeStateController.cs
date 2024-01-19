@@ -9,6 +9,7 @@ using Cysharp.Threading.Tasks;
 using Game.Framework;
 using UnityEngine.InputSystem;
 using System.Linq;
+using KanKikuchi.AudioManager;
 
 public class LongRangeStateController : Player
 {
@@ -110,6 +111,12 @@ public class LongRangeStateController : Player
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.stageManager.StageState == StageStates.BattleClear) return;
+        if(GameManager.stageManager.StageState == StageStates.GameOver)
+        {
+            SEManager.Instance.Stop(SEPath.LONG_RANGE_SHOT);
+            SEManager.Instance.Stop(SEPath.LONG_RANGE_SHOT_CHARGE);
+        }
         if (Gamepad.all.Count < GamePadNumber_L + 1)
         {
             return;
@@ -142,7 +149,7 @@ public class LongRangeStateController : Player
         var lastHp = Hp;
         Hp -= damage;
         EventQueueSystem.QueueEvent(new PlayerHpChangeEvent(PlayerType, lastHp, Hp));
-
+        SEManager.Instance.Play(SEPath.TO_PLAYER_DAMAGE);
         if (Hp <= 0) Dead();
     }
 

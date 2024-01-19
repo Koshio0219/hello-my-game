@@ -9,6 +9,7 @@ using Cysharp.Threading.Tasks;
 using Game.Framework;
 using UnityEngine.InputSystem;
 using System.Linq;
+using KanKikuchi.AudioManager;
 
 public class MeleeStateController : Player
 {
@@ -114,7 +115,11 @@ public class MeleeStateController : Player
 
 
         //.... ぼうぎょ処理
-        if (_player_state_list.FirstOrDefault(kvp => kvp.Value == _state_instance).Key == PlayerState.DEFENSE) return;
+        if (_player_state_list.FirstOrDefault(kvp => kvp.Value == _state_instance).Key == PlayerState.DEFENSE)
+        {
+            SEManager.Instance.Play(SEPath.MELEE_DEFENSE);
+            return;
+        }
         if (isUnBeaten) return;
         Debug.Log($"player id :{InsId},name:{gameObject.name} had receive damage:{damage} from id:{sourceId}, MeleeClass");
         //今、Hp は base class　に　い　ない　
@@ -123,7 +128,7 @@ public class MeleeStateController : Player
         var lastHp = Hp;
         Hp -= damage;
         EventQueueSystem.QueueEvent(new PlayerHpChangeEvent(PlayerType, lastHp, Hp));
-
+        SEManager.Instance.Play(SEPath.TO_PLAYER_DAMAGE);
         if (Hp <= 0) Dead();
     }
 
@@ -133,6 +138,12 @@ public class MeleeStateController : Player
         if (Gamepad.all.Count < GamePadNumber_M+ 1)
         {
             return;
+        }
+        if (GameManager.stageManager.StageState == StageStates.BattleClear) return;
+        if (GameManager.stageManager.StageState == StageStates.GameOver)
+        {
+            SEManager.Instance.Stop(SEPath.MELEE_ATTACK);
+            SEManager.Instance.Stop(SEPath.MELEE_DEFENSE);
         }
         if (_state_instance == null) return;
         //Debug.Log("PlayerStateLength: " + _player_state_list.Count);
@@ -173,7 +184,7 @@ public class MeleeStateController : Player
     {
         //　Cubeのレイを疑似的に視覚化
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z) + transform.forward * 1.2f, Vector3.one * 0.65f * 2f);
-        Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z), transform.forward * 1.2f);
+        Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z) - transform.forward * 0.35f + transform.forward * 1.2f, Vector3.one * 0.65f * 2f);
+        Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z) - transform.forward * 0.35f, transform.forward * 1.2f);
     }
 }

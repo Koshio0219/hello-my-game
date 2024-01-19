@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using KanKikuchi.AudioManager;
 
 public class MeleeStateAttack : IPlayerState
 {
@@ -46,6 +47,7 @@ public class MeleeStateAttack : IPlayerState
 
         _animator.animationStart(_anim_name);
         _animator.SetTrigger("AttackTrigger");
+        SEManager.Instance.Play(SEPath.MELEE_ATTACK);
         /*RuntimeAnimatorController ac = _animator.runtimeAnimatorController;
         UnityEditor.Animations.AnimatorController acc = ac as UnityEditor.Animations.AnimatorController;
         for (int layer = 0; layer < acc.layers.Length; layer++)
@@ -69,13 +71,14 @@ public class MeleeStateAttack : IPlayerState
             }
         });*/
         //https://tsubakit1.hateblo.jp/entry/2016/02/25/025922
-        ShootBoxRay(pos - _player.forward * 0.65f, Vector3.one * 0.65f, _player.forward, 1.2f, "", (info) =>
+        ShootBoxRay(pos - _player.forward * 0.35f, Vector3.one * 0.65f, _player.forward, 1.2f, "", (info) =>
         {
             var up = info.transform.GetRootParent();
             if (up.TryGetComponent<IEnemyBaseAction>(out var enemy))
             {
                 var id = enemy.EnemyUnitData.InsId;
                 Attack(id, _attackPower);
+                SEManager.Instance.Play(SEPath.MELEE_ATTACK_HIT);
             }
         });
     }
