@@ -417,6 +417,7 @@ MonoBehaviour:
   state: 0
   _type: 0
   Z_deep: 0
+  guideText: {fileID: 1433700545373233884}
 --- !u!222 &7561818660005880756
 CanvasRenderer:
   m_ObjectHideFlags: 0
