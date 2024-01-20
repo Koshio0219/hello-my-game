@@ -18,45 +18,50 @@ namespace Game.Unit
         public MeshRenderer meshRenderer;
         public Image mark;
 
-        private readonly List<Transform> curTriggerEnter = new();
+        private readonly List<Transform> curTriggerEnter = new List<Transform>();
         private static bool isDraging = false;
         private bool isCheckingStay = false;
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (isDraging) return;
-            if (other.transform.parent == createPoint || 
-                other.transform.parent == transform ||
-                other.transform.parent == transform.parent) 
-                return;
+        //private void OnTriggerEnter(Collider other)
+        //{
 
-            var up = other.transform.GetRootParent();
-            if (curTriggerEnter.Contains(up)) return;
-            curTriggerEnter.Add(up);
-        }
+        //}
 
-        private void OnTriggerExit(Collider other)
-        {
-            if (isDraging) return;
+        //private void OnTriggerExit(Collider other)
+        //{
+        //    if (isDraging) return;
 
-            if (curTriggerEnter.Contains(other.transform))
-            {
-                curTriggerEnter.Remove(other.transform);
-                return;
-            }
+        //    if (curTriggerEnter.Contains(other.transform))
+        //    {
+        //        curTriggerEnter.Remove(other.transform);
+        //        return;
+        //    }
 
-            var up = other.transform.GetRootParent();
-            if (curTriggerEnter.Contains(up))
-            {
-                curTriggerEnter.Remove(up);
-            }
-        }
+        //    var up = other.transform.GetRootParent();
+        //    if (curTriggerEnter.Contains(up))
+        //    {
+        //        curTriggerEnter.Remove(up);
+        //    }
+        //}
 
         private void OnTriggerStay(Collider other)
         {
             if (!isCheckingStay) return;
-            OnTriggerEnter(other);
+            
+            //if (isDraging) return;
+            if (other.transform.parent == createPoint ||
+                other.transform.parent == transform ||
+                other.transform.parent == transform.parent)
+                return;
+
+            var up = other.transform.GetRootParent();
+            if (curTriggerEnter.Contains(up)) return;
+
+            curTriggerEnter.Add(up);
             isCheckingStay = false;
+            /*if (!isCheckingStay) return;
+            OnTriggerEnter(other);
+            isCheckingStay = false;*/
         }
 
         public override async void OnMovingStart()
@@ -64,10 +69,11 @@ namespace Game.Unit
             base.OnMovingStart();
             isCheckingStay = true;
             await UniTask.DelayFrame(2);
-            isDraging = true;
+            //isDraging = true;
             if (curTriggerEnter.Count == 0) return;
             curTriggerEnter.ForEach(one => 
             {
+                if (one == null) return;
                 var colliders = one.GetComponentsInChildren<Collider>().ToList();
                 colliders.ForEach(c => c.enabled = false);
                 if (one.TryGetComponent<NavMeshAgent>(out var agent)) 
@@ -89,6 +95,7 @@ namespace Game.Unit
             await UniTask.Delay(500);
             curTriggerEnter.ForEach(one => 
             {
+                if (one == null) return;
                 var lastPos = one.transform.position;
                 one.SetParent(null);
                 one.transform.position = lastPos;

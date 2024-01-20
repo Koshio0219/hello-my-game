@@ -120,16 +120,17 @@ namespace Game.Base
             BlockDragStartHandler(null);
         }
 
-        private async void BlockDragEndHandlerAsync(BlockDragEndEvent e)
+        private void BlockDragEndHandlerAsync(BlockDragEndEvent e)
         {
-            await UniTask.Delay(500);
-            _rigidBody.constraints = rigidbodyConstraints;
+            //await UniTask.Delay(500);
+            //_rigidBody.constraints = rigidbodyConstraints;
+            return;
         }
 
         private void BlockDragStartHandler(BlockDragStartEvent e)
         {
-            rigidbodyConstraints = _rigidBody.constraints;
-            _rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+            //rigidbodyConstraints = _rigidBody.constraints;
+            //_rigidBody.constraints = RigidbodyConstraints.FreezeAll;
         }
 
         private void EnterDeadZoneHandler(EnterDeadZoneEvent e)

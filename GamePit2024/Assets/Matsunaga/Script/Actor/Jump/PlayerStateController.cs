@@ -92,7 +92,7 @@ namespace Game.Test
             { JumpState.IDLE, new JumpStateIdle(_animator) },
             { JumpState.WAITING, new JumpStateWaiting(_animator, _jump_data) },
             { JumpState.RISING, new JumpStateRising(_animator, _jump_data, _jump_distance, _rigidBody) },
-            { JumpState.FALLING, new JumpStateFalling(_animator, _jump_distance) },
+            { JumpState.FALLING, new JumpStateFalling(_animator, _jump_distance, _rigidBody) },
             { JumpState.LANDING, new JumpStateLanding(_animator) },
         };
 

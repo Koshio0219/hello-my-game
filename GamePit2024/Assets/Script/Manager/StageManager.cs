@@ -82,7 +82,7 @@ namespace Game.Manager
 
             await UniTask.Delay(1000);
             GameManager.Instance.LevelIdx = 0;
-            this.WaitInput(Gamepad.current.circleButton, () => { SceneLoader.Instance.BackToMenu(); SEManager.Instance.Stop(); BGMSwitcher.FadeOutAndFadeIn(BGMPath.START); });
+            this.WaitInput(Gamepad.current.buttonEast, () => { SceneLoader.Instance.BackToMenu(); SEManager.Instance.Stop(); BGMSwitcher.FadeOutAndFadeIn(BGMPath.START); });
         }
 
         private void BattleClearEndHandler()
@@ -173,7 +173,7 @@ namespace Game.Manager
             await UniTask.Delay(1000);
             GameManager.Instance.LevelIdx++;
             Debug.Log($"next stage! current level idx is {GameManager.Instance.LevelIdx}");
-            this.WaitInput(Gamepad.current.circleButton, () => { SceneLoader.Instance.GoToStage(); SEManager.Instance.Stop(); BGMSwitcher.FadeOutAndFadeIn(BGMPath.WAIT_STAGE);});
+            this.WaitInput(Gamepad.current.buttonEast, () => { SceneLoader.Instance.GoToStage(); SEManager.Instance.Stop(); BGMSwitcher.FadeOutAndFadeIn(BGMPath.WAIT_STAGE);});
         }
 
         private async void Win()
@@ -184,7 +184,7 @@ namespace Game.Manager
             // wait ui show
             await UniTask.Delay(1000);
             GameManager.Instance.LevelIdx = 0;
-            this.WaitInput(Gamepad.current.circleButton, () => { SceneLoader.Instance.BackToMenu(); SEManager.Instance.Stop(); BGMSwitcher.FadeOutAndFadeIn(BGMPath.START); });
+            this.WaitInput(Gamepad.current.buttonEast, () => { SceneLoader.Instance.BackToMenu(); SEManager.Instance.Stop(); BGMSwitcher.FadeOutAndFadeIn(BGMPath.START); });
         }
 
         public void AddOnePlayer(int playerId,GameObject playerIns)
